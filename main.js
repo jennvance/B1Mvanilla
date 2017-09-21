@@ -1,4 +1,10 @@
-var total = 0;
+// Storage
+function Day(date, numwords){
+	this.date = date;
+	this.numwords = numwords;
+}
+
+var allCounts = [];
 
 document.addEventListener("submit", function(e){
 	e.preventDefault()
@@ -6,19 +12,26 @@ document.addEventListener("submit", function(e){
 	var formData = new FormData(form)
 	formData.append('numwds', 'numwds')
 	formData.append('date', 'date')
-	var givenCt = parseInt(formData.get('numwds'))
-	var givenDate = formData.get("date")
-	console.log(givenDate)
-	console.log(givenCt)
-	totalCt(givenCt)
+	submitEntry(formData)
 	//put in callback later
 	document.getElementById("wordct").reset()
-
 })
 
-function totalCt(givenCt){
-	total += givenCt;
-	console.log(total)
-
+function submitEntry(formData){
+	var givenCt = parseInt(formData.get('numwds'))
+	var givenDate = formData.get("date")
+	if(allCounts.length === 0) {
+		var newday = new Day(givenDate, givenCt);
+		allCounts.push(newday);
+	} else {
+		for (var i=0; i<allCounts.length; i++){
+			if(allCounts[i].date === givenDate){
+				allCounts[i].numwords += givenCt;
+				return false;
+			}
+		}
+		var newday = new Day(givenDate, givenCt);
+		allCounts.push(newday);
+	}
 }
 

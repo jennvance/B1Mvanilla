@@ -6,9 +6,6 @@ function Day(date, numwords){
 
 var allCounts = [];
 
-//insert dummy data for testing
-// var day1 = new Day()
-
 document.querySelector('#wordct').addEventListener("submit", function(e){
 	e.preventDefault()
 	var form = e.target
@@ -64,9 +61,8 @@ function calcTotalMonth(numDays) {
 			monthtotal += allCounts[i].numwords;
 		}
 	}
-	renderCalcs(monthtotal);
-	var avg = monthtotal / numDays;
-	console.log(avg)
+	var avg = (monthtotal / numDays).toFixed(0);
+	renderCalcs(monthtotal, avg);
 }
 
 
@@ -79,7 +75,10 @@ function findProductiveDay(){
 
 }
 
-function renderCalcs(mT){
+function renderCalcs(mT, avg){
 	var moTotal = document.getElementById('totalmonth')
 	moTotal.innerHTML = mT
+	var average = document.getElementById('avgmonth')
+	average.innerHTML = avg
+
 }

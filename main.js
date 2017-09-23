@@ -35,14 +35,13 @@ function submitEntry(formData){
 }
 
 document.querySelector('#monthform select').addEventListener('change', function(event){
-	// daily average for the month 
+	// Find days in month to pass to avg calculation 
 	var monthVal = parseInt(document.getElementById("selectmonth").value)
-	// return new Date(mo.getFullYear(), mo.getMonth()+1, 0).getDate();
 	var daysInMonth = new Date(2017, monthVal+1, 0).getDate();
-	// Calculate and display monthly total 
+	// Calculate monthly total 
 	calcTotalMonth(daysInMonth)
 	// most productive date of the month
-
+	findProductiveDate()
 	// most productive day of the week for that month
 
 })
@@ -68,9 +67,33 @@ function calcTotalMonth(numDays) {
 
 
 function findProductiveDate(){
+	var highNum = 0;
+	var highDate;
+	for(var i=0; i<allCounts.length; i++) {
+		var mo = new Date(allCounts[i].date)
+		var datamonth = mo.getMonth()
+		var selectmonth = parseInt(document.getElementById("selectmonth").value)
+		if(datamonth === selectmonth) {
+			if(allCounts[i].numwords > highNum){
+				highNum = allCounts[i].numwords
+				//this could go somewhere else
+				highDate = allCounts[i].date
+			}
 
+		}
+	}
+	renderProdDate(highDate, highNum)
 }
 
+function renderProdDate(dt, nm)
+{	
+	var date = new Date(dt)
+	var formatDate = date.toLocaleDateString("en-us") 
+	var prodDate = document.getElementById('prodDate')
+	prodDate.innerHTML = formatDate
+	var prodDateCt = document.getElementById('prodDateCt')
+	prodDateCt.innerHTML = nm
+}
 function findProductiveDay(){
 
 }

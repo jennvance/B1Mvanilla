@@ -6,12 +6,43 @@
 <body>
 	<h1>Enter today's word count here:</h1>
 	<form id="wordct">
-		<input type="text" name="numwds" required>
+		<input type="number" name="numwds" required>
 		<input type="date" name="date" required>
 		<button type="submit"></button>
 	</form>
 
-	<div id="output"></div>
+	<div>Choose Month to View Stats:</div>
+	<form name="monthform" id="monthform" >
+		<select name="month" id="selectmonth">
+			<option value="0">January</option>
+			<option value="1">February</option>
+			<option value="2">March</option>
+			<option value="3">April</option>
+			<option value="4">May</option>
+			<option value="5">June</option>
+			<option value="6">July</option>
+			<option value="7">August</option>
+			<option value="8">September</option>
+			<option value="9">October</option>
+			<option value="10">November</option>
+			<option value="11">December</option>
+		</select>
+	</form>
+
+	<h3>Results:</h3>
+
+	<div>Total for month:<span id="totalmonth"></span></div>
+	<div>Daily average for month:<span></span></div>
+	<div>Most productive day in the month:<span></span></div>
+	<div>Most productive day of the week for the month:<span></span></div>
+	
+	
+	
+
+<!-- 	<div>Totals:</div>
+	<div>Averages:</div>
+	<div>Graphs:</div>
+	<div>Trends</div> -->
 
 <script type="text/javascript" src="main.js"></script>
 </body>

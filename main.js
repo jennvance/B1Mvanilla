@@ -67,6 +67,7 @@ function calcTotalMonth(numDays) {
 	}
 	var avg = (monthtotal / numDays).toFixed(0);
 	renderCalcs(monthtotal, avg);
+	calcWritingDaysOnlyAvg()
 }
 
 
@@ -109,5 +110,19 @@ function renderCalcs(mT, avg){
 	var average = document.getElementById('avgmonth')
 	average.innerHTML = avg
 
+}
+
+function calcAllTimeAverage(){
+	//Find first date you entered a count
+
+	//Calculate number of days since then
+
+	//Divide total words by days since started
+}
+
+function calcWritingDaysOnlyAvg(){
+	var avg = total / allCounts.length
+	var onlyAvg = document.getElementById('onlyAvg')
+	onlyAvg.innerHTML = avg
 }
 

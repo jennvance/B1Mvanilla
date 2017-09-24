@@ -4,6 +4,7 @@ function Day(date, numwords){
 	this.numwords = numwords;
 }
 
+var total = 0;
 var allCounts = [];
 
 document.querySelector('#wordct').addEventListener("submit", function(e){
@@ -32,7 +33,11 @@ function submitEntry(formData){
 		var newday = new Day(givenDate, givenCt);
 		allCounts.push(newday);
 	}
+	total += givenCt;
+	var displayTotal = document.getElementById('allTimeTotal')
+	displayTotal.innerHTML = total;
 }
+
 
 document.querySelector('#monthform select').addEventListener('change', function(event){
 	// Find days in month to pass to avg calculation 
@@ -95,7 +100,7 @@ function renderProdDate(dt, nm)
 	prodDateCt.innerHTML = nm
 }
 function findProductiveDay(){
-
+	//do this much later
 }
 
 function renderCalcs(mT, avg){
@@ -105,3 +110,4 @@ function renderCalcs(mT, avg){
 	average.innerHTML = avg
 
 }
+

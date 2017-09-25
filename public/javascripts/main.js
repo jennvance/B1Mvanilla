@@ -121,20 +121,14 @@ function calcAllTimeAverage(){
 		return new Date(a.date) - new Date(b.date)
 	})
 	//Calculate number of days since your first count
-	var msPerDay = 1000*60*60*24
+	
 	var today = new Date();
 	//dayOne is initializing to 6 hours prior to 00:00 UTC on correct date
 	//diff calculation makes more real life sense with bug. refactor later.
 	var dayOne = new Date(allCounts[0].date);
 	var diff = diffDates(dayOne, today)
 	//needs to be standalone function accessible to other functions
-	function diffDates(a,b){
-		//is this even working as expected?
-		var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
-		var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
-		console.log("utc1: " + utc1 + " utc2: " + utc2)
-		return Math.floor((utc2 - utc1) / msPerDay)
-	}
+
 	//Divide total words by days since started
 	var allTimeAvg = (total / diff).toFixed(0)
 	//render calculation
@@ -148,18 +142,30 @@ function calcWritingDaysOnlyAvg(){
 	onlyAvg.innerHTML = avg
 }
 
+//helper function lifted from SO
+function diffDates(a,b){
+	var msPerDay = 1000*60*60*24
+	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
+	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
+	return Math.floor((utc2 - utc1) / msPerDay)
+}
+
 
 document.querySelector('#setGoal').addEventListener("submit", function(e){
 	e.preventDefault()
 	//didn't use FormData here with no repercussions
 	var glWds = document.getElementById('goalWds').value;
 	var glDt = document.getElementById('goalDate').value;
-	console.log(glWds, glDt)
+	calcWpdToGoal(glWds, glDt)
 	document.getElementById("setGoal").reset()
 })
 
-function calcWpdToGoal(){
-	//Calc days until goal
-
-	//Calc words/day
+function calcWpdToGoal(words, goalDate){
+	var today = new Date()
+	var goalBy = new Date(goalDate)
+	//date selector selects for local instead of UTC time and it messes up diffDates() calc.
+	//fix later
+	var numDays = diffDates(today, goalBy) + 1
+	var wpdUntilGoal = words / numDays
+	console.log(wpdUntilGoal)
 }

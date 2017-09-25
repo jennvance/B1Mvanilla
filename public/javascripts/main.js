@@ -167,5 +167,6 @@ function calcWpdToGoal(words, goalDate){
 	//fix later
 	var numDays = diffDates(today, goalBy) + 1
 	var wpdUntilGoal = words / numDays
-	console.log(wpdUntilGoal)
+	var wpd = document.getElementById("wpdToGoal")
+	wpd.innerHTML = wpdUntilGoal
 }

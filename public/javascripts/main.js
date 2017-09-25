@@ -10,6 +10,7 @@ var allCounts = [];
 
 document.querySelector('#wordct').addEventListener("submit", function(e){
 	e.preventDefault()
+	//delete FormData and use document...value instead?
 	var form = e.target
 	var formData = new FormData(form)
 	formData.append('numwds', 'numwds')
@@ -126,6 +127,7 @@ function calcAllTimeAverage(){
 	//diff calculation makes more real life sense with bug. refactor later.
 	var dayOne = new Date(allCounts[0].date);
 	var diff = diffDates(dayOne, today)
+	//needs to be standalone function accessible to other functions
 	function diffDates(a,b){
 		//is this even working as expected?
 		var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
@@ -146,3 +148,12 @@ function calcWritingDaysOnlyAvg(){
 	onlyAvg.innerHTML = avg
 }
 
+
+document.querySelector('#setGoal').addEventListener("submit", function(e){
+	e.preventDefault()
+	//didn't use FormData here with no repercussions
+	var glWds = document.getElementById('goalWds').value;
+	var glDt = document.getElementById('goalDate').value;
+	console.log(glWds, glDt)
+	document.getElementById("setGoal").reset()
+})

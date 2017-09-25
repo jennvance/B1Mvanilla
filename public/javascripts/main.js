@@ -157,3 +157,9 @@ document.querySelector('#setGoal').addEventListener("submit", function(e){
 	console.log(glWds, glDt)
 	document.getElementById("setGoal").reset()
 })
+
+function calcWpdToGoal(){
+	//Calc days until goal
+
+	//Calc words/day
+}

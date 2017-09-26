@@ -120,18 +120,12 @@ function calcAllTimeAverage(){
 	allCounts.sort(function(a,b){
 		return new Date(a.date) - new Date(b.date)
 	})
-	//Calculate number of days since your first count
-	
 	var today = new Date();
 	//dayOne is initializing to 6 hours prior to 00:00 UTC on correct date
 	//diff calculation makes more real life sense with bug. refactor later.
 	var dayOne = new Date(allCounts[0].date);
 	var diff = diffDates(dayOne, today)
-	//needs to be standalone function accessible to other functions
-
-	//Divide total words by days since started
 	var allTimeAvg = (total / diff).toFixed(0)
-	//render calculation
 	var dailyAvg = document.getElementById('dailyAvg')
 	dailyAvg.innerHTML = allTimeAvg
 }
@@ -166,7 +160,7 @@ function calcWpdToGoal(words, goalDate){
 	//date selector selects for local instead of UTC time and it messes up diffDates() calc.
 	//fix later
 	var numDays = diffDates(today, goalBy) + 1
-	var wpdUntilGoal = words / numDays
+	var wpdUntilGoal = (words / numDays).toFixed(0)
 	var wpd = document.getElementById("wpdToGoal")
 	wpd.innerHTML = wpdUntilGoal
 }

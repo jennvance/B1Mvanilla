@@ -1,7 +1,14 @@
-/*courtesy SO, rewrite/combine animations later*/
-
 .fire {
-	animation: flame 1.5s linear infinite alternate;       
+	animation: type 1s steps(4, end), flame 2s ease 2s alternate, extinguish 1s linear 4s forwards;
+	padding-top: 75px;
+	/*font-family: 'Cutive Mono', monospace;*/
+	font-family: 'Special Elite', cursive;
+	font-size: 48px;
+	margin: 0 auto;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 486px;
+	text-decoration: none;    
 }
 
 @keyframes flame {
@@ -11,26 +18,19 @@
 	to   { text-shadow: -.1em -.2em .6em #fefcc9, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716, -.2em -1em .8em #451b0e; }						
 }
 
+@keyframes extinguish {
+	to {
+		color: white;
+		text-shadow: 2px 2px 3px rgba(0,0,0,0.3);
+	}
+}
+
 .logo {
 	text-align: center;	
 	margin-top: 50px;
 	white-space: nowrap;
 	color: black; 
 	text-decoration: none;	        	  	  
-}
-	 	
-
-
-
-h1{
-	font-family: 'Cutive Mono', monospace;
-	font-size: 48px;
-	margin: 0 auto;
-	white-space: nowrap;
-	overflow: hidden;
-	width: 30em;
-	animation: type 4s steps(60, end); 
-	text-decoration: none;
 }
 
 @keyframes type{ 

@@ -8,67 +8,78 @@
 <div class="container">
 	<a class="logo" href="#"><h1 class="fire">Burn one million.</h1></a>
 
-	<h2>How many words did you write today?</h2>
-	<form id="wordct">
-		<input type="number" name="numwds" required>
-		<input type="date" name="date" required>
-		<button type="submit">Submit</button>
-	</form>
+	<div id="ux1">
+		<h2>How many words did you write today?</h2>
+		<form id="wordct">
+			<input type="number" name="numwds" required>
+			<input type="date" name="date" required>
+			<button type="submit">Submit</button>
+		</form>
+	</div>
 
-	<div>Choose Month to View Stats:</div>
-	<form name="monthform" id="monthform" >
-		<select name="month" id="selectmonth">
-			<option value="0">January</option>
-			<option value="1">February</option>
-			<option value="2">March</option>
-			<option value="3">April</option>
-			<option value="4">May</option>
-			<option value="5">June</option>
-			<option value="6">July</option>
-			<option value="7">August</option>
-			<option value="8">September</option>
-			<option value="9">October</option>
-			<option value="10">November</option>
-			<option value="11">December</option>
-		</select>
-	</form>
+	<div id="ux2">
+		<div>Choose Month to View Stats:</div>
+		<form name="monthform" id="monthform" >
+			<select name="month" id="selectmonth">
+				<option value="0">January</option>
+				<option value="1">February</option>
+				<option value="2">March</option>
+				<option value="3">April</option>
+				<option value="4">May</option>
+				<option value="5">June</option>
+				<option value="6">July</option>
+				<option value="7">August</option>
+				<option value="8">September</option>
+				<option value="9">October</option>
+				<option value="10">November</option>
+				<option value="11">December</option>
+			</select>
+		</form>
 
-	<h3>Results:</h3>
+		<h3>Results:</h3>
 
-	<div>Total for month: <span id="totalmonth"></span></div>
-	<div>Daily average for month: <span id="avgmonth"></span></div>
-	<div>Most productive day in the month: <span id="prodDate"></span> Word Count: <span id="prodDateCt"></span></div>
-	<div>Most productive day of the week for the month: <span></span></div>
-	<div>All time total: <span id="allTimeTotal"></span></div>
-	<div>Daily Average since you started: <span id="dailyAvg"></span></div>
-	<div>Average for days you wrote only: <span id="onlyAvg"></span> </div>
+		<div>Total for month: <span id="totalmonth"></span></div>
+		<div>Daily average for month: <span id="avgmonth"></span></div>
+		<div>Most productive day in the month: <span id="prodDate"></span> Word Count: <span id="prodDateCt"></span></div>
+		<div>Most productive day of the week for the month: <span></span></div>
+		<div>All time total: <span id="allTimeTotal"></span></div>
+		<div>Daily Average since you started: <span id="dailyAvg"></span></div>
+		<div>Average for days you wrote only: <span id="onlyAvg"></span> </div>
+	</div>
+	<div id="ux3">
+		<form id="setGoal">
+			Enter your word goal and end date here:
+			<input type="number" name="goalWds" id="goalWds" required>
+			<input type="date" name="goalDate" id="goalDate" required>
+			<button type="submit">Submit</button>
+		</form>
 
-	<form id="setGoal">
-		Enter your word goal and end date here:
-		<input type="number" name="goalWds" id="goalWds" required>
-		<input type="date" name="goalDate" id="goalDate" required>
-		<button type="submit">Submit</button>
-	</form>
-
-	<div>Words Per Day You Must Write to Meet Goal: <span id="wpdToGoal"></span> </div>
-
-</div>
+		<div>Words Per Day You Must Write to Meet Goal: <span id="wpdToGoal"></span> </div>
+	</div>
 
 
-	<h2>Sign Up</h2>
-	<form id="signup-form">
-		<input class="username" placeholder="username">
-		<input class="password" placeholder="password">
-		<input type="submit" value="submit!">
-	</form>
-	<hr>
-	<h2>Log In</h2>
-	<form id="login-form">
-		<input class="username" placeholder="username">
-		<input class="password" placeholder="password">
-		<input type="submit" value="submit!">
-	</form>
+	<div id="ux4">
+		<h2>Sign Up</h2>
+		<form id="signup-form">
+			<input class="username" placeholder="username">
+			<input class="password" placeholder="password">
+			<input 	type="submit" value="submit!">
+		</form>
+	</div>
+	<div id="ux5">
+		<h2>Log In</h2>
+		<form id="login-form">
+			<input class="username" placeholder="username">
+			<input class="password" placeholder="password">
+			<input type="submit" value="submit!">
+		</form>
+	</div>
+
+	<div id="ux6">
+		<button>Set Word Count Goal</button>
+	</div>
 	
+</div>
 
 <!-- 	<div>Totals:</div>
 	<div>Averages:</div>

@@ -7,6 +7,12 @@ function Day(date, numwords){
 var total = 0;
 var allCounts = [];
 
+var ux1 = document.getElementById("ux1")
+var ux2 = document.getElementById("ux2")
+var ux3 = document.getElementById("ux3")
+var ux4 = document.getElementById("ux4")
+var ux5 = document.getElementById("ux5")
+var ux6 = document.getElementById("ux6")
 
 document.querySelector('#wordct').addEventListener("submit", function(e){
 	e.preventDefault()
@@ -17,6 +23,10 @@ document.querySelector('#wordct').addEventListener("submit", function(e){
 	formData.append('date', 'date')
 	submitEntry(formData)
 	document.getElementById("wordct").reset()
+
+	ux1.style.display = "none";
+	ux2.style.display = "block";
+	ux6.style.display = "block";
 })
 
 function submitEntry(formData){

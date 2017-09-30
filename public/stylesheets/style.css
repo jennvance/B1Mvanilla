@@ -12,3 +12,15 @@ body {
 	margin: 0 auto;
 	text-align: center;
 }
+
+#ux2, #ux3, #ux4, #ux5, #ux6 {
+	display: none;
+}
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}

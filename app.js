@@ -29,15 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
-// Pug API (do I need this?)
-// compile
-// var fn = pug.compile('string of pug', options);
-// var html = fn(locals);
-// // render
-// var html = pug.render('string of pug', merge(options, locals));
-// // renderFile
-// var html = pug.renderFile('filename.pug', merge(options, locals));
-// End Pug API
 
 //Begin login code (rewrite later)
 mongoose.connect("mongodb://localhost/burndb", function(err){

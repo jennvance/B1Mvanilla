@@ -12,7 +12,7 @@ var ux2 = document.getElementById("ux2")
 var ux3 = document.getElementById("ux3")
 var ux4 = document.getElementById("ux4")
 var ux5 = document.getElementById("ux5")
-var ux6 = document.getElementById("ux6")
+
 
 document.querySelector('#wordct').addEventListener("submit", function(e){
 	e.preventDefault()
@@ -26,7 +26,7 @@ document.querySelector('#wordct').addEventListener("submit", function(e){
 
 	ux1.style.display = "none";
 	ux2.style.display = "block";
-	ux6.style.display = "block";
+	ux3.style.display = "block";
 })
 
 function submitEntry(formData){
@@ -122,7 +122,6 @@ function renderCalcs(mT, avg){
 	moTotal.innerHTML = mT
 	var average = document.getElementById('avgmonth')
 	average.innerHTML = avg
-
 }
 
 function calcAllTimeAverage(){
@@ -162,6 +161,11 @@ document.querySelector('#setGoal').addEventListener("submit", function(e){
 	var glDt = document.getElementById('goalDate').value;
 	calcWpdToGoal(glWds, glDt)
 	document.getElementById("setGoal").reset()
+	//prompt login/signup...
+
+	//on login/signup, reveal full dashboard UI (hidden before login)
+	//(still need to make full dashboard UI)
+
 })
 
 function calcWpdToGoal(words, goalDate){

@@ -1,6 +1,27 @@
 body {
 	margin: 0 auto;
 	font-family: 'Raleway', sans-serif;
+	
+}
+
+.dk-orange {
+	color: #E25822;
+}
+
+.med-orange {
+	color: #E27822;
+}
+
+.lt-orange {
+	color: #E29822;
+}
+
+.yellow {
+	color: #E2B822;
+}
+
+.blue {
+	color: #22ACE2;
 }
 
 .center {
@@ -13,9 +34,9 @@ body {
 	text-align: center;
 }
 
-#ux2, #ux3, #ux4, #ux5, #ux6 {
+/*#ux2, #ux3, #ux4, #ux5, #ux6 {
 	display: none;
-}
+}*/
 
 .hide {
 	display: none;

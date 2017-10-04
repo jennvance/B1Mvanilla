@@ -6,7 +6,8 @@
 </head>
 <body>
 <div class="container">
-	<a class="logo" href="#"><h1 class="fire">Burn one million.</h1></a>
+	<a class="logo" href="#"></a>
+	<h1 class="fire">Burn one million.</h1>
 
 	<div id="ux1">
 		<h2>How many words did you write today?</h2>
@@ -18,8 +19,8 @@
 	</div>
 
 	<div id="ux2">
-		<div>Choose Month to View Stats:</div>
 		<form name="monthform" id="monthform" >
+			<label for="selectmonth">Choose Month to View Stats:</label>
 			<select name="month" id="selectmonth">
 				<option value="0">January</option>
 				<option value="1">February</option>
@@ -37,14 +38,28 @@
 		</form>
 
 		<h3>Results:</h3>
+		<div class="flex">
+			<div class="cell">Total for month: </div>
+			<div class="cell" id="totalmonth">0</div>
 
-		<div>Total for month: <span id="totalmonth"></span></div>
-		<div>Daily average for month: <span id="avgmonth"></span></div>
-		<div>Most productive day in the month: <span id="prodDate"></span> Word Count: <span id="prodDateCt"></span></div>
-		<div>Most productive day of the week for the month: <span></span></div>
-		<div>All time total: <span id="allTimeTotal"></span></div>
-		<div>Daily Average since you started: <span id="dailyAvg"></span></div>
-		<div>Average for days you wrote only: <span id="onlyAvg"></span> </div>
+			<div class="cell">Daily average for month: </div>
+			<div class="cell" id="avgmonth">0</div>
+
+			<div class="cell">Most productive day in the month: </div>
+			<div class="cell" id="prodDate">0<span id="prodDateCt">(0)</span> words</div>
+
+			<div class="cell">Most productive day of week:</div>
+			<div class="cell">0</div>
+
+			<div class="cell">All time total: </div>
+			<div class="cell" id="allTimeTotal">0</div>
+
+			<div class="cell">Daily Average since you started: </div>
+			<div class="cell" id="dailyAvg">0</div>
+
+			<div class="cell">Average for days you wrote only: </div>
+			<div class="cell" id="onlyAvg">0</div>
+		</div>
 	</div>
 	<div id="ux3">
 		<form id="setGoal">

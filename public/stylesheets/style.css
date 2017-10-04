@@ -4,6 +4,10 @@ body {
 	
 }
 
+:focus {
+	outline: #E27822 auto 5px;
+}
+
 .dk-orange {
 	color: #E25822;
 }
@@ -83,6 +87,29 @@ body {
 	height: 17px;
 }
 
+#ux2 {
+	font-size: 20px;
+}
 
+#ux2 select {
+	height: 32px;
+	font-size: 18px;
+}
 
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	padding: 0;
+	width: 700px;
+}
 
+.cell {
+	width: 50%;
+	box-sizing: border-box;
+	flex-grow: 1;
+	padding: .8em .2em;
+	overflow: hidden;
+	list-style: none;
+	border: solid 2px black;
+}

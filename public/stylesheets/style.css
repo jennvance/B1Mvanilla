@@ -113,3 +113,38 @@ body {
 	list-style: none;
 	border: solid 2px black;
 }
+
+#ux3  {
+	height: 225px;
+	width: 450px;
+	background-color: #E25822;
+	border-radius: 10px;
+	/*margin: 1% auto;*/
+}
+
+#ux3 h2 {
+	padding: 7% 0 2% 0;
+	color: white;
+}
+
+#ux3 form {
+	width: 400px;
+}
+
+#ux3 input, #ux3 button {
+	display: block;
+	/*float: left;*/
+	margin: 10px auto;
+	padding: 2%;
+	border: 0;
+}
+
+#ux3 input:first-child {
+	height: 17px;
+	width: 129px;
+}
+
+#ux3 label {
+	float: left;
+}
+

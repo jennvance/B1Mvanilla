@@ -148,3 +148,22 @@ body {
 	float: left;
 }
 
+#ux4 {
+	height: 100px;
+	width: 450px;
+	background-color: #E25822;
+	border-radius: 10px;
+	margin: 10px auto;
+}
+
+#ux5 {
+	height: 100px;
+	width: 450px;
+	background-color: #E25822;
+	border-radius: 10px;
+	margin: 10px auto;
+}
+
+#ux4 h2, #ux5 h2 {
+	padding-top: 15px;
+}

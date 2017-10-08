@@ -167,3 +167,7 @@ body {
 #ux4 h2, #ux5 h2 {
 	padding-top: 15px;
 }
+
+#ux4, #ux5 {
+	display: none;
+}

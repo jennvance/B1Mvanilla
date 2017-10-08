@@ -162,7 +162,7 @@ document.querySelector('#setGoal').addEventListener("submit", function(e){
 	calcWpdToGoal(glWds, glDt)
 	document.getElementById("setGoal").reset()
 	//prompt login/signup...
-
+	ux5.style.display = "block"
 	//on login/signup, reveal full dashboard UI (hidden before login)
 	//(still need to make full dashboard UI)
 

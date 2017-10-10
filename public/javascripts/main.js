@@ -114,7 +114,10 @@ function renderProdDate(dt, nm)
 	prodDateCt.innerHTML = nm
 }
 function findProductiveDay(){
-	//do this much later
+	//find day of week for each date in allCounts
+	//sort by day of week and keep running total for each day of week
+	//compare totals of each day of week and find highest
+
 }
 
 function renderCalcs(mT, avg){

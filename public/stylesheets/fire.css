@@ -33,33 +33,33 @@
 }
 
 
-.red {
 
-}
-
-.orange {
-
-}
-
-.yellow {
-
-}
-
-.green {
-
-}
-
-.blue {
-
-}
-
-.violet {
-
-}
 
 @keyframes rainbow {
 	to {
-		
+		.red {
+
+		}
+
+		.orange {
+
+		}
+
+		.yellow {
+
+		}
+
+		.green {
+
+		}
+
+		.blue {
+
+		}
+
+		.violet {
+
+		}
 	}
 }
 

@@ -11,19 +11,19 @@
 	text-decoration: none;    
 }
 
-/*@keyframes flame {
+@keyframes flame {
 	from { text-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .4em #ffae34, .2em -.3em .3em #ec760c, -.2em -.4em .4em #cd4606, .1em -.5em .7em #973716, .1em -.7em .7em #451b0e; }
 	45%  { text-shadow: .1em -.2em .5em #fefcc9, .15em 0 .4em #feec85, -.1em -.25em .5em #ffae34, .15em -.45em .5em #ec760c, -.1em -.5em .6em #cd4606, 0 -.8em .6em #973716, .2em -1em .8em #451b0e; }
 	70%  { text-shadow: -.1em 0 .3em #fefcc9, .1em -.1em .3em #feec85, -.2em -.2em .6em #ffae34, .2em -.3em .4em #ec760c, -.2em -.4em .7em #cd4606, .1em -.5em .7em #973716, .1em -.7em .9em #451b0e; }
 	to   { text-shadow: -.1em -.2em .6em #fefcc9, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716, -.2em -1em .8em #451b0e; }						
-}*/
+}
 
-@keyframes flame {
+/*@keyframes flame {
 	from { text-shadow: -.1em 0 .3em blue, .1em -.1em .3em #feec85, -.2em -.2em .4em #ffae34, .2em -.3em .3em #ec760c, -.2em -.4em .4em #cd4606, .1em -.5em .7em #973716, .1em -.7em .7em #451b0e; }
 	45%  { text-shadow: .1em -.2em .5em blue, .15em 0 .4em #feec85, -.1em -.25em .5em #ffae34, .15em -.45em .5em #ec760c, -.1em -.5em .6em #cd4606, 0 -.8em .6em #973716, .2em -1em .8em #451b0e; }
 	70%  { text-shadow: -.1em 0 .3em blue, .1em -.1em .3em #feec85, -.2em -.2em .6em #ffae34, .2em -.3em .4em #ec760c, -.2em -.4em .7em #cd4606, .1em -.5em .7em #973716, .1em -.7em .9em #451b0e; }
 	to   { text-shadow: -.1em -.2em .6em blue, -.15em 0 .6em #feec85, .1em -.25em .6em #ffae34, -.15em -.45em .5em #ec760c, .1em -.5em .6em #cd4606, 0 -.8em .6em #973716, -.2em -1em .8em #451b0e; }						
-}
+}*/
 
 @keyframes extinguish {
 	to {
@@ -32,43 +32,70 @@
 	}
 }
 
+.red {
+	animation: turnred 2s linear 7s forwards;
+}
+
+.orange {
+	animation: turnorange 2s linear 8s forwards;
+}
+
+.yellow {
+	animation: turnyellow 2s linear 9s forwards;
+}
+
+.green {
+	animation: turngreen 2s linear 10s forwards;
+}
+
+.blue {
+	animation: turnblue 2s linear 11s forwards;
+}
+
+.violet {
+	animation: turnviolet 2s linear 12s forwards;
+}
 
 
-
-@keyframes rainbow {
+@keyframes turnred {
 	to {
-		.red {
+		color: red;
 
-		}
+	}
+}
 
-		.orange {
+@keyframes turnorange {
+	to {
+		color: orange;
+	}
+}
 
-		}
+@keyframes turnyellow {
+	to {
+		color: yellow;
+	}
+}
 
-		.yellow {
+@keyframes turngreen {
+	to {
+		color: green;
+	}
+}
 
-		}
+@keyframes turnblue {
+	to {
+		color: blue;
+	}
+}
 
-		.green {
-
-		}
-
-		.blue {
-
-		}
-
-		.violet {
-
-		}
+@keyframes turnviolet {
+	to {
+		color: purple;
 	}
 }
 
 
 
-
-
-//write "Jennifer" in purple
-//make every letter of "Colton" a different color
 .logo {
 	text-align: center;	
 	margin-top: 50px;
@@ -79,4 +106,158 @@
 
 @keyframes type{ 
 	from { width: 0; } 
+}
+
+
+
+
+.bird-container {
+	margin:0; auto;
+	width: 100%;
+	height: auto;
+}
+
+.bird {
+	position: absolute;
+	height: 10px;
+	width: 10px;
+	-webkit-transform: skew(20deg);
+	top: 0;
+	left: 0;
+	animation: snowFall 10s linear 10s forwards, spin 10s linear 10s forwards;
+	/*animation-play-state: paused;*/
+}
+
+@keyframes spin {
+	100% {
+		-webkit-transform: rotate(135deg);
+	}
+}
+
+.bird1 {
+	left: 5%;
+	background-color: blue;
+	animation-delay: -1s;
+}
+
+.bird2 {
+	left: 10%;
+	background-color: red;
+	animation-delay: -2s;
+	animation-duration:5s;
+}
+
+.bird3 {
+	left: 15%;
+	background-color: green;
+	animation-delay: -3s;
+	animation-duration: 15s;
+}
+
+.bird4 {
+	left: 20%;
+	background-color: yellow;
+	animation-delay: -4s;
+}
+
+.bird5 {
+	left:25%;
+	background-color: purple;
+	animation-delay: -5s;
+	animation-duration:7s;
+}
+
+.bird6 {
+	left:30%;
+	background-color: orange;
+	animation-delay: -6s;
+	animation-duration: 10s;
+}
+
+.bird7 {
+	left: 35%;
+	background-color: blue;
+	animation-delay: -7s;
+}
+
+.bird8 {
+	left: 40%;
+	background-color: red;
+	animation-delay: -8s;
+	animation-duration:7s;
+}
+
+.bird9 {
+	left: 45%;
+	background-color: green;
+	animation-delay: -9s;
+	animation-duration: 15s;
+}
+.bird10 {
+	left: 50%;
+	background-color: orange;
+	animation-delay: -1s;
+}
+
+.bird11 {
+	left: 55%;
+	background-color: yellow;
+	animation-delay: -1s;
+}
+.bird12 {
+	left: 60%;
+	background-color: purple;
+	animation-delay: -2s;
+	animation-duration:5s;
+}
+
+.bird13 {
+	left: 65%;
+	background-color: green;
+	animation-delay: -3s;
+	animation-duration: 15s;
+}
+
+.bird14 {
+	left: 70%;
+	background-color: blue;
+	animation-delay: -4s;
+}
+
+.bird15 {
+	left:75%;
+	background-color: red;
+	animation-delay: -5s;
+	animation-duration:7s;
+}
+
+.bird16 {
+	left:80%;
+	background-color: yellow;
+	animation-delay: -6s;
+	animation-duration: 10s;
+}
+
+.bird17 {
+	left: 85%;
+	background-color: orange;
+	animation-delay: -7s;
+}
+
+.bird18 {
+	left: 90%;
+	background-color: purple;
+	animation-delay: -8s;
+	animation-duration:7s;
+}
+
+@keyframes snowFall {
+	0% {
+		/*left: -200px;*/
+		top: 0;
+	}
+	100% {
+		/*left: 50px;*/
+		top: 100vh;
+	}
 }

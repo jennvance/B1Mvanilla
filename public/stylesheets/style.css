@@ -20,13 +20,13 @@ body {
 	color: #E29822;
 }
 
-.yellow {
+/*.yellow {
 	color: #E2B822;
 }
 
 .blue {
 	color: #22ACE2;
-}
+}*/
 
 .center {
 	margin: 0 auto;
@@ -64,6 +64,7 @@ body {
 	width: 500px;
 	background-color: #E25822;
 	border-radius: 10px;
+	margin-top: 500px;
 }
 
 #ux1 h2 {

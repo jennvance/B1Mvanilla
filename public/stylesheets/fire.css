@@ -108,29 +108,3 @@
 	from { width: 0; } 
 }
 
-
-
-
-.bird-container {
-	margin:0; auto;
-	width: 100%;
-	height: auto;
-}
-
-.bird {
-	position: absolute;
-	height: 10px;
-	width: 10px;
-	-webkit-transform: skew(20deg);
-	top: 0;
-	left: 0;
-	animation: snowFall 10s linear 10s forwards, spin 10s linear 10s forwards;
-	/*animation-play-state: paused;*/
-}
-
-@keyframes spin {
-	100% {
-		-webkit-transform: rotate(135deg);
-	}
-}
-

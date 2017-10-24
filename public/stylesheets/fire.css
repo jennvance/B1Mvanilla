@@ -1,7 +1,6 @@
 .fire {
-	animation: type 1s steps(4, end), flame 2s ease 2s alternate, extinguish 1s linear 4s forwards;
+	animation: type 4s steps(16, end), flame 2s ease 4s alternate, extinguish 1s linear 6s forwards;
 	padding-top: 75px;
-	/*font-family: 'Cutive Mono', monospace;*/
 	font-family: 'Special Elite', cursive;
 	font-size: 48px;
 	margin: 0 auto;

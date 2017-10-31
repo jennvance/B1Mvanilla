@@ -1,0 +1,86 @@
+.container-main,.container-left,.container-right {
+	width: 100%;
+}
+
+.container-main {
+	/*background-color: pink;*/
+}
+
+.container-left {
+	/*background-color: blue;*/
+}
+
+.container-right {
+	/*background-color: purple;*/
+}
+
+.alltimetotal {
+	font-size: 124px;
+	background-color: lightgray;
+	height: 200px;
+	width: 200px;
+	border-radius: 10px;
+}
+
+.profile-photo {
+	height: 100px;
+	width: 100px;
+	border-radius: 50px;
+	background-color: pink;
+}
+
+.friend-bucket {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	padding: 0;
+	/*width: 50px;*/
+}
+
+.friend-single {
+	width: 25%;
+	box-sizing: border-box;
+	flex-grow: 1;
+	padding: .8em .2em;
+	overflow: hidden;
+	list-style: none;
+	border: solid 2px black;
+}
+
+.friend-single-photo {
+	height: 50px;
+	width: 50px;
+	border-radius: 25px;
+	background-color: gray;
+}
+
+/*.badge-bucket {
+	need to write styles
+}
+
+.badge-single {
+	need to write styles
+}*/
+
+.profile-form form * {
+	display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width:600px) {
+	.container-main,.container-left,.container-right{
+		width: 33%;	
+		float: left;
+	}
+}

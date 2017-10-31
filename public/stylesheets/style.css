@@ -28,19 +28,12 @@ body {
 	color: #22ACE2;
 }*/
 
-.center {
-	margin: 0 auto;
-	text-align: center;
-}
+
 
 .container * {
 	margin: 0 auto;
 	text-align: center;
 }
-
-/*#ux2, #ux3, #ux4, #ux5, #ux6 {
-	display: none;
-}*/
 
 .hide {
 	display: none;
@@ -59,34 +52,35 @@ body {
 	font-size: 15px;
 }
 
-#ux1 {
-	height: 150px;
-	width: 500px;
+#ux1,#ux3 {
+	height: 55px;
+	width: 450px;
 	background-color: #E25822;
-	border-radius: 10px;
-	margin-top: 500px;
+	border-radius: 5px;
 }
 
-#ux1 h2 {
-	padding: 7% 0 2% 0;
+#ux1 h2, #ux3 h2 {
+	padding: 3% 0 1% 0;
 	color: white;
 }
 
-#ux1 form {
-	width: 400px;
+#ux1 form, #ux3 form {
+	width: 410px;
 }
 
-#ux1 input, #ux1 button {
+#ux1 input, #ux1 button,#ux3 input, #ux3 button {
 	display: block;
 	float: left;
-	margin: 1%;
+	margin: 2.5% 2%;
 	padding: 2%;
 	border: 0;
 }
 
-#ux1 input:first-child {
+#ux1 input:first-child, #ux3 input:first-child {
 	height: 17px;
 }
+
+
 
 #ux2 {
 	font-size: 20px;
@@ -97,57 +91,9 @@ body {
 	font-size: 18px;
 }
 
-.flex {
-	display: flex;
-	flex-wrap: wrap;
-	margin: 0 auto;
-	padding: 0;
-	width: 700px;
-}
 
-.cell {
-	width: 50%;
-	box-sizing: border-box;
-	flex-grow: 1;
-	padding: .8em .2em;
-	overflow: hidden;
-	list-style: none;
-	border: solid 2px black;
-}
 
-#ux3  {
-	height: 225px;
-	width: 450px;
-	background-color: #E25822;
-	border-radius: 10px;
-	/*margin: 1% auto;*/
-}
 
-#ux3 h2 {
-	padding: 7% 0 2% 0;
-	color: white;
-}
-
-#ux3 form {
-	width: 400px;
-}
-
-#ux3 input, #ux3 button {
-	display: block;
-	/*float: left;*/
-	margin: 10px auto;
-	padding: 2%;
-	border: 0;
-}
-
-#ux3 input:first-child {
-	height: 17px;
-	width: 129px;
-}
-
-#ux3 label {
-	float: left;
-}
 
 #ux4, #ux5 {
 	height: 100px;

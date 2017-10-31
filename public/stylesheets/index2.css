@@ -62,12 +62,32 @@
 	need to write styles
 }*/
 
-.profile-form form * {
+/*.profile-form form * {
 	display: block;
+}*/
+
+
+.profile-form {
+	background-color: #E25822;
+	border-radius: 5px;
 }
 
 
+.profile-form form * {
+	display: block;
+	margin: 0 auto 1%;
+	padding: 2%;
+	border: 0;
+}
 
+.profile-form input:first-child, #ux3 input:first-child {
+	height: 17px;
+}
+
+.profile-form textarea {
+	height: 150px;
+	width: 200px;
+}
 
 
 

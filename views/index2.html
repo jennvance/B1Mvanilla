@@ -6,6 +6,28 @@
 </head>
 <body>
 <div class="container">
+	<div id="overlay">
+		<div class="su-panel">
+			<a href="" id="x">X</a>
+			<form id="signup-form" class="su-form">
+				<h2>Sign Up</h2>
+				<input class="username" placeholder="username">
+				<input class="password" placeholder="password">
+				<input type="submit" class="button" value="submit">
+			</form>
+			<form id="login-form" class="su-form">
+				<h2>Log In</h2>
+				<input class="username" placeholder="username">
+				<input class="password" placeholder="password">
+				<input type="submit" class="button" value="submit">
+			</form>
+			<a href="#" class="right" id="li-button"><h3>Log In</h3></a>
+			<a href="#" class="right" id="su-button"><h3>Sign Up</h3></a>
+		</div>
+	</div>
+
+
+
 <div class="container-left">
 	<h3>Friends</h3>
 	<div class="friend-bucket">
@@ -48,13 +70,23 @@
 
 
 
-<div class="container-main">
+<div class="container-center">
+<!-- 	<div class="ux1">
+		<form id="wordct">
+			<input type="number" name="numwds" required>
+			<input type="date" name="date" required>
+			<button type="submit" class="button">Submit</button>
+		</form>
+	</div> -->
+	
+
+
 	
 	<div class="alltimetotal dk-orange" id="allTimeTotal">0</div>
 	<div>Total</div>
 
 	<h2>Add Count. How many words did you write today?</h2>
-	<div id="ux1">
+	<div class="ux1">
 		<form id="wordct">
 			<input type="number" name="numwds" required>
 			<input type="date" name="date" required>
@@ -84,11 +116,12 @@
 
 	<div class="profile-form">
 		<form id="profileForm">
-			<input type="file" placeholder="upload photo">
+			
 			<input type="text" name="authorname" placeholder="Your Name" required>
 			<input type="text" placeholder="Genre" required>
 			<textarea>Author Bio</textarea>
 			<textarea>Favorite Things</textarea>
+			<input type="file" placeholder="upload photo">
 			<button type="submit" class="button">Submit</button>
 		</form>
 	</div>

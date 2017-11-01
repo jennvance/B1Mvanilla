@@ -52,23 +52,23 @@ body {
 	font-size: 15px;
 }
 
-#ux1,#ux3 {
+.ux1,#ux3 {
 	height: 55px;
 	width: 450px;
 	background-color: #E25822;
 	border-radius: 5px;
 }
 
-#ux1 h2, #ux3 h2 {
+.ux1 h2, #ux3 h2 {
 	padding: 3% 0 1% 0;
 	color: white;
 }
 
-#ux1 form, #ux3 form {
+.ux1 form, #ux3 form {
 	width: 410px;
 }
 
-#ux1 input, #ux1 button,#ux3 input, #ux3 button {
+.ux1 input, .ux1 button,#ux3 input, #ux3 button {
 	display: block;
 	float: left;
 	margin: 2.5% 2%;
@@ -76,7 +76,7 @@ body {
 	border: 0;
 }
 
-#ux1 input:first-child, #ux3 input:first-child {
+.ux1 input:first-child, #ux3 input:first-child {
 	height: 17px;
 }
 
@@ -105,8 +105,4 @@ body {
 
 #ux4 h2, #ux5 h2 {
 	padding-top: 15px;
-}
-
-#ux4, #ux5 {
-	display: none;
 }

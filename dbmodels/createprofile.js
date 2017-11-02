@@ -1,9 +1,12 @@
 var mongoose = require('mongoose')
 
-var profileSchema = mongoose.Schema({
-
+var ProfileSchema = new mongoose.Schema({
+	name: String,
+	genre: String,
+	bio: String,
+	favorites: String
 })
 
-var Profile = mongoose.model('Profile', profileSchema)
+var Profile = mongoose.model('Profile', ProfileSchema)
 
 module.exports = Profile

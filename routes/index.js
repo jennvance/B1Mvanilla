@@ -6,6 +6,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.all('/createprofile', function(req,res){
+	var newProfile = new Profile(req.body)
+	console.log(newProfile)
+})
+
 // still need to create html templates for each route
 
 // router.get('/onWordCountSubmit', function(req, res){

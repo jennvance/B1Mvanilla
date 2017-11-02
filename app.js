@@ -11,7 +11,7 @@ var pug = require('pug');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var Profile = require('./dbmodels/createprofile')
 var app = express();
 
 // view engine setup
@@ -20,14 +20,14 @@ app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+// app.use('/', routes);
+// app.use('/users', users);
 
 
 //Begin login code (rewrite later)
@@ -92,8 +92,8 @@ app.use(function(req, res, next){
     next()
 })
 
-app.all('/', function(req, res){
-    res.sendFile('./index.pug', {root:'./'})
+app.get('/', function(req, res){
+    res.sendFile('./views/index2.html', {root:'./'})
 })
 
 
@@ -183,6 +183,16 @@ app.get('/logout', function(req, res){
     req.session.reset()
     res.redirect('/')
 })
+
+app.post('/createprofile', function(req,res){
+    console.log(req.body)
+
+    var newProfile = new Profile(req.body)
+    newProfile.save()
+    console.log(newProfile)
+    res.send("hi jenn!")
+})
+
 
 //resume node boilerplate
 // catch 404 and forward to error handler

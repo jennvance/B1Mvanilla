@@ -40,6 +40,27 @@ $(document).ready(function(){
 			console.log(data)
 			// window.location.href = "/dashboard"
 		})
+
+		document.getElementById("profileForm").reset()
+
+		var name = profileInfo.name;
+		var genre = profileInfo.genre;
+		var bio = profileInfo.bio;
+		var favorites = profileInfo.favorites;
+		// var photo = profileInfo.photo;
+
+		var nameId = document.getElementById("profileName")
+		var genreId = document.getElementById("profileGenre")
+		var bioId = document.getElementById("profileBio")
+		var favoritesId = document.getElementById("profileFavorites")
+		// var photoId = document.getElementById("profilePhoto")
+		nameId.innerHTML = name;
+		genreId.innerHTML = genre;
+		bioId.innerHTML = bio;
+		favoritesId.innerHTML = favorites;
+		//is innerHTML correct for an image?
+		// photoId.innerHTML = photo;
+
 	})
 
 })

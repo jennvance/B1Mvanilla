@@ -10,6 +10,7 @@ $(document).ready(function(){
 			console.log(data)
 			// window.location.href = "/dashboard"
 		})
+		$("#overlay").hide()
 	})
 
 	$('#login-form').on('submit', function(event){
@@ -22,5 +23,6 @@ $(document).ready(function(){
 			console.log(data)
 			// window.location.href="/dashboard"
 		})
+		$("#overlay").hide()
 	})
 })

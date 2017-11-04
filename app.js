@@ -13,6 +13,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var schemas = require('./dbmodels/createprofile')
 var UserModel = schemas.UserModel
+var UltimateModel = schemas.UltimateModel
 var app = express();
 
 // view engine setup
@@ -115,7 +116,12 @@ app.get('/session-test', function(req, res){
 app.all('/signup', function(req, res){
     // this user object has a plain-text password
     // we must hash the password before we save the user
-    var newUser = new UserModel(req.body)
+    
+    console.log("UserModel ====" + UserModel)
+    console.log(req.body)
+    // var newUser = new UserModel(req.body)
+    var newUser = new UltimateModel(req.body)
+    console.log("user: " + newUser)
     bcrypt.genSalt(11, function(saltErr, salt){
         if (saltErr) {console.log(saltErr)}
         console.log('salt generated: ', salt)

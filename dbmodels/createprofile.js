@@ -38,7 +38,8 @@ var UltimateSchema = new mongoose.Schema({
 	goal: {
 		date: Date,
 		numwds: Number
-	}
+	},
+	friends: Array
 })
 
 var UltimateModel = mongoose.model('Ultimate', UltimateSchema)

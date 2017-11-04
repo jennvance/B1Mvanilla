@@ -41,17 +41,30 @@ function submitEntry(formData){
 	displayTotal.innerHTML = total;
 }
 
+//UNCOMMENT when add month selector to DOM
+// document.querySelector('#monthform select').addEventListener('change', function(event){
+// 	// Find days in month to pass to avg calculation 
+// 	var monthVal = parseInt(document.getElementById("selectmonth").value)
+// 	var daysInMonth = new Date(2017, monthVal+1, 0).getDate();
+// 	// Calculate monthly total 
+// 	calcTotalMonth(daysInMonth)
+// 	// most productive date of the month
+// 	findProductiveDate()
+// 	// most productive day of the week for that month
 
-document.querySelector('#monthform select').addEventListener('change', function(event){
-	// Find days in month to pass to avg calculation 
-	var monthVal = parseInt(document.getElementById("selectmonth").value)
+// })
+
+document.querySelector("#viewStatsLink").addEventListener('click',function(event){
+	event.preventDefault()
+	var dateObj = new Date();
+	console.log(dateObj)
+	var monthVal = dateObj.getUTCMonth()
+	// var monthVal = parseInt(document.getElementById("selectmonth").value)
 	var daysInMonth = new Date(2017, monthVal+1, 0).getDate();
 	// Calculate monthly total 
 	calcTotalMonth(daysInMonth)
 	// most productive date of the month
 	findProductiveDate()
-	// most productive day of the week for that month
-
 })
 
 
@@ -63,6 +76,7 @@ function calcTotalMonth(numDays) {
 		//actual: convert date string to date object, call method
 		var mo = new Date(allCounts[i].date)
 		var datamonth = mo.getMonth()
+		//need an alternative to using "selectmonth" when get here via "View Stats" link instead of select
 		var selectmonth = parseInt(document.getElementById("selectmonth").value)
 		if(datamonth === selectmonth) {
 			monthtotal += allCounts[i].numwords;

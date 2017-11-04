@@ -16,9 +16,7 @@
 
 .alltimetotal {
 	font-size: 124px;
-	background-color: lightgray;
 	height: 200px;
-	width: 200px;
 	border-radius: 10px;
 }
 
@@ -175,6 +173,16 @@
 	color: #E27822;
 }
 
+#stats .a {
+	float: left;
+	text-align: left;
+	width: 50%;
+}
+
+#stats .b {
+	float: right;
+	width: 50%;
+}
 
 
 

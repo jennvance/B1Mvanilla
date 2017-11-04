@@ -195,11 +195,24 @@ app.get('/logout', function(req, res){
 
 app.post('/createprofile', function(req,res){
     console.log(req.body)
+    UltimateModel.findOne({_id:req.session._id}, function(err,user){
+        if ( user ){
+            UltimateModel.update({
+                name: req.body.name,
+                genre: req.body.genre,
+                bio: req.body.bio,
+                favorites: req.body.favorites,
+                photo: req.body.photo
+            })
+            // UltimateModel.save()
+            console.log(UltimateModel)
+        }
+    })
 
-    var newProfile = new Profile(req.body)
-    newProfile.save()
-    console.log(newProfile)
-    res.send("hi jenn!")
+    // var newProfile = new UltimateModel(req.body)
+    // newProfile.save()
+    // console.log(newProfile)
+    // res.send("hi jenn!")
 })
 
 

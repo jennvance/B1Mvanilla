@@ -70,6 +70,8 @@
 .profile-form {
 	background-color: #E25822;
 	border-radius: 5px;
+	padding: 4% 0;
+	width: 250px;
 }
 
 
@@ -78,11 +80,12 @@
 	margin: 0 auto 1%;
 	padding: 2%;
 	border: 0;
+	width: 200px;
 }
 
-.profile-form input:first-child, #ux3 input:first-child {
+/*.profile-form input:first-child, #ux3 input:first-child {
 	height: 17px;
-}
+}*/
 
 .profile-form textarea {
 	height: 150px;
@@ -90,9 +93,21 @@
 }
 
 .profile-dashboard p {
-	height: 150px;
-	width: 200px;
+
 }
+
+.option-1 {
+
+}
+
+.option-2 {
+	display: none;
+}
+
+.option-2 p {
+	padding: 2%;
+}
+
 
 #overlay {
 	height: 100vh;

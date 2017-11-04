@@ -4,7 +4,8 @@ var ProfileSchema = new mongoose.Schema({
 	name: String,
 	genre: String,
 	bio: String,
-	favorites: String
+	favorites: String,
+	photo: String
 })
 
 var Profile = mongoose.model('Profile', ProfileSchema)

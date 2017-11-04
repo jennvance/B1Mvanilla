@@ -76,4 +76,20 @@ $(document).ready(function(){
 		$(".option-1").show()
 	})
 
+	$("#setGoalLink").on("click", function(e){
+		e.preventDefault()
+		$(".hide").show()
+	})
+
+	$("#setGoal").on("submit",function(e){
+		e.preventDefault()
+		// $("")
+	console.log("November")
+	//didn't use FormData here with no repercussions
+	var glWds = document.getElementById('goalWds').value;
+	var glDt = document.getElementById('goalDate').value;
+	calcWpdToGoal(glWds, glDt)
+	document.getElementById("setGoal").reset()
+	})
+
 })

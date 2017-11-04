@@ -11,7 +11,7 @@ var ux1 = document.getElementById("ux1")
 var ux2 = document.getElementById("ux2")
 var ux3 = document.getElementById("ux3")
 var ux4 = document.getElementById("ux4")
-var ux5 = document.getElementById("ux5")
+
 
 
 document.querySelector('#wordct').addEventListener("submit", function(e){
@@ -157,19 +157,20 @@ function diffDates(a,b){
 }
 
 
-document.querySelector('#setGoal').addEventListener("submit", function(e){
-	e.preventDefault()
-	//didn't use FormData here with no repercussions
-	var glWds = document.getElementById('goalWds').value;
-	var glDt = document.getElementById('goalDate').value;
-	calcWpdToGoal(glWds, glDt)
-	document.getElementById("setGoal").reset()
-	//prompt login/signup...
-	ux5.style.display = "block"
-	//on login/signup, reveal full dashboard UI (hidden before login)
-	//(still need to make full dashboard UI)
+// document.querySelector("#setGoal").addEventListener("submit", function(e){
+// 	console.log("November")
+// 	e.preventDefault()
+// 	//didn't use FormData here with no repercussions
+// 	var glWds = document.getElementById('goalWds').value;
+// 	var glDt = document.getElementById('goalDate').value;
+// 	calcWpdToGoal(glWds, glDt)
+// 	document.getElementById("setGoal").reset()
+// 	//prompt login/signup...
 
-})
+// 	//on login/signup, reveal full dashboard UI (hidden before login)
+// 	//(still need to make full dashboard UI)
+
+// })
 
 function calcWpdToGoal(words, goalDate){
 	var today = new Date()

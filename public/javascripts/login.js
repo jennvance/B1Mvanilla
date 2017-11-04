@@ -5,9 +5,10 @@ $(document).ready(function(){
 			username: $('#signup-form .username').val(),
 			password: $('#signup-form .password').val()
 		}
+		console.log(signupInfo)
 		$.post('/signup', signupInfo, function(data){
 			console.log(data)
-			window.location.href = "/dashboard"
+			// window.location.href = "/dashboard"
 		})
 	})
 
@@ -19,7 +20,7 @@ $(document).ready(function(){
 		}
 		$.post('/login', signupInfo, function(data){
 			console.log(data)
-			window.location.href="/dashboard"
+			// window.location.href="/dashboard"
 		})
 	})
 })

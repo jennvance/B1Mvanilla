@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 	$(".su-panel").on("click", function(e){
 		e.stopPropagation()
-		e.preventDefault()
+		// e.preventDefault()
 	})
 
 

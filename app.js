@@ -11,7 +11,8 @@ var pug = require('pug');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var Profile = require('./dbmodels/createprofile')
+var schemas = require('./dbmodels/createprofile')
+var UserModel = schemas.UserModel
 var app = express();
 
 // view engine setup
@@ -36,16 +37,16 @@ mongoose.connect("mongodb://localhost/burndb", function(err){
     else{ console.info('mongoose initialized')}
 })
 
-var UserSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  created: {
-    type: Date,
-    default: function(){return new Date() }
-  }
-})
+// var UserSchema = new mongoose.Schema({
+//   username: String,
+//   password: String,
+//   created: {
+//     type: Date,
+//     default: function(){return new Date() }
+//   }
+// })
 
-var UserModel = mongoose.model('User', UserSchema)
+// var UserModel = mongoose.model('User', UserSchema)
 
 var checkIfLoggedIn = function(req, res, next){
     if ( req.session._id ) {
@@ -108,6 +109,8 @@ app.get('/session-test', function(req, res){
     }
     res.send('session counter: ' + req.session.counter)
 })
+
+
 
 app.all('/signup', function(req, res){
     // this user object has a plain-text password

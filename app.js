@@ -9,11 +9,13 @@ var bcrypt = require('bcryptjs')
 var sessionsModule = require('client-sessions')
 var pug = require('pug');
 
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var schemas = require('./dbmodels/createprofile')
-var UserModel = schemas.UserModel
-var UltimateModel = schemas.UltimateModel
+var UltimateModel = require('./dbmodels/createprofile')
 var app = express();
 
 // view engine setup
@@ -24,7 +26,7 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -99,7 +101,6 @@ app.get('/', function(req, res){
 })
 
 
-
 app.get('/session-test', function(req, res){
     console.log('session? ', req.session)
     if ( !req.session.counter ) {
@@ -117,9 +118,9 @@ app.all('/signup', function(req, res){
     // this user object has a plain-text password
     // we must hash the password before we save the user
     
-    console.log("UserModel ====" + UserModel)
-    console.log(req.body)
-    // var newUser = new UserModel(req.body)
+    console.log('body??', req.body)
+
+
     var newUser = new UltimateModel(req.body)
     console.log("user: " + newUser)
     bcrypt.genSalt(11, function(saltErr, salt){
@@ -143,7 +144,7 @@ app.all('/signup', function(req, res){
 })
 
 app.post('/login', function(req, res){
-    UserModel.findOne({username: req.body.username}, function(err, user){
+    UltimateModel.findOne({username: req.body.username}, function(err, user){
         if ( err ) { console.log('failed to find user')}
         else if ( !user ) { 
             console.log('no user found')
@@ -193,26 +194,25 @@ app.get('/logout', function(req, res){
     res.redirect('/')
 })
 
-app.post('/createprofile', function(req,res){
+app.post('/createprofile', upload.single('pic'), function(req,res){
     console.log(req.body)
+    console.log(req.file)
+
     UltimateModel.findOne({_id:req.session._id}, function(err,user){
         if ( user ){
-            UltimateModel.update({
-                name: req.body.name,
-                genre: req.body.genre,
-                bio: req.body.bio,
-                favorites: req.body.favorites,
-                photo: req.body.photo
-            })
-            // UltimateModel.save()
-            console.log(UltimateModel)
-        }
-    })
+            user.name = req.body.name;
+            user.genre = req.body.genre;
+            user.bio = req.body.bio;
+            user.favorites = req.body.favorites;
+            user.photo = req.file.filename;
 
-    // var newProfile = new UltimateModel(req.body)
-    // newProfile.save()
-    // console.log(newProfile)
-    // res.send("hi jenn!")
+            user.save(function(){
+                // console.log(UltimateModel)
+            })
+        }
+        res.send(user)
+    })
+    
 })
 
 

@@ -26,49 +26,65 @@ $(document).ready(function(){
 
 
 	//DB interactions
-	$("#profileForm").on("submit", function(e){
-		e.preventDefault()
-		var tempPhoto = document.getElementById("inputPhoto").files[0]
-		console.log(tempPhoto)
-		var profileInfo = {
-			name: $("#profileForm .name").val(),
-			genre: $("#profileForm .genre").val(),
-			bio: $("#profileForm .bio").val(),
-			favorites: $("#profileForm .favorites").val(),
-			photo: tempPhoto.name
-		}
-		//WTF
-		$.post('/createprofile', profileInfo, function(data){
-			console.log(data)
-			console.log(profileInfo)
-		})
-		//decided it works better without reset
-		// document.getElementById("profileForm").reset()
+	// $("#profileForm").on("submit", function(e){
+	// 	e.preventDefault()
 
-		var name = profileInfo.name;
-		var genre = profileInfo.genre;
-		var bio = profileInfo.bio;
-		var favorites = profileInfo.favorites;
-		var photo = profileInfo.photo;
 
-		var nameId = document.getElementById("profileName")
-		var genreId = document.getElementById("profileGenre")
-		var bioId = document.getElementById("profileBio")
-		var favoritesId = document.getElementById("profileFavorites")
-		var photoId = document.getElementById("profilePhoto")
-		nameId.innerHTML = name;
-		genreId.innerHTML = genre;
-		bioId.innerHTML = bio;
-		favoritesId.innerHTML = favorites;
+	// 	$.ajax({
+	// 		url: "/createprofile",
+	// 		type: "POST",
+	// 		data: new FormData($("#profileForm")[0]),
+	// 		cache: false,
+	// 		contentType: false,
+	// 		processData: false,
+	// 		success: function(data){
+	// 			console.log(data)
+	// 		}
+	// 	})
 
-		//does src not work because something needs to happen to photo on server?
-		console.log(photo)
-		photoId.src = photo;
+	// 	var tempPhoto = document.getElementById("inputPhoto").files[0]
+	// 	console.log(tempPhoto)
 
-		$(".option-1").hide();
-		$(".option-2").show()
+	// 	var profileInfo = {
+	// 		name: $("#profileForm .name").val(),
+	// 		genre: $("#profileForm .genre").val(),
+	// 		bio: $("#profileForm .bio").val(),
+	// 		favorites: $("#profileForm .favorites").val(),
+	// 		photo: tempPhoto.name
+	// 	}
 
-	})
+	// 	//WTF
+	// 	// $.post('/createprofile', profileInfo, function(data){
+	// 	// 	console.log(data)
+	// 	// 	console.log(profileInfo)
+	// 	// })
+	// 	//decided it works better without reset
+	// 	// document.getElementById("profileForm").reset()
+
+	// 	var name = profileInfo.name;
+	// 	var genre = profileInfo.genre;
+	// 	var bio = profileInfo.bio;
+	// 	var favorites = profileInfo.favorites;
+	// 	var photo = profileInfo.photo;
+
+	// 	var nameId = document.getElementById("profileName")
+	// 	var genreId = document.getElementById("profileGenre")
+	// 	var bioId = document.getElementById("profileBio")
+	// 	var favoritesId = document.getElementById("profileFavorites")
+	// 	var photoId = document.getElementById("profilePhoto")
+	// 	nameId.innerHTML = name;
+	// 	genreId.innerHTML = genre;
+	// 	bioId.innerHTML = bio;
+	// 	favoritesId.innerHTML = favorites;
+
+	// 	//does src not work because something needs to happen to photo on server?
+	// 	console.log(photo)
+	// 	photoId.src = photo;
+
+	// 	$(".option-1").hide();
+	// 	$(".option-2").show()
+
+	// })
 
 	$("#editProfile").on("click", function(e){
 		e.preventDefault()

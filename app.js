@@ -40,17 +40,6 @@ mongoose.connect("mongodb://localhost/burndb", function(err){
     else{ console.info('mongoose initialized')}
 })
 
-// var UserSchema = new mongoose.Schema({
-//   username: String,
-//   password: String,
-//   created: {
-//     type: Date,
-//     default: function(){return new Date() }
-//   }
-// })
-
-// var UserModel = mongoose.model('User', UserSchema)
-
 var checkIfLoggedIn = function(req, res, next){
     if ( req.session._id ) {
         console.log("user is logged in")
@@ -170,7 +159,7 @@ app.post('/login', function(req, res){
 })
 
 app.get('/dashboard', checkIfLoggedIn, function(req, res){
-    UserModel.findOne({_id: req.session._id}, function(err, user){
+    UltimateModel.findOne({_id: req.session._id}, function(err, user){
         if ( user ) {
             res.send(`Hello, ${user.username}. Welcome to your dashboard!
                 <a href="/logout">Log Out</a>
@@ -184,7 +173,7 @@ app.get('/dashboard', checkIfLoggedIn, function(req, res){
 })
 
 app.get('/me', checkIfLoggedInForAjax, function(req, res){
-    UserModel.findOne({_id:req.session._id}, function(err, user){
+    UltimateModel.findOne({_id:req.session._id}, function(err, user){
         res.send(user)
     })
 })
@@ -204,13 +193,15 @@ app.post('/createprofile', upload.single('pic'), function(req,res){
             user.genre = req.body.genre;
             user.bio = req.body.bio;
             user.favorites = req.body.favorites;
+            //breaks code if not required for submit
             user.photo = req.file.filename;
 
             user.save(function(){
                 // console.log(UltimateModel)
             })
         }
-        res.send(user)
+        //redirect ruins everything
+        res.redirect("/")
     })
     
 })

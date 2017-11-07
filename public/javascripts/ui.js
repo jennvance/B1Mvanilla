@@ -43,7 +43,6 @@ $(document).ready(function(){
 	// 	})
 
 	// 	var tempPhoto = document.getElementById("inputPhoto").files[0]
-	// 	console.log(tempPhoto)
 
 	// 	var profileInfo = {
 	// 		name: $("#profileForm .name").val(),
@@ -53,7 +52,6 @@ $(document).ready(function(){
 	// 		photo: tempPhoto.name
 	// 	}
 
-	// 	//WTF
 	// 	// $.post('/createprofile', profileInfo, function(data){
 	// 	// 	console.log(data)
 	// 	// 	console.log(profileInfo)
@@ -78,7 +76,7 @@ $(document).ready(function(){
 	// 	favoritesId.innerHTML = favorites;
 
 	// 	//does src not work because something needs to happen to photo on server?
-	// 	console.log(photo)
+
 	// 	photoId.src = photo;
 
 	// 	$(".option-1").hide();
@@ -99,8 +97,7 @@ $(document).ready(function(){
 
 	$("#setGoal").on("submit",function(e){
 		e.preventDefault()
-		// $("")
-	console.log("November")
+
 	//didn't use FormData here with no repercussions
 	var glWds = document.getElementById('goalWds').value;
 	var glDt = document.getElementById('goalDate').value;

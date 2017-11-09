@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	$("#wordct").on("submit", function(event){
 		event.preventDefault()
-		console.log("submitted count form")
 		formData = {
 			date: $("#datewds").val(),
 			words: $("#numwds").val()
@@ -14,6 +13,7 @@ $(document).ready(function(){
 			success: function(data){
 				calcTotal(data)
 				console.log(calcTotal(data))
+				renderTotal(calcTotal(data))
 			}
 		})
 		document.getElementById("wordct").reset()
@@ -25,7 +25,12 @@ $(document).ready(function(){
 		}).reduce(function(a,b){
 			return a+b
 		})
-}
+	}
+
+	function renderTotal(total){
+		var loc = document.getElementById("allTimeTotal")
+		loc.innerHTML = total
+	}
 
 
 

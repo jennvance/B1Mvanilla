@@ -199,7 +199,10 @@ app.post('/createprofile', upload.single('pic'), function(req,res){
             user.save(function(){
                 // console.log(UltimateModel)
             })
+
         }
+        //else (i.e. if no user) direct to signup (and login?)
+
         //redirect ruins everything
         res.redirect("/")
     })

@@ -210,7 +210,18 @@ app.post('/createprofile', upload.single('pic'), function(req,res){
 app.post("/addcount", function(req,res){
     console.log("request body", req.body)
     UltimateModel.findOne({_id:req.session._id}, function(err, user){
-        res.send(user)
+        if(user){
+            count = {
+                date: req.body.date,
+                words: req.body.words
+            }
+            user.counts.push(count)
+            user.save()
+            res.send(user.counts)
+        }
+        // else {
+        //     //show overlay containing login
+        // }
     })
 })
 

@@ -12,7 +12,10 @@ var UltimateSchema = new mongoose.Schema({
 	bio: String,
 	favorites: String,
 	photo: String,
-	counts: Array,
+	counts: [{
+		date: Date,
+		words: Number
+	}],
 	goal: {
 		date: Date,
 		numwds: Number

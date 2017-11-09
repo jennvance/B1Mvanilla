@@ -108,8 +108,6 @@ app.all('/signup', function(req, res){
     // we must hash the password before we save the user
     
     console.log('body??', req.body)
-
-
     var newUser = new UltimateModel(req.body)
     console.log("user: " + newUser)
     bcrypt.genSalt(11, function(saltErr, salt){
@@ -207,6 +205,13 @@ app.post('/createprofile', upload.single('pic'), function(req,res){
         res.redirect("/")
     })
     
+})
+
+app.post("/addcount", function(req,res){
+    console.log("request body", req.body)
+    UltimateModel.findOne({_id:req.session._id}, function(err, user){
+        res.send(user)
+    })
 })
 
 

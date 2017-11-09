@@ -77,13 +77,30 @@
 	<h2>Add Count. How many words did you write today?</h2>
 	<div class="ux1">
 		<form id="wordct">
-			<input type="number" name="numwds" required>
-			<input type="date" name="date" required>
+			<input type="number" name="numwds" required id="numwds">
+			<input type="date" name="date" required id="datewds">
 			<button type="submit" class="button">Submit</button>
 		</form>
 	</div>
 	<a href="#" id="viewStatsLink"><h3>View Stats</h3></a>
 	<a href="#" id="setGoalLink"><h3>Set Goal</h3></a>
+	<form name="monthform" id="monthform" >
+		<label for="selectmonth">Choose Month to View Stats:</label>
+		<select name="month" id="selectmonth">
+			<option value="0">January</option>
+			<option value="1">February</option>
+			<option value="2">March</option>
+			<option value="3">April</option>
+			<option value="4">May</option>
+			<option value="5">June</option>
+			<option value="6">July</option>
+			<option value="7">August</option>
+			<option value="8">September</option>
+			<option value="9">October</option>
+			<option value="10">November</option>
+			<option value="11">December</option>
+		</select>
+	</form>
 
 	<div id="stats">
 		<!-- allTimeTotal id is already used line 91 -->

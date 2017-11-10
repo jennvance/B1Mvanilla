@@ -32,6 +32,14 @@ $(document).ready(function(){
 		loc.innerHTML = total
 	}
 
+	function calcTotalMonth(data){
+		//sort by date
+
+		//select all of given month
+
+		//add them
+	}
+
 
 
 

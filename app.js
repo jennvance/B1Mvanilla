@@ -201,8 +201,7 @@ app.post('/createprofile', upload.single('photo'), function(req,res){
         }
         //else (i.e. if no user) direct to signup (and login?)
 
-        //redirect ruins everything
-        // res.redirect("/")
+
         res.send(user)
     })
     

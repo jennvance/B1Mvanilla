@@ -123,7 +123,6 @@ function findProductiveDay(){
 	//find day of week for each date in allCounts
 	//sort by day of week and keep running total for each day of week
 	//compare totals of each day of week and find highest
-
 }
 
 function renderCalcs(mT, avg){
@@ -178,13 +177,4 @@ function diffDates(a,b){
 
 // })
 
-function calcWpdToGoal(words, goalDate){
-	var today = new Date()
-	var goalBy = new Date(goalDate)
-	//date selector selects for local instead of UTC time and it messes up diffDates() calc.
-	//fix later
-	var numDays = diffDates(today, goalBy) + 1
-	var wpdUntilGoal = (words / numDays).toFixed(0)
-	var wpd = document.getElementById("wpdToGoal")
-	wpd.innerHTML = wpdUntilGoal
-}
+

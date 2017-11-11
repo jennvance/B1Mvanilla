@@ -159,13 +159,13 @@
 
 		<div class="option-1">
 			<div class="profile-form">
-				<form id="profileForm" method="POST" action="/createprofile" enctype="multipart/form-data">
+				<form id="profileForm" enctype="multipart/form-data">
 					
-					<input type="text" name="authorname" placeholder="Your Name" required class="name">
+					<input type="text" name="name" placeholder="Your Name" required class="name">
 					<input type="text" name="genre" placeholder="Genre" required class="genre">
 					<textarea class="bio" name="bio" placeholder="Author Bio"></textarea >
-					<textarea class="favorites" naame="favorites" placeholder="Favorite Things"></textarea >
-					<input type="file" name="pic" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto">
+					<textarea class="favorites" name="favorites" placeholder="Favorite Things"></textarea >
+					<input type="file" name="photo" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto">
 					<button type="submit" class="button">Submit</button>
 				</form>
 			</div>

@@ -1,4 +1,44 @@
 $(document).ready(function(){
+
+	$("#profileForm").on("submit", function(event){
+		event.preventDefault()
+		$.ajax({
+			url: "/createprofile",
+			type: "POST",
+			data: new FormData($("#profileForm")[0]),
+			enctype: 'multipart/form-data',
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(data){
+				renderProfileData(data)
+				$(".option-1").hide()
+				$(".option-2").show()
+			}
+		})
+
+	})
+
+	function renderProfileData(data){
+		console.log(data)
+		var name = data.name;
+		var genre = data.genre;
+		var bio = data.bio;
+		var favorites = data.favorites;
+		// var photo = data.photo;
+		var nameId = document.getElementById("profileName")
+		var genreId = document.getElementById("profileGenre")
+		var bioId = document.getElementById("profileBio")
+		var favoritesId = document.getElementById("profileFavorites")
+		// var photoId = document.getElementById("profilePhoto")
+		nameId.innerHTML = name;
+		genreId.innerHTML = genre;
+		bioId.innerHTML = bio;
+		favoritesId.innerHTML = favorites;
+		//does not work 
+		// photoId.src = photo;
+	}
+
 	$("#wordct").on("submit", function(event){
 		event.preventDefault()
 		formData = {
@@ -14,7 +54,6 @@ $(document).ready(function(){
 				calcTotal(data)
 				console.log(calcTotal(data))
 				renderTotal(calcTotal(data))
-				//didnt need to console log this anymore
 				sortByDate(data)
 				console.log(selectByMonth(data, 10))
 				console.log(calcTotal(selectByMonth(data, 10)))
@@ -105,9 +144,30 @@ $(document).ready(function(){
 		return (total / daysBetween).toFixed(0)
 	}
 
+	//copy/pasted calcWpdToGoal and #setGoal event handler from shitty code file
+	//rewrite after figure out where it belongs in app
+	function calcWpdToGoal(words, goalDate){
+		var today = new Date()
+		var goalBy = new Date(goalDate)
+		//date selector selects for local instead of UTC time and it messes up diffDates() calc.
+		//fix later
+		var numDays = diffDates(today, goalBy) + 1
+		var wpdUntilGoal = (words / numDays).toFixed(0)
+		var wpd = document.getElementById("wpdToGoal")
+		wpd.innerHTML = wpdUntilGoal
 
-
-
+	}
+	$("#setGoal").on("submit",function(e){
+		e.preventDefault()
+		//didn't use FormData here with no repercussions
+		var glWds = document.getElementById('goalWds').value;
+		var glDt = document.getElementById('goalDate').value;
+		console.log(glWds, glDt)
+		calcWpdToGoal(glWds, glDt)
+		console.log(calcWpdToGoal(glWds, glDt))
+		document.getElementById("setGoal").reset()
+	})
+	//End Shitty Code
 
 
 

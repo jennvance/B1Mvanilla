@@ -181,7 +181,7 @@ app.get('/logout', function(req, res){
     res.redirect('/')
 })
 
-app.post('/createprofile', upload.single('pic'), function(req,res){
+app.post('/createprofile', upload.single('photo'), function(req,res){
     console.log(req.body)
     console.log(req.file)
 
@@ -202,7 +202,8 @@ app.post('/createprofile', upload.single('pic'), function(req,res){
         //else (i.e. if no user) direct to signup (and login?)
 
         //redirect ruins everything
-        res.redirect("/")
+        // res.redirect("/")
+        res.send(user)
     })
     
 })

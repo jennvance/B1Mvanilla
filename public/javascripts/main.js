@@ -25,18 +25,18 @@ $(document).ready(function(){
 		var genre = data.genre;
 		var bio = data.bio;
 		var favorites = data.favorites;
-		// var photo = data.photo;
+		var photo = data.photo;
 		var nameId = document.getElementById("profileName")
 		var genreId = document.getElementById("profileGenre")
 		var bioId = document.getElementById("profileBio")
 		var favoritesId = document.getElementById("profileFavorites")
-		// var photoId = document.getElementById("profilePhoto")
+		var photoId = document.getElementById("profilePhoto")
 		nameId.innerHTML = name;
 		genreId.innerHTML = genre;
 		bioId.innerHTML = bio;
 		favoritesId.innerHTML = favorites;
-		//does not work 
-		// photoId.src = photo;
+		//does work 
+		photoId.src = "/" + photo;
 	}
 
 	$("#wordct").on("submit", function(event){

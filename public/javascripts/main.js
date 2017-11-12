@@ -20,23 +20,11 @@ $(document).ready(function(){
 	})
 
 	function renderProfileData(data){
-		console.log(data)
-		var name = data.name;
-		var genre = data.genre;
-		var bio = data.bio;
-		var favorites = data.favorites;
-		var photo = data.photo;
-		var nameId = document.getElementById("profileName")
-		var genreId = document.getElementById("profileGenre")
-		var bioId = document.getElementById("profileBio")
-		var favoritesId = document.getElementById("profileFavorites")
-		var photoId = document.getElementById("profilePhoto")
-		nameId.innerHTML = name;
-		genreId.innerHTML = genre;
-		bioId.innerHTML = bio;
-		favoritesId.innerHTML = favorites;
-		//does work 
-		photoId.src = "/" + photo;
+		document.getElementById("profileName").innerHTML = data.name;
+		document.getElementById("profileGenre").innerHTML = data.genre;
+		document.getElementById("profileBio").innerHTML = data.bio;
+		document.getElementById("profileFavorites").innerHTML = data.favorites;
+		document.getElementById("profilePhoto").src = "/" + data.photo;
 	}
 
 	$("#wordct").on("submit", function(event){
@@ -144,32 +132,40 @@ $(document).ready(function(){
 		return (total / daysBetween).toFixed(0)
 	}
 
-	//copy/pasted calcWpdToGoal and #setGoal event handler from shitty code file
-	//rewrite after figure out where it belongs in app
-	function calcWpdToGoal(words, goalDate){
+	$("#setGoal").on("submit", function(event){
+		event.preventDefault()
+		goalData = {
+			date: $("#goalDate").val(),
+			words: $("#goalWds").val()
+		}
+		$.ajax({
+			url: "/setgoal",
+			type: "POST",
+			data: goalData,
+			success: function(data){
+				console.log(calcWpdToGoal(data))
+				renderWpdToGoal(calcWpdToGoal(data))
+			}
+		})
+		$("#setGoal")[0].reset()
+	})
+
+	function calcWpdToGoal(data){
 		var today = new Date()
-		var goalBy = new Date(goalDate)
+		var goalDate = new Date(data.date)
 		//date selector selects for local instead of UTC time and it messes up diffDates() calc.
 		//fix later
-		var numDays = diffDates(today, goalBy) + 1
-		var wpdUntilGoal = (words / numDays).toFixed(0)
-		var wpd = document.getElementById("wpdToGoal")
-		wpd.innerHTML = wpdUntilGoal
-
+		var daysBetween = diffDates(today, goalDate) + 1
+		var goalAmount = data.words
+		return ( goalAmount / daysBetween).toFixed(0)
 	}
-	$("#setGoal").on("submit",function(e){
-		e.preventDefault()
-		//didn't use FormData here with no repercussions
-		var glWds = document.getElementById('goalWds').value;
-		var glDt = document.getElementById('goalDate').value;
-		console.log(glWds, glDt)
-		calcWpdToGoal(glWds, glDt)
-		console.log(calcWpdToGoal(glWds, glDt))
-		document.getElementById("setGoal").reset()
-	})
-	//End Shitty Code
 
-
+	function renderWpdToGoal(wpdToGoal){
+		//Did not work
+		// $("#wpdToGoal").text = wpdToGoal
+		//Did work
+		document.getElementById("wpdToGoal").innerHTML = wpdToGoal;
+	}
 
 
 

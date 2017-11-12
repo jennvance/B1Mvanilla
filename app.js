@@ -226,6 +226,20 @@ app.post("/addcount", function(req,res){
     })
 })
 
+app.post("/setgoal", function(req,res){
+    console.log(req.body)
+    UltimateModel.findOne({_id:req.session._id}, function(err,user){
+        if (user) {
+            user.goal = {
+                date: req.body.date,
+                words: req.body.words
+            }
+            user.save()
+            res.send(user.goal)
+        }
+    })
+})
+
 
 //resume node boilerplate
 // catch 404 and forward to error handler

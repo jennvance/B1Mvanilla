@@ -18,7 +18,7 @@ var UltimateSchema = new mongoose.Schema({
 	}],
 	goal: {
 		date: Date,
-		numwds: Number
+		words: Number
 	},
 	friends: Array
 })

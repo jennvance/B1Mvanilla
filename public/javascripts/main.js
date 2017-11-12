@@ -1,5 +1,34 @@
 $(document).ready(function(){
 
+	function getAllUsers(){
+		$.ajax({
+			url: "/getfriends",
+			type: "GET",
+			success: function(data){
+				console.log(data)
+				renderAllUsers(data)
+			}
+		})
+	}
+	getAllUsers()
+
+	function renderAllUsers(data){
+		var newHTML = []
+		for(var i=0; i<data.length; i++){
+			var entry = {
+				name: data[i].name,
+				genre: data[i].genre,
+				photo: data[i].photo
+			}
+			var entryHTML = "<div class=\"friend-single\"><img src=\"/" + entry.photo + "\" class=\"friend-single-photo\"><h4 class=\"friend-single-name\">" + entry.name + "</h4><h5>" + entry.genre + "</h5></div>"
+
+			newHTML.push(entryHTML)
+			console.log(newHTML)
+		}
+		$(".friend-bucket").html(newHTML.join(""))
+	}
+
+
 	$("#profileForm").on("submit", function(event){
 		event.preventDefault()
 		$.ajax({

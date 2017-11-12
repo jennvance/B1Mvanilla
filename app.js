@@ -240,6 +240,15 @@ app.post("/setgoal", function(req,res){
     })
 })
 
+app.get("/getfriends", function(req,res){
+    console.log(req.body)
+    UltimateModel.find({}, function(err, user){
+        if (user){
+            res.send(user)
+        }
+    })
+})
+
 
 //resume node boilerplate
 // catch 404 and forward to error handler

@@ -77,6 +77,7 @@ $(document).ready(function(){
 				console.log(findProductiveDate(selectByMonth(data,10)))
 				console.log(calcAverageMonth(selectByMonth(data, 10)))
 				console.log(calcAverageAllTime(sortByDate(data)))
+				console.log(findProductiveDay(data))
 			}
 		})
 		document.getElementById("wordct").reset()
@@ -117,10 +118,22 @@ $(document).ready(function(){
 
 	}
 	
-	function findProductiveDay(){
-		//find day of week for each date in allCounts
-		//sort by day of week and keep running total for each day of week
+	function findProductiveDay(data){
+		var days = [0,0,0,0,0,0,0]
+		var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+		for(var i=0; i<data.length;i++){
+			//find day of week for each date in allCounts
+			var dayOfWeek = new Date(data[i].date).getDay()
+			//sort by day of week and keep running total for each day of week
+			days[dayOfWeek] += data[i].words
+		}
 		//compare totals of each day of week and find highest
+		var highestDay = days.reduce(function(a,b){
+			return Math.max(a,b)
+		})
+		var highestIndex = days.indexOf(highestDay)
+		var productiveDay = dayNames[highestIndex]
+		return productiveDay
 	}
 
 	function renderProductiveDay(){

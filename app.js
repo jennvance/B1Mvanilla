@@ -149,7 +149,8 @@ app.post('/login', function(req, res){
                 }
                 else {
                     req.session._id = user._id
-                    res.send({success:'success!'})
+                    // res.send({success:'success!'})
+                    res.send(user)
                 } 
 
             })

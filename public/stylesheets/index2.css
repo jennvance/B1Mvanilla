@@ -95,11 +95,11 @@
 }
 
 .option-1 {
-
+	display: none;
 }
 
 .option-2 {
-	display: none;
+	/*display: none;*/
 }
 
 .option-2 p {

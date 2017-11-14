@@ -1,5 +1,33 @@
 $(document).ready(function(){
 
+	$('#signup-form').on('submit', function(event){
+		event.preventDefault()
+		var signupInfo = {
+			username: $('#signup-form .username').val(),
+			password: $('#signup-form .password').val()
+		}
+		console.log(signupInfo)
+		$.post('/signup', signupInfo, function(data){
+			console.log(data)
+			// window.location.href = "/dashboard"
+		})
+		$("#overlay").hide()
+	})
+
+	$('#login-form').on('submit', function(event){
+		event.preventDefault()
+		var signupInfo = {
+			username: $('#login-form .username').val(),
+			password: $('#login-form .password').val()
+		}
+		$.post('/login', signupInfo, function(data){
+			console.log(data)
+			renderProfileData(data)
+			// window.location.href="/dashboard"
+		})
+		$("#overlay").hide()
+	})
+
 	function getAllUsers(){
 		$.ajax({
 			url: "/getfriends",
@@ -11,6 +39,7 @@ $(document).ready(function(){
 		})
 	}
 	getAllUsers()
+
 
 	function renderAllUsers(data){
 		var newHTML = []
@@ -49,10 +78,10 @@ $(document).ready(function(){
 	})
 
 	function renderProfileData(data){
-		document.getElementById("profileName").innerHTML = data.name;
-		document.getElementById("profileGenre").innerHTML = data.genre;
-		document.getElementById("profileBio").innerHTML = data.bio;
-		document.getElementById("profileFavorites").innerHTML = data.favorites;
+		$("#profileName").html(data.name)
+		$("#profileGenre").html(data.genre)
+		$("#profileBio").html(data.bio)
+		$("#profileFavorites").html(data.favorites)
 		document.getElementById("profilePhoto").src = "/" + data.photo;
 	}
 
@@ -128,10 +157,10 @@ $(document).ready(function(){
 			days[dayOfWeek] += data[i].words
 		}
 		//compare totals of each day of week and find highest
-		var highestDay = days.reduce(function(a,b){
+		var highestCount = days.reduce(function(a,b){
 			return Math.max(a,b)
 		})
-		var highestIndex = days.indexOf(highestDay)
+		var highestIndex = days.indexOf(highestCount)
 		var productiveDay = dayNames[highestIndex]
 		return productiveDay
 	}
@@ -203,10 +232,7 @@ $(document).ready(function(){
 	}
 
 	function renderWpdToGoal(wpdToGoal){
-		//Did not work
-		// $("#wpdToGoal").text = wpdToGoal
-		//Did work
-		document.getElementById("wpdToGoal").innerHTML = wpdToGoal;
+		$("#wpdToGoal").text(wpdToGoal)
 	}
 
 

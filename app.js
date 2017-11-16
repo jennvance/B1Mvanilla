@@ -250,6 +250,16 @@ app.get("/getfriends", function(req,res){
     })
 })
 
+app.get("/getcounts", function(req,res){
+    console.log("line 254: ", req.body)
+    UltimateModel.findOne({_id:req.session._id}, function(err, user){
+        if(user){
+            // user.counts = req.body.counts
+            res.send(user)
+        }
+    })
+})
+
 
 //resume node boilerplate
 // catch 404 and forward to error handler

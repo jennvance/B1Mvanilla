@@ -1,5 +1,46 @@
 $(document).ready(function(){
 
+	function recurse(){
+		if()
+	}
+
+
+	function renderCharts(data){
+		console.log("chart data: ",data)
+		var ctx = document.getElementById("myChart")
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		    	x: new Date(data[i].date),
+		    	y: data[i].words
+		    },
+		    options: {
+		        scales: {
+		        	xAxes: [{
+		        		type: 'time',
+		        		distribution: 'linear',
+		        		time: {
+		        			unit: 'day'
+		        		}
+		        	}]
+		        }
+		    }
+		})
+	}
+
+	//Wrote function but didn't use it. Maybe delete later.
+	function getCounts(){
+		$.ajax({
+			url: "/getcounts",
+			type: "GET",
+			success: function(data){
+				renderCharts(data.counts)
+			}
+		})
+	}
+
+	
+
 	$('#signup-form').on('submit', function(event){
 		event.preventDefault()
 		var signupInfo = {
@@ -23,6 +64,7 @@ $(document).ready(function(){
 		$.post('/login', signupInfo, function(data){
 			console.log(data)
 			renderProfileData(data)
+			renderCharts(data.counts)
 			// window.location.href="/dashboard"
 		})
 		$("#overlay").hide()

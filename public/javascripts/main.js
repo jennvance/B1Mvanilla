@@ -1,8 +1,5 @@
 $(document).ready(function(){
 
-	function recurse(){
-		if()
-	}
 
 
 	function renderCharts(data){
@@ -91,13 +88,18 @@ $(document).ready(function(){
 				genre: data[i].genre,
 				photo: data[i].photo
 			}
-			var entryHTML = "<div class=\"friend-single\"><img src=\"/" + entry.photo + "\" class=\"friend-single-photo\"><h4 class=\"friend-single-name\">" + entry.name + "</h4><h5>" + entry.genre + "</h5></div>"
+			var entryHTML = "<div class=\"friend-single\"><img src=\"/" + entry.photo + "\" class=\"friend-single-photo\"><h4 class=\"friend-single-name\">" + entry.name + "</h4><h5>" + entry.genre + "</h5><button class=\"button followButton\">Follow</button></div>"
 
 			newHTML.push(entryHTML)
 			console.log(newHTML)
 		}
-		$(".friend-bucket").html(newHTML.join(""))
+		$("#friend-bucket").html(newHTML.join(""))
 	}
+
+	$("#friend-bucket").on("click", ".followButton", function(event){
+		event.preventDefault()
+		
+	})
 
 
 	$("#profileForm").on("submit", function(event){

@@ -27,7 +27,7 @@
 	background-color: #22ACE2;
 }
 
-.friend-bucket {
+#friend-bucket {
 	display: flex;
 	flex-wrap: wrap;
 	margin: 0 auto;

@@ -2,28 +2,28 @@ $(document).ready(function(){
 
 
 
-	function renderCharts(data){
-		console.log("chart data: ",data)
-		var ctx = document.getElementById("myChart")
-		var myChart = new Chart(ctx, {
-		    type: 'bar',
-		    data: {
-		    	x: new Date(data[i].date),
-		    	y: data[i].words
-		    },
-		    options: {
-		        scales: {
-		        	xAxes: [{
-		        		type: 'time',
-		        		distribution: 'linear',
-		        		time: {
-		        			unit: 'day'
-		        		}
-		        	}]
-		        }
-		    }
-		})
-	}
+	// function renderCharts(data){
+	// 	console.log("chart data: ",data)
+	// 	var ctx = document.getElementById("myChart")
+	// 	var myChart = new Chart(ctx, {
+	// 	    type: 'bar',
+	// 	    data: {
+	// 	    	x: new Date(data[i].date),
+	// 	    	y: data[i].words
+	// 	    },
+	// 	    options: {
+	// 	        scales: {
+	// 	        	xAxes: [{
+	// 	        		type: 'time',
+	// 	        		distribution: 'linear',
+	// 	        		time: {
+	// 	        			unit: 'day'
+	// 	        		}
+	// 	        	}]
+	// 	        }
+	// 	    }
+	// 	})
+	// }
 
 	//Wrote function but didn't use it. Maybe delete later.
 	function getCounts(){
@@ -61,7 +61,7 @@ $(document).ready(function(){
 		$.post('/login', signupInfo, function(data){
 			console.log(data)
 			renderProfileData(data)
-			renderCharts(data.counts)
+			// renderCharts(data.counts)
 			// window.location.href="/dashboard"
 		})
 		$("#overlay").hide()
@@ -88,7 +88,7 @@ $(document).ready(function(){
 				genre: data[i].genre,
 				photo: data[i].photo
 			}
-			var entryHTML = "<div class=\"friend-single\"><img src=\"/" + entry.photo + "\" class=\"friend-single-photo\"><h4 class=\"friend-single-name\">" + entry.name + "</h4><h5>" + entry.genre + "</h5><button class=\"button followButton\">Follow</button></div>"
+			var entryHTML = "<div class=\"friend-single\"><img src=\"/" + entry.photo + "\" class=\"friend-single-photo\"><h4 class=\"friend-single-name\">" + entry.name + "</h4><h5>" + entry.genre + "</h5><button data-id='" + data[i]._id + "' class=\"button followButton\">Follow</button></div>"
 
 			newHTML.push(entryHTML)
 			console.log(newHTML)
@@ -97,7 +97,12 @@ $(document).ready(function(){
 	}
 
 	$("#friend-bucket").on("click", ".followButton", function(event){
-		event.preventDefault()
+		// event.preventDefault()
+		console.log($(event.target).attr('data-id'))
+		$.post("/addfriend", {newFriendId: $(event.target).attr('data-id') }, function(data){
+			console.log(data)
+		})
+
 		
 	})
 

@@ -250,6 +250,37 @@ app.get("/getfriends", function(req,res){
     })
 })
 
+app.post("/addfriend", function(req, res){
+    console.log(req.body.newFriendId)
+    UltimateModel.findOne({_id:req.body.newFriendId}, function(err, newFriend){
+        if(newFriend){
+            UltimateModel.findOne({_id:req.session._id}, function(err, user){
+                if(user){
+                    console.log("New Friend: ",newFriend)
+                    //check to see if friend already in user's friends
+                    for(var i = 0; i<user.friends.length; i++){
+                        console.log(typeof user.friends[i], " ", typeof newFriend._id)
+                        if ( user.friends[i].equals(newFriend._id) ) {
+                            console.log(user.friends[i], " ",newFriend._id)
+                            return res.send("You're already friends with that person!")
+                        }
+                    }
+                    user.friends.push(newFriend._id)
+                    user.save()
+                    console.log("friend list: ", user.friends)
+                    res.send({success:'success!'})
+                }
+                else {
+                    res.send("who are you?")
+                }
+            })
+        }
+        else {
+            res.send("no user found")
+        }
+    })
+})
+
 app.get("/getcounts", function(req,res){
     console.log("line 254: ", req.body)
     UltimateModel.findOne({_id:req.session._id}, function(err, user){

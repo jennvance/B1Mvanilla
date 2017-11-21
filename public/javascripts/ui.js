@@ -14,10 +14,7 @@ $(document).ready(function(){
 		$("#su-button").hide()
 		$("#li-button").show()
 	})
-	$("#overlay, #x").on("click", function(e){
-		e.preventDefault()
-		$("#overlay").hide();
-	})
+
 
 	$(".su-panel").on("click", function(e){
 		e.stopPropagation()
@@ -35,6 +32,12 @@ $(document).ready(function(){
 		$(".hide").show()
 	})
 
-
+	$("#showOverlay").on("click", function(){
+		$("#overlay").show()
+	})
+	$("#overlay, #x").on("click", function(e){
+		e.preventDefault()
+		$("#overlay").hide();
+	})
 
 })

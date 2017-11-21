@@ -1,7 +1,4 @@
 $(document).ready(function(){
-
-
-
 	// function renderCharts(data){
 	// 	console.log("chart data: ",data)
 	// 	var ctx = document.getElementById("myChart")
@@ -36,6 +33,11 @@ $(document).ready(function(){
 		})
 	}
 
+	function changeDisplayOnLogin(){
+		//can't use .show() because display needs to be flex, not block
+		$("#friend-bucket").css("display", "flex")
+	}
+
 	
 
 	$('#signup-form').on('submit', function(event){
@@ -48,6 +50,7 @@ $(document).ready(function(){
 		$.post('/signup', signupInfo, function(data){
 			console.log(data)
 			// window.location.href = "/dashboard"
+			changeDisplayOnLogin()
 		})
 		$("#overlay").hide()
 	})
@@ -61,6 +64,7 @@ $(document).ready(function(){
 		$.post('/login', signupInfo, function(data){
 			console.log(data)
 			renderProfileData(data)
+			changeDisplayOnLogin()
 			// renderCharts(data.counts)
 			// window.location.href="/dashboard"
 		})

@@ -33,6 +33,7 @@
 	margin: 0 auto;
 	padding: 0;
 	/*width: 50px;*/
+	display: none;
 }
 
 .friend-single {
@@ -114,9 +115,10 @@
 	top: 0;
 	left: 0;
 	background: rgba(0, 0, 0, 0.5);
+	display: none;
 }
 
-#overlay-fake {
+/*#overlay-fake {
 	height: 200px;
 	width: 350px;
 	position: absolute;
@@ -125,7 +127,7 @@
 	background: rgba(0, 0, 0, 0.5);
 
 }
-
+*/
 .su-panel {
 	background-color: white;
 	height: 200px;

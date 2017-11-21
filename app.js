@@ -267,6 +267,9 @@ app.post("/addfriend", function(req, res){
                     }
                     user.friends.push(newFriend._id)
                     user.save()
+                    //Should also add logged in user to newFriend's friend or follower list 
+                    //(haven't decided which route to go: friends vs followers)
+
                     console.log("friend list: ", user.friends)
                     res.send({success:'success!'})
                 }

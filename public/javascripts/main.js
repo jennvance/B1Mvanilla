@@ -155,6 +155,7 @@ $(document).ready(function(){
 				console.log(findProductiveDate(selectByMonth(data,10)))
 				console.log(calcAverageMonth(selectByMonth(data, 10)))
 				console.log(calcAverageAllTime(sortByDate(data)))
+				//Function might be off by 1 day. Thought it was working before but maybe not.
 				console.log(findProductiveDay(data))
 			}
 		})

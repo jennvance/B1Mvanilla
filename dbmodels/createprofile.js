@@ -20,7 +20,8 @@ var UltimateSchema = new mongoose.Schema({
 		date: Date,
 		words: Number
 	},
-	friends: Array
+	friends: Array,
+	badges: Array
 })
 
 var UltimateModel = mongoose.model('Ultimate', UltimateSchema)

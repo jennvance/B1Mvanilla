@@ -34,7 +34,6 @@ $(document).ready(function(){
 	}
 
 	function changeDisplayOnLogin(){
-		//can't use .show() because display needs to be flex, not block
 		$("#friend-bucket").css("display", "flex")
 	}
 
@@ -51,6 +50,7 @@ $(document).ready(function(){
 			console.log(data)
 			// window.location.href = "/dashboard"
 			changeDisplayOnLogin()
+			getAllUsers()
 		})
 		$("#overlay").hide()
 	})
@@ -67,6 +67,7 @@ $(document).ready(function(){
 			changeDisplayOnLogin()
 			// renderCharts(data.counts)
 			// window.location.href="/dashboard"
+			getAllUsers()
 		})
 		$("#overlay").hide()
 	})
@@ -81,7 +82,8 @@ $(document).ready(function(){
 			}
 		})
 	}
-	getAllUsers()
+
+	
 
 
 	function renderAllUsers(data){
@@ -97,6 +99,9 @@ $(document).ready(function(){
 			newHTML.push(entryHTML)
 			console.log(newHTML)
 		}
+		//rendering All Users in Friend Bucket doesn't work
+		//bc getAllUsers gets called while #friend-bucket is display:none
+		//fixed temporarily by putting function call in login 
 		$("#friend-bucket").html(newHTML.join(""))
 	}
 

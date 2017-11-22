@@ -1,0 +1,32 @@
+{
+	"username": "henrymiller",
+	"password": "henrymiller",
+	"name": "Henry Miller",
+	"genre": "Sapiorotica",
+	"bio": "Henry Miller lives in Paris and fucks Germaine while she plays with her hat.",
+	"favorites": "Wine, women, poverty",
+	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	// "counts: [{date:Date,words:1669}]",
+	"friends":[]
+},
+{
+	"username": "anaisnin",
+	"password": "anaisnin",
+	"name": "Anais Nin",
+	"genre": "Pornographic Diarism",
+	"bio": "Anais Nin writes in Paris and occasionally joins Henry Miller for absinthe.",
+	"favorites": "absinthe, women, poverty",
+	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	// "counts: [{date:Date,words:1669}]",
+	"friends": []
+}
+{
+	"username": ,
+	"password": ,
+	"name": ,
+	"genre": ,
+	"bio": ,
+	"favorites": ,
+	"photo": ,
+	"friends": []
+}

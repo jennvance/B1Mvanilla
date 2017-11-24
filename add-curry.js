@@ -13,3 +13,13 @@ console.log(add(5,3))
 
 console.log(add(5)(3))
 
+var dostuff = (input) => {
+	return input + 1
+}
+
+
+var dostuff = input => { return input + 1 }
+
+var dostuff = (input) => input + 1
+
+

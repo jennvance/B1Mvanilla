@@ -21,6 +21,17 @@
 	"friends": []
 }
 {
+	"username": "stephenking",
+	"password": "stephenking",
+	"name": "Stephen King",
+	"genre": "Everyman Horror",
+	"bio": "Stephen King lives in Maine and is one of the highest paid authors of all time.",
+	"favorites": "Lobster, the Proletariat",
+	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	// "counts: [{date:Date,words:2000}]"
+	"friends": []
+}
+{
 	"username": ,
 	"password": ,
 	"name": ,

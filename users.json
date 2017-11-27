@@ -19,7 +19,7 @@
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
 	// "counts: [{date:Date,words:1669}]",
 	"friends": []
-}
+},
 {
 	"username": "stephenking",
 	"password": "stephenking",
@@ -30,7 +30,19 @@
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
 	// "counts: [{date:Date,words:2000}]"
 	"friends": []
+},
+{
+	"username": "jkrowling",
+	"password": "jkrowling",
+	"name": "J.K. Rowling",
+	"genre": "Young Adult Fantasy, Adult Mystery",
+	"bio": "Smarter than the president.",
+	"favorites": "TBD",
+	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	// "counts: [{date:Date,words:1500?}]"
+	"friends": []
 }
+
 {
 	"username": ,
 	"password": ,

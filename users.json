@@ -41,7 +41,17 @@
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
 	// "counts: [{date:Date,words:1500?}]"
 	"friends": []
-}
+},
+{
+	"username": ,
+	"password": ,
+	"name": ,
+	"genre": ,
+	"bio": ,
+	"favorites": ,
+	"photo": ,
+	"friends": []
+},
 
 {
 	"username": ,

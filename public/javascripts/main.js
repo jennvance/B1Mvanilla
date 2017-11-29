@@ -294,6 +294,18 @@ $(document).ready(function(){
 		$("#wpdToGoal").text(wpdToGoal)
 	}
 
+//Create badges
+
+	function Badge(name){
+		this.name = name;
+	}
+
+	function createFirstBadge(){
+		//(upon signup, run function)
+		//Create new instance of badge 
+		var newBadge = new Badge("Aspiring Author")
+	}
+
 
 
 

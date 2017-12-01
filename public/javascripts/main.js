@@ -295,6 +295,7 @@ $(document).ready(function(){
 	}
 
 //Create badges
+//WTF though
 
 	function Badge(name){
 		this.name = name;

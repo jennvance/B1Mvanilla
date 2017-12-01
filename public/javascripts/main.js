@@ -238,7 +238,6 @@ $(document).ready(function(){
 		var date = new Date(tempdate)
 		var year = date.getFullYear()
 		var month = date.getMonth() + 1
-		//kosher to call function inside function or...?
 		var total = calcTotal(filteredOrUnfilteredArray)
 		var days = daysInMonth(month, year)
 		// var averageAsNumber = parseFloat((total/days).toFixed(0)) //returns Number
@@ -296,16 +295,17 @@ $(document).ready(function(){
 
 //Create badges
 //WTF though
+//Never mind forget the badges
 
-	function Badge(name){
-		this.name = name;
-	}
+	// function Badge(name){
+	// 	this.name = name;
+	// }
 
-	function createFirstBadge(){
-		//(upon signup, run function)
-		//Create new instance of badge 
-		var newBadge = new Badge("Aspiring Author")
-	}
+	// function createFirstBadge(){
+	// 	//(upon signup, run function)
+	// 	//Create new instance of badge 
+	// 	var newBadge = new Badge("Aspiring Author")
+	// }
 
 
 

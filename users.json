@@ -52,7 +52,16 @@
 	"photo": ,
 	"friends": []
 },
-
+{
+	"username": ,
+	"password": ,
+	"name": ,
+	"genre": ,
+	"bio": ,
+	"favorites": ,
+	"photo": ,
+	"friends": []
+},
 {
 	"username": ,
 	"password": ,

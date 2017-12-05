@@ -35,6 +35,14 @@ $(document).ready(function(){
 
 	function changeDisplayOnLogin(){
 		$("#friend-bucket").css("display", "flex")
+
+	}
+
+	function renderBadge(data){
+
+		$(".badge-title").html(data.badges[0].title)
+		$(".badge-summary").html(data.badges[0].summary)
+		$(".badge-img").attr("src", data.badges[0].img)
 	}
 
 	
@@ -51,6 +59,7 @@ $(document).ready(function(){
 			// window.location.href = "/dashboard"
 			changeDisplayOnLogin()
 			getAllUsers()
+			renderBadge(data)
 		})
 		$("#overlay").hide()
 	})
@@ -97,7 +106,7 @@ $(document).ready(function(){
 			var entryHTML = "<div class=\"friend-single\"><img src=\"/" + entry.photo + "\" class=\"friend-single-photo\"><h4 class=\"friend-single-name\">" + entry.name + "</h4><h5>" + entry.genre + "</h5><button data-id='" + data[i]._id + "' class=\"button followButton\">Follow</button></div>"
 
 			newHTML.push(entryHTML)
-			console.log(newHTML)
+			// console.log(newHTML)
 		}
 		//rendering All Users in Friend Bucket doesn't work
 		//bc getAllUsers gets called while #friend-bucket is display:none

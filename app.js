@@ -16,6 +16,7 @@ var upload = multer({ dest: 'uploads/' })
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var UltimateModel = require('./dbmodels/createprofile')
+var BadgeModel = require('./dbmodels/badgemodels')
 var app = express();
 
 // view engine setup
@@ -40,6 +41,20 @@ mongoose.connect("mongodb://localhost/burndb", function(err){
   if(err){console.error(err)}
     else{ console.info('mongoose initialized')}
 })
+
+
+//wrap aspiringAuthor in function that only runs on SIGNUP
+//
+
+
+var firstEntry = new BadgeModel({
+    title: "First Entry",
+    summary: "You wrote a thing!",
+    img: "/public/images/penbadge.png"
+})
+
+
+firstEntry.save()
 
 var checkIfLoggedIn = function(req, res, next){
     if ( req.session._id ) {
@@ -110,6 +125,15 @@ app.all('/signup', function(req, res){
     
     console.log('body??', req.body)
     var newUser = new UltimateModel(req.body)
+    var aspiringAuthor = new BadgeModel({
+        title: "Aspiring Author",
+        summary: "You have joined but not written anything.",
+        img: "/public/images/penbadge.png"
+    })
+    aspiringAuthor.save()
+    newUser.badges.push(aspiringAuthor)
+
+
     console.log("user: " + newUser)
     bcrypt.genSalt(11, function(saltErr, salt){
         if (saltErr) {console.log(saltErr)}
@@ -123,12 +147,14 @@ app.all('/signup', function(req, res){
                 if ( saveErr ) { console.log(saveErr)}
                 else {
                     req.session._id = user._id // this line is what actually logs the user in. 
-                    res.send({success:'success!'})
+                    res.send(user)
                 }
             })
         })
 
     })
+
+
 })
 
 app.post('/login', function(req, res){

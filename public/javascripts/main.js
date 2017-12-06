@@ -39,11 +39,14 @@ $(document).ready(function(){
 	}
 
 	function renderBadge(data){
-
+		console.log(data)
 		$(".badge-title").html(data.badges[0].title)
 		$(".badge-summary").html(data.badges[0].summary)
 		$(".badge-img").attr("src", data.badges[0].img)
+		var feedAnnouncement = data.name + " just earned the " + data.badges[0].title + " badge."
+		$("#feed").append(feedAnnouncement)
 	}
+
 
 	
 
@@ -111,6 +114,7 @@ $(document).ready(function(){
 		//rendering All Users in Friend Bucket doesn't work
 		//bc getAllUsers gets called while #friend-bucket is display:none
 		//fixed temporarily by putting function call in login 
+		//(wait, why temporarily?)
 		$("#friend-bucket").html(newHTML.join(""))
 	}
 

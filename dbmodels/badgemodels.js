@@ -12,9 +12,4 @@ var BadgeModel = mongoose.model('Badge', BadgeSchema)
 
 module.exports = BadgeModel
 
-// module.exports = {
-// 	aspiringAuthor: aspiringAuthor,
-// 	firstEntry: firstEntry
-// }
-
 

@@ -43,7 +43,7 @@ $(document).ready(function(){
 		$(".badge-title").html(data.badges[0].title)
 		$(".badge-summary").html(data.badges[0].summary)
 		$(".badge-img").attr("src", data.badges[0].img)
-		var feedAnnouncement = data.name + " just earned the " + data.badges[0].title + " badge."
+		var feedAnnouncement = "<p>"+ data.name + " just earned the " + data.badges[0].title + " badge.</p>"
 		$("#feed").append(feedAnnouncement)
 	}
 
@@ -122,7 +122,8 @@ $(document).ready(function(){
 		// event.preventDefault()
 		console.log($(event.target).attr('data-id'))
 		$.post("/addfriend", {newFriendId: $(event.target).attr('data-id') }, function(data){
-			console.log(data)
+			var feedAnnounce = "<p>"+ data.friend1 + " and " + data.friend2 + " are now friends.</p>"
+			$("#feed").append(feedAnnounce)
 		})
 
 		
@@ -168,6 +169,7 @@ $(document).ready(function(){
 			type: "POST",
 			data: formData,
 			success: function(data){
+				console.log("success DATA", data)
 				calcTotal(data)
 				console.log(calcTotal(data))
 				renderTotal(calcTotal(data))
@@ -179,6 +181,8 @@ $(document).ready(function(){
 				console.log(calcAverageAllTime(sortByDate(data)))
 				//Function might be off by 1 day. Thought it was working before but maybe not.
 				console.log(findProductiveDay(data))
+				var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
+				$("#feed").append(text)
 			}
 		})
 		document.getElementById("wordct").reset()
@@ -305,20 +309,6 @@ $(document).ready(function(){
 	function renderWpdToGoal(wpdToGoal){
 		$("#wpdToGoal").text(wpdToGoal)
 	}
-
-//Create badges
-//WTF though
-//Never mind forget the badges
-
-	// function Badge(name){
-	// 	this.name = name;
-	// }
-
-	// function createFirstBadge(){
-	// 	//(upon signup, run function)
-	// 	//Create new instance of badge 
-	// 	var newBadge = new Badge("Aspiring Author")
-	// }
 
 
 

@@ -33,7 +33,7 @@ $(document).ready(function(){
 		})
 	}
 
-	function changeDisplayOnLogin(){
+	function showFriendsOnLogin(){
 		$("#friend-bucket").css("display", "flex")
 
 	}
@@ -53,6 +53,7 @@ $(document).ready(function(){
 	$('#signup-form').on('submit', function(event){
 		event.preventDefault()
 		var signupInfo = {
+			name:$('#signup-form .name').val(),
 			username: $('#signup-form .username').val(),
 			password: $('#signup-form .password').val()
 		}
@@ -60,9 +61,10 @@ $(document).ready(function(){
 		$.post('/signup', signupInfo, function(data){
 			console.log(data)
 			// window.location.href = "/dashboard"
-			changeDisplayOnLogin()
+			showFriendsOnLogin()
 			getAllUsers()
 			renderBadge(data)
+			$("#profileName").html(data.name)
 		})
 		$("#overlay").hide()
 	})
@@ -76,7 +78,7 @@ $(document).ready(function(){
 		$.post('/login', signupInfo, function(data){
 			console.log(data)
 			renderProfileData(data)
-			changeDisplayOnLogin()
+			showFriendsOnLogin()
 			// renderCharts(data.counts)
 			// window.location.href="/dashboard"
 			getAllUsers()
@@ -100,7 +102,7 @@ $(document).ready(function(){
 
 	function renderAllUsers(data){
 		var newHTML = []
-		for(var i=0; i<data.length; i++){
+		for(var i=0; i<=7; i++){
 			var entry = {
 				name: data[i].name,
 				genre: data[i].genre,

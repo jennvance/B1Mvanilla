@@ -1,26 +1,16 @@
 $(document).ready(function(){
-	// function renderCharts(data){
-	// 	console.log("chart data: ",data)
-	// 	var ctx = document.getElementById("myChart")
-	// 	var myChart = new Chart(ctx, {
-	// 	    type: 'bar',
-	// 	    data: {
-	// 	    	x: new Date(data[i].date),
-	// 	    	y: data[i].words
-	// 	    },
-	// 	    options: {
-	// 	        scales: {
-	// 	        	xAxes: [{
-	// 	        		type: 'time',
-	// 	        		distribution: 'linear',
-	// 	        		time: {
-	// 	        			unit: 'day'
-	// 	        		}
-	// 	        	}]
-	// 	        }
-	// 	    }
-	// 	})
-	// }
+
+	function renderRandomFamous(){
+		$.ajax({
+			url: "/getfamous",
+			type: "GET",
+			success: function(data){
+				console.log(data)
+			}
+		})
+	}
+	renderRandomFamous()
+
 
 	//Wrote function but didn't use it. Maybe delete later.
 	function getCounts(){
@@ -28,6 +18,7 @@ $(document).ready(function(){
 			url: "/getcounts",
 			type: "GET",
 			success: function(data){
+				//deleted renderCharts function
 				renderCharts(data.counts)
 			}
 		})
@@ -102,6 +93,11 @@ $(document).ready(function(){
 
 	function renderAllUsers(data){
 		var newHTML = []
+
+		//to fix bug, check length of data array first
+		//if less than 7, use data.length as delimiter
+		//if greater than 7, use 7 as delimiter
+		console.log(data.length)
 		for(var i=0; i<=7; i++){
 			var entry = {
 				name: data[i].name,
@@ -111,7 +107,6 @@ $(document).ready(function(){
 			var entryHTML = "<div class=\"friend-single\"><img src=\"/" + entry.photo + "\" class=\"friend-single-photo\"><h4 class=\"friend-single-name\">" + entry.name + "</h4><h5>" + entry.genre + "</h5><button data-id='" + data[i]._id + "' class=\"button followButton\">Follow</button></div>"
 
 			newHTML.push(entryHTML)
-			// console.log(newHTML)
 		}
 		//rendering All Users in Friend Bucket doesn't work
 		//bc getAllUsers gets called while #friend-bucket is display:none

@@ -132,6 +132,8 @@ app.all('/signup', function(req, res){
     })
     aspiringAuthor.save()
     newUser.badges.push(aspiringAuthor)
+    newUser.famous = false;
+    newUser.save()
 
 
     console.log("user: " + newUser)
@@ -221,7 +223,6 @@ app.post('/createprofile', upload.single('photo'), function(req,res){
             user.favorites = req.body.favorites;
             //breaks code if not required for submit
             user.photo = req.file.filename;
-
             user.save(function(){
                 // console.log(UltimateModel)
             })
@@ -323,6 +324,16 @@ app.get("/getcounts", function(req,res){
         if(user){
             // user.counts = req.body.counts
             res.send(user)
+        }
+    })
+})
+
+app.get("/getfamous", function(req,res){
+    UltimateModel.find({famous:true}, function(err, user){
+        var testArray = []
+        if(user){
+            testArray.push(user)
+            res.send(testArray)
         }
     })
 })

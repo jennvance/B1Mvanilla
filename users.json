@@ -1,4 +1,4 @@
-{
+[{
 	"username": "henrymiller",
 	"password": "henrymiller",
 	"name": "Henry Miller",
@@ -6,8 +6,8 @@
 	"bio": "Henry Miller lives in Paris and fucks Germaine while she plays with her hat.",
 	"favorites": "Wine, women, poverty",
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
-	// "counts: [{date:Date,words:1669}]",
-	"friends":[]
+	"friends":[],
+	"famous": true
 },
 {
 	"username": "anaisnin",
@@ -17,8 +17,8 @@
 	"bio": "Anais Nin writes in Paris and occasionally joins Henry Miller for absinthe.",
 	"favorites": "absinthe, women, poverty",
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
-	// "counts: [{date:Date,words:1669}]",
-	"friends": []
+	"friends": [],
+	"famous": true
 },
 {
 	"username": "stephenking",
@@ -28,47 +28,43 @@
 	"bio": "Stephen King lives in Maine and is one of the highest paid authors of all time.",
 	"favorites": "Lobster, the Proletariat",
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
-	// "counts: [{date:Date,words:2000}]"
-	"friends": []
+	"friends": [],
+	"famous": true
 },
 {
 	"username": "jkrowling",
 	"password": "jkrowling",
 	"name": "J.K. Rowling",
 	"genre": "Young Adult Fantasy, Adult Mystery",
-	"bio": "Smarter than the president.",
+	"bio": "Smarter than the president",
 	"favorites": "TBD",
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
-	// "counts: [{date:Date,words:1500?}]"
-	"friends": []
+	"friends": [],
+	"famous": true
 },
 {
-	"username": ,
-	"password": ,
-	"name": ,
-	"genre": ,
-	"bio": ,
-	"favorites": ,
-	"photo": ,
-	"friends": []
+	"username": "sylviaplath",
+	"password": "sylviaplath",
+	"name": "Sylvia Plath",
+	"genre": "Poetry; Tragedy",
+	"bio": "Died making dinner",
+	"favorites": "Not Many",
+	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"friends": [],
+	"famous": true
 },
 {
-	"username": ,
-	"password": ,
-	"name": ,
-	"genre": ,
-	"bio": ,
-	"favorites": ,
-	"photo": ,
-	"friends": []
-},
-{
-	"username": ,
-	"password": ,
-	"name": ,
-	"genre": ,
-	"bio": ,
-	"favorites": ,
-	"photo": ,
-	"friends": []
-}
+	"username": "earnesthemingway",
+	"password": "earnesthemingway",
+	"name": "Earnest Hemingway",
+	"genre": "fiction",
+	"bio": "Probably an asshole",
+	"favorites": "Marlins, shotguns",
+	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"friends": [],
+	"famous": true
+}]
+
+
+
+

@@ -93,12 +93,15 @@ $(document).ready(function(){
 
 	function renderAllUsers(data){
 		var newHTML = []
-
-		//to fix bug, check length of data array first
-		//if less than 7, use data.length as delimiter
-		//if greater than 7, use 7 as delimiter
-		console.log(data.length)
-		for(var i=0; i<=7; i++){
+		var limit = 7
+		if (data.length <=7){
+			limit = data.length
+		}
+		//do I need this else?
+		else {
+			limit = 7
+		}
+		for(var i=0; i<=limit; i++){
 			var entry = {
 				name: data[i].name,
 				genre: data[i].genre,

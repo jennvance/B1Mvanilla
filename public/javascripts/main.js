@@ -119,7 +119,6 @@ $(document).ready(function(){
 	}
 
 	$("#friend-bucket").on("click", ".followButton", function(event){
-		// event.preventDefault()
 		console.log($(event.target).attr('data-id'))
 		$.post("/addfriend", {newFriendId: $(event.target).attr('data-id') }, function(data){
 			var feedAnnounce = "<p>"+ data.friend1 + " and " + data.friend2 + " are now friends.</p>"

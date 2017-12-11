@@ -63,6 +63,17 @@
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
 	"friends": [],
 	"famous": true
+},
+{
+	"username": "cormacmccarthy",
+	"password": "cormacmccarthy",
+	"name": "Cormac McCarthy",
+	"genre": "Southern Gothic",
+	"bio": "A mystery",
+	"favorites": "Caves, the Apocalypse",
+	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"friends": [],
+	"famous": true
 }]
 
 

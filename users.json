@@ -74,7 +74,20 @@
 	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
 	"friends": [],
 	"famous": true
-}]
+},
+{
+	"username": "roxanegay",
+	"password": "roxanegay",
+	"name": "Roxane Gay",
+	"genre": "where to begin",
+	"bio": "Professor, lit mag founder, writer",
+	"favorites": "good things",
+	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"friends": [],
+	"famous": true
+}
+
+]
 
 
 

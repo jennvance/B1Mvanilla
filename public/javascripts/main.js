@@ -1,24 +1,21 @@
 $(document).ready(function(){
 
-	function renderRandomFamous(){
+	function getFamous(){
 		$.ajax({
 			url: "/getfamous",
 			type: "GET",
 			success: function(data){
 				console.log(data)
 				console.log(generateRandom(data))
+				renderProfileData(generateRandom(data))
 			}
 		})
 	}
-	renderRandomFamous()
+	getFamous()
 
 	function generateRandom(array){
 		return array[0][Math.floor(Math.random() * array[0].length)]
 	}
-
-	// function renderRandomFamousBio(){
-
-	// }
 
 
 

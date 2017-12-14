@@ -6,22 +6,14 @@ $(document).ready(function(){
 			type: "GET",
 			success: function(data){
 				console.log(data)
-				generateRandom(data)
+				console.log(generateRandom(data))
 			}
 		})
 	}
 	renderRandomFamous()
 
-	//got interrupted in middle; rewrite
 	function generateRandom(array){
-		var rand;
-		// var 
-		for (var i = 0; i<=array[0].length; i++){
-			rand = Math.floor(Math.random() * 20)
-			console.log(array[0][rand])
-			console.log(rand)
-		}
-	
+		return array[0][Math.floor(Math.random() * array[0].length)]
 	}
 
 	// function renderRandomFamousBio(){

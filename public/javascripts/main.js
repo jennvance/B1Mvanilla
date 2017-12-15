@@ -1,5 +1,21 @@
 $(document).ready(function(){
 
+
+	function randomizeFeed(array){
+		var feedItems = []
+		//change these variable names where they appear elsewhere in code to be more semantic
+		var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
+		var feedAnnounce = "<p>"+ data.friend1 + " and " + data.friend2 + " are now friends.</p>"
+		var feedAnnouncement = "<p>"+ data.name + " just earned the " + data.badges[0].title + " badge.</p>"
+		var writeItem = 
+		var friendItem = 
+		var badgeItem = 
+
+
+
+		$("#feed").append(text)
+	}
+
 	function getFamous(){
 		$.ajax({
 			url: "/getfamous",

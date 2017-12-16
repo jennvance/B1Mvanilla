@@ -1,6 +1,9 @@
+	var timeoutId = 0;
+
 $(document).ready(function(){
 
 
+	var results = []
 	function randomizeFeed(){
 		var feedItems = []
 		//to help us semantically for now, until we need to use func for nonfamous array
@@ -17,6 +20,7 @@ $(document).ready(function(){
 		// feedItems.push(badgeItem)
 
 		var famousArray = ["Henry Miller", "Anais Nin", "Stephen King", "J.K. Rowling", "Sylvia Plath", "Earnest Hemingway", "Cormac McCarthy", "Roxane Gay", "Mary Shelley"]
+		// var famousArray=["Henry Miller", "Anais Nin"]
 		//maybe rewrite to generate random number?
 		var countsArray = [150, 500, 1000, 1200, 2000, 5000]
 		var badgesArray = ["Aspiring Author", "Hemingway", "Very Productive", "Consecutive Days"]
@@ -24,28 +28,43 @@ $(document).ready(function(){
 			var person = famousArray[Math.floor(Math.random() * famousArray.length)]
 			var count = countsArray[Math.floor(Math.random() * countsArray.length)]
 			var justWrote = "<p>"+ person + " just wrote " + count + " words.</p>"
-			$("#feed").append(justWrote)
-			for(var j=0; j<=3; j++){
+			// $("#feed").append(justWrote)
+			results.push(justWrote)
+			for(var j=0; j<=1; j++){
 				// var rand = 
 				var person1 = famousArray[Math.floor(Math.random() * famousArray.length)]
 				var person2 = famousArray[Math.floor(Math.random() * famousArray.length)]
 				console.log(person1, person2)
-				var nowFriends = "<p>"+ person1 + " and " + person2 + " are now friends.</p>"
-				$("#feed").append(nowFriends)
-				for(var k=0; k<=3; k++){
+				if(person1 !== person2){
+					var nowFriends = "<p>"+ person1 + " and " + person2 + " are now friends.</p>"
+					results.push(nowFriends)
+					// $("#feed").append(nowFriends)
+				}
+				
+				for(var k=0; k<=1; k++){
 					var badgeperson = famousArray[Math.floor(Math.random() * famousArray.length)]
 					var badge = badgesArray[Math.floor(Math.random() * badgesArray.length)]
 					var earnedBadge = "<p>"+ badgeperson + " just earned the " + badge + " badge.</p>"
-					$("#feed").append(earnedBadge)
+					// $("#feed").append(earnedBadge)
+					results.push(earnedBadge)
 				}
 			}
 		}
+		console.log(results)
+
 	}
-	//To do:
-	//if check to make sure friend announcement names are two different people
-	//don't append immediately; instead push to array, then append from array using interval()
 	randomizeFeed()
 
+	function appendToDOM(){
+		$("#feed").append(results[Math.floor(Math.random() * results.length)])
+		timeoutId = setTimeout(appendToDOM, ( (Math.random() * 4) + 3 ) * 1000)
+	}
+	// appendToDOM()
+	timeoutId = setTimeout(appendToDOM, 7000)
+	//to stop setTimeout; might not actually be what I need
+	clearTimeout(timeoutId)
+
+	
 	function getFamous(){
 		$.ajax({
 			url: "/getfamous",

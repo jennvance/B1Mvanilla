@@ -41,6 +41,9 @@ $(document).ready(function(){
 			}
 		}
 	}
+	//To do:
+	//if check to make sure friend announcement names are two different people
+	//don't append immediately; instead push to array, then append from array using interval()
 	randomizeFeed()
 
 	function getFamous(){

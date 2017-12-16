@@ -1,20 +1,47 @@
 $(document).ready(function(){
 
 
-	function randomizeFeed(array){
+	function randomizeFeed(){
 		var feedItems = []
+		//to help us semantically for now, until we need to use func for nonfamous array
 		//change these variable names where they appear elsewhere in code to be more semantic
-		var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
-		var feedAnnounce = "<p>"+ data.friend1 + " and " + data.friend2 + " are now friends.</p>"
-		var feedAnnouncement = "<p>"+ data.name + " just earned the " + data.badges[0].title + " badge.</p>"
-		var writeItem = 
-		var friendItem = 
-		var badgeItem = 
+		//also add p tags to var text
+		// var text = 
+		// var feedAnnounce = 
+		// var feedAnnouncement = 
+		// var writeItem = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
+		// var friendItem = "<p>"+ data.friend1 + " and " + data.friend2 + " are now friends.</p>"
+		// var badgeItem = "<p>"+ data.name + " just earned the " + data.badges[0].title + " badge.</p>"
+		// feedItems.push(writeItem)
+		// feedItems.push(friendItem)
+		// feedItems.push(badgeItem)
 
-
-
-		$("#feed").append(text)
+		var famousArray = ["Henry Miller", "Anais Nin", "Stephen King", "J.K. Rowling", "Sylvia Plath", "Earnest Hemingway", "Cormac McCarthy", "Roxane Gay", "Mary Shelley"]
+		//maybe rewrite to generate random number?
+		var countsArray = [150, 500, 1000, 1200, 2000, 5000]
+		var badgesArray = ["Aspiring Author", "Hemingway", "Very Productive", "Consecutive Days"]
+		for(var i=0;i<=3; i++){
+			var person = famousArray[Math.floor(Math.random() * famousArray.length)]
+			var count = countsArray[Math.floor(Math.random() * countsArray.length)]
+			var justWrote = "<p>"+ person + " just wrote " + count + " words.</p>"
+			$("#feed").append(justWrote)
+			for(var j=0; j<=3; j++){
+				// var rand = 
+				var person1 = famousArray[Math.floor(Math.random() * famousArray.length)]
+				var person2 = famousArray[Math.floor(Math.random() * famousArray.length)]
+				console.log(person1, person2)
+				var nowFriends = "<p>"+ person1 + " and " + person2 + " are now friends.</p>"
+				$("#feed").append(nowFriends)
+				for(var k=0; k<=3; k++){
+					var badgeperson = famousArray[Math.floor(Math.random() * famousArray.length)]
+					var badge = badgesArray[Math.floor(Math.random() * badgesArray.length)]
+					var earnedBadge = "<p>"+ badgeperson + " just earned the " + badge + " badge.</p>"
+					$("#feed").append(earnedBadge)
+				}
+			}
+		}
 	}
+	randomizeFeed()
 
 	function getFamous(){
 		$.ajax({

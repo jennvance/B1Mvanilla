@@ -20,7 +20,6 @@ $(document).ready(function(){
 		// feedItems.push(badgeItem)
 
 		var famousArray = ["Henry Miller", "Anais Nin", "Stephen King", "J.K. Rowling", "Sylvia Plath", "Earnest Hemingway", "Cormac McCarthy", "Roxane Gay", "Mary Shelley"]
-		// var famousArray=["Henry Miller", "Anais Nin"]
 		//maybe rewrite to generate random number?
 		var countsArray = [150, 500, 1000, 1200, 2000, 5000]
 		var badgesArray = ["Aspiring Author", "Hemingway", "Very Productive", "Consecutive Days"]

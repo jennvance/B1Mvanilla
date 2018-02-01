@@ -129,10 +129,10 @@
 		<div class="cell b" id="avgmonth">0</div>
 
 		<div class="cell a">Most productive day of month: </div>
-		<div class="cell b" id="prodDate">0<span id="prodDateCt">(0)</span> words</div>
+		<div class="cell b" id="prodDate">{{stats.mostProductiveDate.date}}<span id="prodDateCt">{{stats.mostProductiveDate.words}}</span> words</div>
 
 		<div class="cell a">Most productive day of week:</div>
-		<div class="cell b">0</div>
+		<div class="cell b">{{stats.mostProductiveDay}}</div>
 
 		<div class="cell a">Daily Average since you started: </div>
 		<div class="cell b" id="dailyAvg">0</div>
@@ -151,13 +151,13 @@
 	<h2 class="hide">How many words do you wish to write by [Set Date]?</h2>
 	<div id="ux3" class="hide">
 		
-		<form id="setGoal">
-			<input type="number" name="goalWds" id="goalWds" required placeholder="number of words">
-			<input type="date" name="goalDate" id="goalDate" required>
+		<form id="setGoal" v-on:submit="submitGoal(goal, $event)">
+			<input type="number" name="goalWds" id="goalWds" required placeholder="number of words" v-model="goal.words">
+			<input type="date" name="goalDate" id="goalDate" required v-model="goal.date">
 			<button type="submit" class="button">Submit</button>
 		</form>
 
-		<div class="hide">Words Per Day You Must Write to Meet Goal: <span id="wpdToGoal"></span> </div>
+		<div class="hide">Words Per Day You Must Write to Meet Goal: <span id="wpdToGoal">{{stats.goalWordsPerDay}}</span> </div>
 	</div>
 
 

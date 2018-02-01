@@ -7,12 +7,20 @@ var vm = new Vue({
 			words: "",
 			date: ""
 		},
+		goal: {
+			words: "",
+			date: ""
+		},
 		stats: {
-			allTimeTotal: 1
+			allTimeTotal: 1,
+			goalWordsPerDay: 0,
+			mostProductiveDate: {},
+			mostProductiveDay: ""
 		}
 
 	},
 	methods: {
+		//BEGIN Count Functions
 		submitCount: function(data, event){
 			event.preventDefault()
 			console.log(data)
@@ -39,17 +47,26 @@ var vm = new Vue({
 					//run other logic functions
 					console.log(self.selectByMonth(data, 1))
 					console.log(self.calcTotal(self.selectByMonth(data, 1)))
+					//returns date string with timestamp included but set to 00:00:00:000z
+					//figure out why format is weird and where to correct
 					console.log(self.findProductiveDate(self.selectByMonth(data,1)))
-					console.log(self.findProductiveDay(data))
+					
 					console.log(self.calcAverageMonth(self.selectByMonth(data, 1)))
 					console.log(self.calcAverageAllTime(self.sortByDate(data)))
 					//Function might be off by 1 day. Thought it was working before but maybe not.
 					console.log(self.findProductiveDay(data))
 
+					self.stats.mostProductiveDate = self.findProductiveDate(self.selectByMonth(data,1))
+					self.stats.mostProductiveDay = self.findProductiveDay(data)
+
 
 
 					//announce new entry in feed
+					// 		var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
+					// 		$("#feed").append(text)
 
+					self.count.words = ""
+					self.count.date = ""
 				}
 			})
 		},
@@ -123,7 +140,48 @@ var vm = new Vue({
 			var daysBetween = self.diffDates(firstday, today)
 			var total = self.calcTotal(data)
 			return (total / daysBetween).toFixed(0)
-		}
+		},
+		//END Count Functions
+		//BEGIN Goal Functions
+		submitGoal: function(data, event){
+			event.preventDefault()
+			var self = this
+			var formData = {
+				words: parseInt(data.words),
+				date: new Date(data.date)
+			}
+			console.log("hi=", formData)
+			$.ajax({
+				url: "/setgoal",
+				type: "POST",
+				data: formData,
+				success: function(data){
+					console.log(data)
+					console.log(self.calcWpdToGoal(data))
+					//render
+					self.stats.goalWordsPerDay = self.calcWpdToGoal(data)
+					//end render
+					self.goal.words = ""
+					self.goal.date = ""
+				}
+			})
+
+		},
+		calcWpdToGoal: function(data){
+			var self = this
+			var today = new Date()
+			var goalDate = new Date(data.date)
+			//date selector selects for local instead of UTC time and it messes up diffDates() calc.
+			//fix later
+			var daysBetween = self.diffDates(today, goalDate) + 1
+			var goalAmount = data.words
+			return ( goalAmount / daysBetween).toFixed(0)
+		},
+		//END Goal Functions
+
+
+
+
 
 
 	},
@@ -131,53 +189,6 @@ var vm = new Vue({
 		console.log("Hi Jenn <3 !")
 	}
 })
-
-
-	// $("#wordct").on("submit", function(event){
-	// 	$.ajax({
-	// 		url: "/addcount",
-	// 		type: "POST",
-	// 		data: formData,
-	// 		success: function(data){
-				
-	// 			calcTotal(data)
-	// 			console.log(calcTotal(data))
-	// 			renderTotal(calcTotal(data))
-	// 			sortByDate(data)
-	// 			console.log(selectByMonth(data, 10))
-	// 			console.log(calcTotal(selectByMonth(data, 10)))
-	// 			console.log(findProductiveDate(selectByMonth(data,10)))
-
-
-	// 			console.log(calcAverageMonth(selectByMonth(data, 10)))
-	// 			console.log(calcAverageAllTime(sortByDate(data)))
-	// 			//Function might be off by 1 day. Thought it was working before but maybe not.
-	// 			console.log(findProductiveDay(data))
-	// 			var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
-	// 			$("#feed").append(text)
-	// 		}
-	// 	})
-	// 	document.getElementById("wordct").reset()
-	// })
-
-
-
-	
-
-
-	function renderProductiveDate(){
-
-	}
-	
-	function renderProductiveDay(){
-
-	}
-
-	
-
-
-
-
 
 
 
@@ -428,37 +439,7 @@ $(document).ready(function(){
 
 
 
-	$("#setGoal").on("submit", function(event){
-		event.preventDefault()
-		goalData = {
-			date: $("#goalDate").val(),
-			words: $("#goalWds").val()
-		}
-		$.ajax({
-			url: "/setgoal",
-			type: "POST",
-			data: goalData,
-			success: function(data){
-				console.log(calcWpdToGoal(data))
-				renderWpdToGoal(calcWpdToGoal(data))
-			}
-		})
-		$("#setGoal")[0].reset()
-	})
 
-	function calcWpdToGoal(data){
-		var today = new Date()
-		var goalDate = new Date(data.date)
-		//date selector selects for local instead of UTC time and it messes up diffDates() calc.
-		//fix later
-		var daysBetween = diffDates(today, goalDate) + 1
-		var goalAmount = data.words
-		return ( goalAmount / daysBetween).toFixed(0)
-	}
-
-	function renderWpdToGoal(wpdToGoal){
-		$("#wpdToGoal").text(wpdToGoal)
-	}
 
 
 

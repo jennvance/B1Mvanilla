@@ -1,4 +1,58 @@
-	var timeoutId = 0;
+var vm = new Vue({
+	el: "#burn",
+	data: {
+		count: {
+			words: 0,
+			date: new Date()
+		},
+
+	},
+	methods: {
+		submitCount: function(data, event){
+			console.log(data)
+		}
+
+	},
+	created: function(){
+		console.log("Hi Jenn <3 !")
+	}
+})
+
+	$("#wordct").on("submit", function(event){
+		event.preventDefault()
+		formData = {
+			date: $("#datewds").val(),
+			words: $("#numwds").val()
+		}
+		console.log(formData)
+		$.ajax({
+			url: "/addcount",
+			type: "POST",
+			data: formData,
+			success: function(data){
+				console.log("success DATA", data)
+				calcTotal(data)
+				console.log(calcTotal(data))
+				renderTotal(calcTotal(data))
+				sortByDate(data)
+				console.log(selectByMonth(data, 10))
+				console.log(calcTotal(selectByMonth(data, 10)))
+				console.log(findProductiveDate(selectByMonth(data,10)))
+				console.log(calcAverageMonth(selectByMonth(data, 10)))
+				console.log(calcAverageAllTime(sortByDate(data)))
+				//Function might be off by 1 day. Thought it was working before but maybe not.
+				console.log(findProductiveDay(data))
+				var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
+				$("#feed").append(text)
+			}
+		})
+		document.getElementById("wordct").reset()
+	})
+
+
+
+
+var timeoutId = 0;
 
 $(document).ready(function(){
 
@@ -75,7 +129,7 @@ $(document).ready(function(){
 			}
 		})
 	}
-	getFamous()
+	// getFamous()
 
 	function generateRandom(array){
 		return array[0][Math.floor(Math.random() * array[0].length)]
@@ -227,36 +281,19 @@ $(document).ready(function(){
 		document.getElementById("profilePhoto").src = "/" + data.photo;
 	}
 
-	$("#wordct").on("submit", function(event){
-		event.preventDefault()
-		formData = {
-			date: $("#datewds").val(),
-			words: $("#numwds").val()
-		}
-		console.log(formData)
-		$.ajax({
-			url: "/addcount",
-			type: "POST",
-			data: formData,
-			success: function(data){
-				console.log("success DATA", data)
-				calcTotal(data)
-				console.log(calcTotal(data))
-				renderTotal(calcTotal(data))
-				sortByDate(data)
-				console.log(selectByMonth(data, 10))
-				console.log(calcTotal(selectByMonth(data, 10)))
-				console.log(findProductiveDate(selectByMonth(data,10)))
-				console.log(calcAverageMonth(selectByMonth(data, 10)))
-				console.log(calcAverageAllTime(sortByDate(data)))
-				//Function might be off by 1 day. Thought it was working before but maybe not.
-				console.log(findProductiveDay(data))
-				var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
-				$("#feed").append(text)
-			}
-		})
-		document.getElementById("wordct").reset()
-	})	
+
+
+
+
+
+
+
+//Ghost of original submit function
+
+
+
+
+	
 	//data is always an array here but I call it data. 
 	function calcTotal(data){
 		return data.map(function(a){

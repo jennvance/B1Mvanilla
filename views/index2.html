@@ -23,6 +23,8 @@
 		<div class="orange">M</div> -->
 		BURN ONE MILLION
 	</h1>
+
+<div id="burn">
 <div class="container">
 	<div id="overlay">
 		<div class="su-panel">
@@ -82,9 +84,9 @@
 
 	<h2>Add Count. How many words did you write today?</h2>
 	<div class="ux1">
-		<form id="wordct">
-			<input type="number" name="numwds" required id="numwds">
-			<input type="date" name="date" required id="datewds">
+		<form id="wordct" v-on:submit="submitCount(count, $event)">
+			<input type="number" name="numwds" required id="numwds" v-model="count.words">
+			<input type="date" name="date" required id="datewds" v-model="count.date">
 			<button type="submit" class="button">Submit</button>
 		</form>
 	</div>
@@ -199,7 +201,9 @@
 
 </div>
 </div>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script type="text/javascript" src="javascripts/main.js"></script>
 <script type="text/javascript" src="javascripts/ui.js"></script>
 

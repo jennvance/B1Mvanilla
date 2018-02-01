@@ -70,7 +70,7 @@
 
 <div class="container-center">
 
-	<canvas id="myChart" width="200" height="200"></canvas>
+<!-- 	<canvas id="myChart" width="200" height="200"></canvas> -->
 
 
 
@@ -79,8 +79,10 @@
 
 
 	
-	<div class="alltimetotal dk-orange" id="allTimeTotal">0</div>
+	<div class="alltimetotal dk-orange" id="allTimeTotal">{{stats.allTimeTotal}}</div>
 	<div>Total</div>
+
+
 
 	<h2>Add Count. How many words did you write today?</h2>
 	<div class="ux1">
@@ -90,6 +92,12 @@
 			<button type="submit" class="button">Submit</button>
 		</form>
 	</div>
+
+
+
+
+
+
 	<a href="#" id="viewStatsLink"><h3>View Stats</h3></a>
 	<a href="#" id="setGoalLink"><h3>Set Goal</h3></a>
 	<form name="monthform" id="monthform" >

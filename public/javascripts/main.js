@@ -1,16 +1,130 @@
+//Raph new Vue() vs. Vue.extend()?
+
 var vm = new Vue({
 	el: "#burn",
 	data: {
 		count: {
-			words: 0,
-			date: new Date()
+			words: "",
+			date: ""
 		},
+		stats: {
+			allTimeTotal: 1
+		}
 
 	},
 	methods: {
 		submitCount: function(data, event){
+			event.preventDefault()
 			console.log(data)
+			//assign "this" to variable to access inside Ajax call
+			var self = this
+			var formData = {
+				words: parseInt(data.words),
+				date: new Date(data.date)
+			}
+			console.log(formData)
+			$.ajax({
+				url: "/addcount",
+				type: "POST",
+				data: formData,
+				success: function(data){
+					console.log("success DATA", data)
+					//run logic functions
+					console.log(self.calcTotal(data))
+					self.sortByDate(data)
+
+					//render new calculation
+					self.stats.allTimeTotal = self.calcTotal(data)
+
+					//run other logic functions
+					console.log(self.selectByMonth(data, 1))
+					console.log(self.calcTotal(self.selectByMonth(data, 1)))
+					console.log(self.findProductiveDate(self.selectByMonth(data,1)))
+					console.log(self.findProductiveDay(data))
+					console.log(self.calcAverageMonth(self.selectByMonth(data, 1)))
+					console.log(self.calcAverageAllTime(self.sortByDate(data)))
+					//Function might be off by 1 day. Thought it was working before but maybe not.
+					console.log(self.findProductiveDay(data))
+
+
+
+					//announce new entry in feed
+
+				}
+			})
+		},
+		calcTotal: function(data){
+			return data.map(function(a){
+				return a.words
+			}).reduce(function(a,b){
+				return a+b
+			})
+		},
+		sortByDate: function(data){
+			return data.sort(function(a,b){
+				return new Date(a.date).getTime() - new Date(b.date).getTime()
+			})
+		},
+		selectByMonth: function(data, month){
+			return data.filter(function(item){
+				return new Date(item.date).getMonth() === month
+			})
+		},
+		//returns object containing date and numwords
+		findProductiveDate: function(filteredArray){
+			return filteredArray.reduce(function(a,b){
+				return (b.words > a.words) ? b : a;
+			})
+		},
+		findProductiveDay: function(data){
+			var days = [0,0,0,0,0,0,0]
+			var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+			for(var i=0; i<data.length;i++){
+				//find day of week for each date in allCounts
+				var dayOfWeek = new Date(data[i].date).getDay()
+				//sort by day of week and keep running total for each day of week
+				days[dayOfWeek] += data[i].words
+			}
+			//compare totals of each day of week and find highest
+			var highestCount = days.reduce(function(a,b){
+				return Math.max(a,b)
+			})
+			var highestIndex = days.indexOf(highestCount)
+			var productiveDay = dayNames[highestIndex]
+			return productiveDay
+		},
+		daysInMonth: function(month, year){
+			return new Date(year, month, 0).getDate()
+		},
+	//Average for given month
+	//could pass month in as argument to identify month immediately if needed
+		calcAverageMonth: function(filteredOrUnfilteredArray){
+			var self = this
+			var tempdate = filteredOrUnfilteredArray[0].date
+			var date = new Date(tempdate)
+			var year = date.getFullYear()
+			var month = date.getMonth() + 1
+			var total = self.calcTotal(filteredOrUnfilteredArray)
+			var days = self.daysInMonth(month, year)
+			// var averageAsNumber = parseFloat((total/days).toFixed(0)) //returns Number
+			return (total / days).toFixed(0) //returns String
+		},
+		diffDates: function(a,b){
+			var msPerDay = 1000*60*60*24
+			var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
+			var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
+			return Math.floor((utc2 - utc1) / msPerDay)
+		},
+//Average since your first entry, up to today
+		calcAverageAllTime: function(data){
+			var self = this
+			var firstday = new Date(data[0].date)
+			var today = new Date()
+			var daysBetween = self.diffDates(firstday, today)
+			var total = self.calcTotal(data)
+			return (total / daysBetween).toFixed(0)
 		}
+
 
 	},
 	created: function(){
@@ -18,36 +132,54 @@ var vm = new Vue({
 	}
 })
 
-	$("#wordct").on("submit", function(event){
-		event.preventDefault()
-		formData = {
-			date: $("#datewds").val(),
-			words: $("#numwds").val()
-		}
-		console.log(formData)
-		$.ajax({
-			url: "/addcount",
-			type: "POST",
-			data: formData,
-			success: function(data){
-				console.log("success DATA", data)
-				calcTotal(data)
-				console.log(calcTotal(data))
-				renderTotal(calcTotal(data))
-				sortByDate(data)
-				console.log(selectByMonth(data, 10))
-				console.log(calcTotal(selectByMonth(data, 10)))
-				console.log(findProductiveDate(selectByMonth(data,10)))
-				console.log(calcAverageMonth(selectByMonth(data, 10)))
-				console.log(calcAverageAllTime(sortByDate(data)))
-				//Function might be off by 1 day. Thought it was working before but maybe not.
-				console.log(findProductiveDay(data))
-				var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
-				$("#feed").append(text)
-			}
-		})
-		document.getElementById("wordct").reset()
-	})
+
+	// $("#wordct").on("submit", function(event){
+	// 	$.ajax({
+	// 		url: "/addcount",
+	// 		type: "POST",
+	// 		data: formData,
+	// 		success: function(data){
+				
+	// 			calcTotal(data)
+	// 			console.log(calcTotal(data))
+	// 			renderTotal(calcTotal(data))
+	// 			sortByDate(data)
+	// 			console.log(selectByMonth(data, 10))
+	// 			console.log(calcTotal(selectByMonth(data, 10)))
+	// 			console.log(findProductiveDate(selectByMonth(data,10)))
+
+
+	// 			console.log(calcAverageMonth(selectByMonth(data, 10)))
+	// 			console.log(calcAverageAllTime(sortByDate(data)))
+	// 			//Function might be off by 1 day. Thought it was working before but maybe not.
+	// 			console.log(findProductiveDay(data))
+	// 			var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
+	// 			$("#feed").append(text)
+	// 		}
+	// 	})
+	// 	document.getElementById("wordct").reset()
+	// })
+
+
+
+	
+
+
+	function renderProductiveDate(){
+
+	}
+	
+	function renderProductiveDay(){
+
+	}
+
+	
+
+
+
+
+
+
 
 
 
@@ -288,102 +420,13 @@ $(document).ready(function(){
 
 
 
-//Ghost of original submit function
 
 
 
 
-	
-	//data is always an array here but I call it data. 
-	function calcTotal(data){
-		return data.map(function(a){
-			return a.words
-		}).reduce(function(a,b){
-			return a+b
-		})
-	}
 
-	function renderTotal(total){
-		var loc = document.getElementById("allTimeTotal")
-		loc.innerHTML = total
-	}
-	//data is always an array here and I call it array
-	function sortByDate(array){
-		return array.sort(function(a,b){
-			return new Date(a.date).getTime() - new Date(b.date).getTime()
-		})
-	}
-	//filter arrays by given month
-	function selectByMonth(data, month){
-		return data.filter(function(item){
-			return new Date(item.date).getMonth() === month
-		})
-	}
-	//returns object containing date and numwords
-	function findProductiveDate(filteredArray){
-		return filteredArray.reduce(function(a,b){
-			return (b.words > a.words) ? b : a;
-		})
-	}
 
-	function renderProductiveDate(){
 
-	}
-	
-	function findProductiveDay(data){
-		var days = [0,0,0,0,0,0,0]
-		var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-		for(var i=0; i<data.length;i++){
-			//find day of week for each date in allCounts
-			var dayOfWeek = new Date(data[i].date).getDay()
-			//sort by day of week and keep running total for each day of week
-			days[dayOfWeek] += data[i].words
-		}
-		//compare totals of each day of week and find highest
-		var highestCount = days.reduce(function(a,b){
-			return Math.max(a,b)
-		})
-		var highestIndex = days.indexOf(highestCount)
-		var productiveDay = dayNames[highestIndex]
-		return productiveDay
-	}
-
-	function renderProductiveDay(){
-
-	}
-
-	function daysInMonth(month, year){
-		return new Date(year, month, 0).getDate()
-	}
-	//Average for given month
-	//could pass month in as argument to identify month immediately if needed
-	function calcAverageMonth(filteredOrUnfilteredArray){
-		var tempdate = filteredOrUnfilteredArray[0].date
-		var date = new Date(tempdate)
-		var year = date.getFullYear()
-		var month = date.getMonth() + 1
-		var total = calcTotal(filteredOrUnfilteredArray)
-		var days = daysInMonth(month, year)
-		// var averageAsNumber = parseFloat((total/days).toFixed(0)) //returns Number
-		return (total / days).toFixed(0) //returns String
-	}
-
-	//helper function lifted from SO
-	function diffDates(a,b){
-		var msPerDay = 1000*60*60*24
-		var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())
-		var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate())
-		return Math.floor((utc2 - utc1) / msPerDay)
-	}
-
-	//Average since your first entry, up to today
-	function calcAverageAllTime(data){
-		var firstday = new Date(data[0].date)
-		var today = new Date()
-		var daysBetween = diffDates(firstday, today)
-		var total = calcTotal(data)
-		return (total / daysBetween).toFixed(0)
-	}
 
 	$("#setGoal").on("submit", function(event){
 		event.preventDefault()

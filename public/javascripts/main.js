@@ -11,6 +11,13 @@ var vm = new Vue({
 			words: "",
 			date: ""
 		},
+		profile: {
+			name: "",
+			genre: "",
+			bio: "",
+			photo: "",
+			submitted: true
+		},
 		stats: {
 			allTimeTotal: 1,
 			goalWordsPerDay: 0,
@@ -165,7 +172,6 @@ var vm = new Vue({
 					self.goal.date = ""
 				}
 			})
-
 		},
 		calcWpdToGoal: function(data){
 			var self = this
@@ -178,7 +184,29 @@ var vm = new Vue({
 			return ( goalAmount / daysBetween).toFixed(0)
 		},
 		//END Goal Functions
-
+		//BEGIN Profile Functions
+		submitProfile: function(profile, event){
+			event.preventDefault()
+			console.log(profile)
+			$.ajax({
+				url: "/createprofile",
+				type: "POST",
+				data: new FormData($("#profileForm")[0]),
+				enctype: 'multipart/form-data',
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function(data){
+					console.log(data)
+				}
+			})
+			profile.submitted = true
+		},
+		editProfile: function(event){
+			event.preventDefault()
+			this.profile.submitted = false
+			console.log("hi")
+		}
 
 
 
@@ -190,8 +218,32 @@ var vm = new Vue({
 	}
 })
 
+// $("#profileForm").on("submit", function(event){
+// 		event.preventDefault()
+// 		$.ajax({
+// 			url: "/createprofile",
+// 			type: "POST",
+// 			data: new FormData($("#profileForm")[0]),
+// 			enctype: 'multipart/form-data',
+// 			cache: false,
+// 			contentType: false,
+// 			processData: false,
+// 			success: function(data){
+// 				renderProfileData(data)
+// 				$(".option-1").hide()
+// 				$(".option-2").show()
+// 			}
+// 		})
 
+// 	})
 
+	function renderProfileData(data){
+		$("#profileName").html(data.name)
+		$("#profileGenre").html(data.genre)
+		$("#profileBio").html(data.bio)
+		$("#profileFavorites").html(data.favorites)
+		document.getElementById("profilePhoto").src = "/" + data.photo;
+	}
 
 
 
@@ -397,32 +449,6 @@ $(document).ready(function(){
 	})
 
 
-	$("#profileForm").on("submit", function(event){
-		event.preventDefault()
-		$.ajax({
-			url: "/createprofile",
-			type: "POST",
-			data: new FormData($("#profileForm")[0]),
-			enctype: 'multipart/form-data',
-			cache: false,
-			contentType: false,
-			processData: false,
-			success: function(data){
-				renderProfileData(data)
-				$(".option-1").hide()
-				$(".option-2").show()
-			}
-		})
-
-	})
-
-	function renderProfileData(data){
-		$("#profileName").html(data.name)
-		$("#profileGenre").html(data.genre)
-		$("#profileBio").html(data.bio)
-		$("#profileFavorites").html(data.favorites)
-		document.getElementById("profilePhoto").src = "/" + data.photo;
-	}
 
 
 

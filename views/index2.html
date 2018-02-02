@@ -173,28 +173,26 @@
 
 		<img src="#" class="profile-photo" id="profilePhoto">
 
-		<div class="option-1">
+		<div class="option-1" v-if="!profile.submitted">
 			<div class="profile-form">
-				<form id="profileForm" enctype="multipart/form-data">
+				<form id="profileForm" enctype="multipart/form-data" v-on:submit="submitProfile(profile, $event)">
 					
-					<input type="text" name="name" placeholder="Your Name" required class="name">
-					<input type="text" name="genre" placeholder="Genre" required class="genre">
-					<textarea class="bio" name="bio" placeholder="Author Bio"></textarea >
-					<textarea class="favorites" name="favorites" placeholder="Favorite Things"></textarea >
-					<input type="file" name="photo" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto">
+					<input type="text" name="name" placeholder="Your Name" required class="name" v-model="profile.name">
+					<input type="text" name="genre" placeholder="Genre" required class="genre" v-model="profile.genre">
+					<textarea class="bio" name="bio" placeholder="Author Bio" v-model="profile.bio"></textarea >
+					<input type="file" name="photo" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto" v-model="profile.photo">
 					<button type="submit" class="button">Submit</button>
 				</form>
 			</div>
 		</div>
 
-		<div class="option-2">
+		<div class="option-2" v-if="profile.submitted">
 
 
-			<h2 id="profileName"></h2>
-			<h3>Genre: <span id="profileGenre"></span></h3>
-			<p id="profileBio"></p>
-			<p id="profileFavorites"></p>
-			<button id="editProfile" class="button">Edit Profile</button>
+			<h2 id="profileName">{{profile.name}}</h2>
+			<h3>Genre: <span id="profileGenre">{{profile.genre}}</span></h3>
+			<p id="profileBio">{{profile.bio}}</p>
+			<button id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
 		</div>
 
 		<div class="badge-bucket">

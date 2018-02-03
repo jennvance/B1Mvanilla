@@ -171,7 +171,7 @@
 	<div class="profile-dashboard">
 
 
-		<img src="#" class="profile-photo" id="profilePhoto">
+		<img src="#" class="profile-photo" id="profilePhoto" v-model="profile.photo">
 
 		<div class="option-1" v-if="!profile.submitted">
 			<div class="profile-form">
@@ -180,7 +180,7 @@
 					<input type="text" name="name" placeholder="Your Name" required class="name" v-model="profile.name">
 					<input type="text" name="genre" placeholder="Genre" required class="genre" v-model="profile.genre">
 					<textarea class="bio" name="bio" placeholder="Author Bio" v-model="profile.bio"></textarea >
-					<input type="file" name="photo" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto" v-model="profile.photo">
+					<input type="file" name="photo" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto" v-model="profile.photo" required>
 					<button type="submit" class="button">Submit</button>
 				</form>
 			</div>
@@ -192,8 +192,10 @@
 			<h2 id="profileName">{{profile.name}}</h2>
 			<h3>Genre: <span id="profileGenre">{{profile.genre}}</span></h3>
 			<p id="profileBio">{{profile.bio}}</p>
-			<button id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
+
 		</div>
+
+		<button id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
 
 		<div class="badge-bucket">
 			<div class="badge-single">

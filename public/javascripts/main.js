@@ -16,7 +16,7 @@ var vm = new Vue({
 			genre: "",
 			bio: "",
 			photo: "",
-			submitted: true
+			submitted: false
 		},
 		stats: {
 			allTimeTotal: 1,
@@ -188,6 +188,7 @@ var vm = new Vue({
 		submitProfile: function(profile, event){
 			event.preventDefault()
 			console.log(profile)
+			var self = this
 			$.ajax({
 				url: "/createprofile",
 				type: "POST",
@@ -198,15 +199,21 @@ var vm = new Vue({
 				processData: false,
 				success: function(data){
 					console.log(data)
+					self.renderPhoto(data)
 				}
 			})
 			profile.submitted = true
+		},
+		renderPhoto: function(data){
+			document.getElementById("profilePhoto").src = "/" + data.photo;
 		},
 		editProfile: function(event){
 			event.preventDefault()
 			this.profile.submitted = false
 			console.log("hi")
+
 		}
+		//END Profile Functions
 
 
 
@@ -217,35 +224,6 @@ var vm = new Vue({
 		console.log("Hi Jenn <3 !")
 	}
 })
-
-// $("#profileForm").on("submit", function(event){
-// 		event.preventDefault()
-// 		$.ajax({
-// 			url: "/createprofile",
-// 			type: "POST",
-// 			data: new FormData($("#profileForm")[0]),
-// 			enctype: 'multipart/form-data',
-// 			cache: false,
-// 			contentType: false,
-// 			processData: false,
-// 			success: function(data){
-// 				renderProfileData(data)
-// 				$(".option-1").hide()
-// 				$(".option-2").show()
-// 			}
-// 		})
-
-// 	})
-
-	function renderProfileData(data){
-		$("#profileName").html(data.name)
-		$("#profileGenre").html(data.genre)
-		$("#profileBio").html(data.bio)
-		$("#profileFavorites").html(data.favorites)
-		document.getElementById("profilePhoto").src = "/" + data.photo;
-	}
-
-
 
 var timeoutId = 0;
 
@@ -388,7 +366,7 @@ $(document).ready(function(){
 		}
 		$.post('/login', signupInfo, function(data){
 			console.log(data)
-			renderProfileData(data)
+			// renderProfileData(data)
 			showFriendsOnLogin()
 			// renderCharts(data.counts)
 			// window.location.href="/dashboard"

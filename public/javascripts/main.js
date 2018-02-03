@@ -210,8 +210,6 @@ var vm = new Vue({
 		editProfile: function(event){
 			event.preventDefault()
 			this.profile.submitted = false
-			console.log("hi")
-
 		}
 		//END Profile Functions
 

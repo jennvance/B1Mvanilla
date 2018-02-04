@@ -26,24 +26,25 @@
 
 <div id="burn">
 <div class="container">
-	<div id="overlay">
+	<div id="overlay" v-if="overlay">
 		<div class="su-panel">
 			<a href="" id="x">X</a>
-			<form id="signup-form" class="su-form">
+			<form id="signup-form" class="su-form" v-on:submit="signUp(profile, $event)" v-if="signup">
 				<h2>Sign Up</h2>
-				<input class="name" placeholder="Your Name">
-				<input class="username" placeholder="username">
-				<input class="password" placeholder="password">
+				<input class="name" v-model="profile.name" placeholder="Your Name">
+				<input class="username" v-model="profile.username" placeholder="username">
+				<input class="password" v-model="profile.password" placeholder="password">
 				<input type="submit" class="button" value="submit">
 			</form>
-			<form id="login-form" class="su-form">
+			<form id="login-form" class="su-form" v-if="!signup">
 				<h2>Log In</h2>
 				<input class="username" placeholder="username">
 				<input class="password" placeholder="password">
 				<input type="submit" class="button" value="submit">
 			</form>
-			<a href="#" class="right" id="li-button"><h3>Log In</h3></a>
-			<a href="#" class="right" id="su-button"><h3>Sign Up</h3></a>
+			<!-- not tested -->
+			<a href="#" class="right" id="li-button" v-on:click="signup = !signup; message = 'Sign Up'"><h3>{{message}}</h3></a>
+			<a href="#" class="right" id="su-button" v-on:click="signup = !signup; message = 'Log In'"><h3>{{message}}</h3></a>
 		</div>
 	</div>
 
@@ -166,7 +167,7 @@
 
 <div class="container-right">
 
-	<a href="#" id="showOverlay"><h2>Login/Signup</h2></a>
+	<a href="#" id="showOverlay" v-on:click="showOverlay($event)"><h2>Login/Signup</h2></a>
 
 	<div class="profile-dashboard">
 

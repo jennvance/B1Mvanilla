@@ -3,6 +3,9 @@
 var vm = new Vue({
 	el: "#burn",
 	data: {
+		overlay: false,
+		message: "Sign Up",
+		signup: false,
 		count: {
 			words: "",
 			date: ""
@@ -210,8 +213,25 @@ var vm = new Vue({
 		editProfile: function(event){
 			event.preventDefault()
 			this.profile.submitted = false
-		}
+		},
 		//END Profile Functions
+		//BEGIN Login/Signup Functions
+		signUp: function(data, event){
+			event.preventDefault()
+			console.log(data)
+			var self = this
+			$.post('/signup', data, function(data){
+
+			})
+		},
+		logIn: function(){
+
+		},
+		showOverlay: function(event){
+			// event.preventDefault()
+			this.overlay = true
+		}
+
 
 
 
@@ -222,6 +242,51 @@ var vm = new Vue({
 		console.log("Hi Jenn <3 !")
 	}
 })
+
+
+	$('#signup-form').on('submit', function(event){
+
+		$.post('/signup', signupInfo, function(data){
+			console.log(data)
+			// window.location.href = "/dashboard"
+			showFriendsOnLogin()
+			getAllUsers()
+			renderBadge(data)
+			
+		})
+		$("#overlay").hide()
+	})
+
+	$('#login-form').on('submit', function(event){
+		event.preventDefault()
+		var signupInfo = {
+			username: $('#login-form .username').val(),
+			password: $('#login-form .password').val()
+		}
+		$.post('/login', signupInfo, function(data){
+			console.log(data)
+			// renderProfileData(data)
+			showFriendsOnLogin()
+			// renderCharts(data.counts)
+			// window.location.href="/dashboard"
+			getAllUsers()
+		})
+		$("#overlay").hide()
+	})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var timeoutId = 0;
 
@@ -337,41 +402,7 @@ $(document).ready(function(){
 
 	
 
-	$('#signup-form').on('submit', function(event){
-		event.preventDefault()
-		var signupInfo = {
-			name:$('#signup-form .name').val(),
-			username: $('#signup-form .username').val(),
-			password: $('#signup-form .password').val()
-		}
-		console.log(signupInfo)
-		$.post('/signup', signupInfo, function(data){
-			console.log(data)
-			// window.location.href = "/dashboard"
-			showFriendsOnLogin()
-			getAllUsers()
-			renderBadge(data)
-			$("#profileName").html(data.name)
-		})
-		$("#overlay").hide()
-	})
 
-	$('#login-form').on('submit', function(event){
-		event.preventDefault()
-		var signupInfo = {
-			username: $('#login-form .username').val(),
-			password: $('#login-form .password').val()
-		}
-		$.post('/login', signupInfo, function(data){
-			console.log(data)
-			// renderProfileData(data)
-			showFriendsOnLogin()
-			// renderCharts(data.counts)
-			// window.location.href="/dashboard"
-			getAllUsers()
-		})
-		$("#overlay").hide()
-	})
 
 	function getAllUsers(){
 		$.ajax({

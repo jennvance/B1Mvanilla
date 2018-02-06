@@ -10,6 +10,7 @@
 	<link rel='stylesheet', href='/stylesheets/index2.css'>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 	<script src="node_modules/chart.js/dist/Chart.bundle.js"></script>
+
 </head>
 <body>
 	<h1 class="fire">
@@ -26,21 +27,23 @@
 
 <div id="burn">
 <div class="container">
-	<div id="overlay" v-if="overlay">
+	<div id="overlay" v-if="overlay" v-cloak>
 		<div class="su-panel">
 			<a href="" id="x">X</a>
-			<form id="signup-form" class="su-form" v-on:submit="signUp(profile, $event)" v-if="signup">
+			<form id="signup-form" class="su-form" v-on:submit="signUp(profile, $event)" v-show="signup">
 				<h2>Sign Up</h2>
 				<input class="name" v-model="profile.name" placeholder="Your Name">
 				<input class="username" v-model="profile.username" placeholder="username">
 				<input class="password" v-model="profile.password" placeholder="password">
 				<input type="submit" class="button" value="submit">
+
 			</form>
-			<form id="login-form" class="su-form" v-on:submit="signUp(profile, $event)" v-if="!signup">
+			<form id="login-form" class="su-form" v-on:submit="signUp(profile, $event)" v-show="!signup">
 				<h2>Log In</h2>
 				<input class="username" placeholder="username" v-model="profile.username">
 				<input class="password" placeholder="password" v-model="profile.password">
 				<input type="submit" class="button" value="submit">
+
 			</form>
 			
 			<a href="#" class="right" id="li-button" v-on:click="toggleForm()"><h3>{{message}}</h3></a>
@@ -211,8 +214,8 @@
 </div>
 </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
 <script type="text/javascript" src="javascripts/main.js"></script>
 <script type="text/javascript" src="javascripts/ui.js"></script>
 

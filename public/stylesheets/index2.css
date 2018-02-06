@@ -36,6 +36,10 @@
 	display: none;
 }
 
+[v-cloak] {
+	display:none;
+}
+
 .friend-single {
 	width: 25%;
 	box-sizing: border-box;

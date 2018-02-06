@@ -1,4 +1,3 @@
-//Raph new Vue() vs. Vue.extend()?
 
 var vm = new Vue({
 	el: "#burn",
@@ -45,7 +44,7 @@ var vm = new Vue({
 				url: "/addcount",
 				type: "POST",
 				data: formData,
-				success: function(data){
+				success: (data)=>{
 					console.log("success DATA", data)
 					//run logic functions
 					console.log(self.calcTotal(data))
@@ -232,12 +231,12 @@ var vm = new Vue({
 			this.overlay = true
 		},
 		toggleForm: function(){
-
+			console.log('toggle')
 			if(this.signup === false){
-				this.message = "Sign Up"
-				this.signup = true
-			} else if (this.message === true ){
 				this.message = "Log In"
+				this.signup = true
+			} else if (this.signup === true ){
+				this.message = "Sign Up"
 				this.signup = false
 			}
 		}

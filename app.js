@@ -247,9 +247,10 @@ app.post("/addcount", function(req,res){
             user.save()
             res.send(user.counts)
         }
-        // else {
-        //     //show overlay containing login
-        // }
+        else {
+            //show overlay containing login
+            res.send("Please log in")
+        }
     })
 })
 

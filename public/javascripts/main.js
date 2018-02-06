@@ -82,6 +82,10 @@ var vm = new Vue({
 		//if submit count before login, error message:
 		//"reduce of empty array with no initial value"
 		calcTotal: function(data){
+			console.log(data)
+			//won't need this check if don't show count form before login
+			//...but might want to show count form before login
+			//in which case needs to account for array AND error string
 			if (data.length) {
 				return data.map(function(a){
 					return a.words
@@ -106,9 +110,9 @@ var vm = new Vue({
 		},
 		//returns object containing date and numwords
 		findProductiveDate: function(filteredArray){
-			return filteredArray.reduce(function(a,b){
-				return (b.words > a.words) ? b : a;
-			})
+				return filteredArray.reduce(function(a,b){
+					return (b.words > a.words) ? b : a;
+				})
 		},
 		findProductiveDay: function(data){
 			var days = [0,0,0,0,0,0,0]
@@ -231,7 +235,7 @@ var vm = new Vue({
 			})
 		},
 		logIn: function(){
-
+			console.log("let's log in")
 		},
 		showOverlay: function(event){
 			// event.preventDefault()

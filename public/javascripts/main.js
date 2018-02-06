@@ -33,8 +33,6 @@ var vm = new Vue({
 		submitCount: function(data, event){
 			event.preventDefault()
 			console.log(data)
-			//assign "this" to variable to access inside Ajax call
-			var self = this
 			var formData = {
 				words: parseInt(data.words),
 				date: new Date(data.date)
@@ -47,26 +45,28 @@ var vm = new Vue({
 				success: (data)=>{
 					console.log("success DATA", data)
 					//run logic functions
-					console.log(self.calcTotal(data))
-					self.sortByDate(data)
+					console.log(this.calcTotal(data))
+					this.sortByDate(data)
 
 					//render new calculation
-					self.stats.allTimeTotal = self.calcTotal(data)
+					this.stats.allTimeTotal = this.calcTotal(data)
 
 					//run other logic functions
-					console.log(self.selectByMonth(data, 1))
-					console.log(self.calcTotal(self.selectByMonth(data, 1)))
+					console.log(this.selectByMonth(data, 1))
+					console.log(this.calcTotal(this.selectByMonth(data, 1)))
 					//returns date string with timestamp included but set to 00:00:00:000z
 					//figure out why format is weird and where to correct
-					console.log(self.findProductiveDate(self.selectByMonth(data,1)))
+					console.log(this.findProductiveDate(this.selectByMonth(data,1)))
 					
-					console.log(self.calcAverageMonth(self.selectByMonth(data, 1)))
-					console.log(self.calcAverageAllTime(self.sortByDate(data)))
+					//calcAverageMonth calculates entire month, but more pressingly need
+					//month up until today for current month only
+					console.log(this.calcAverageMonth(this.selectByMonth(data, 1)))
+					console.log(this.calcAverageAllTime(this.sortByDate(data)))
 					//Function might be off by 1 day. Thought it was working before but maybe not.
-					console.log(self.findProductiveDay(data))
+					console.log(this.findProductiveDay(data))
 
-					self.stats.mostProductiveDate = self.findProductiveDate(self.selectByMonth(data,1))
-					self.stats.mostProductiveDay = self.findProductiveDay(data)
+					this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,1))
+					this.stats.mostProductiveDay = this.findProductiveDay(data)
 
 
 
@@ -74,17 +74,25 @@ var vm = new Vue({
 					// 		var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
 					// 		$("#feed").append(text)
 
-					self.count.words = ""
-					self.count.date = ""
+					this.count.words = ""
+					this.count.date = ""
 				}
 			})
 		},
+		//if submit count before login, error message:
+		//"reduce of empty array with no initial value"
 		calcTotal: function(data){
-			return data.map(function(a){
-				return a.words
-			}).reduce(function(a,b){
-				return a+b
-			})
+			if (data.length) {
+				return data.map(function(a){
+					return a.words
+				}).reduce(function(a,b){
+					return a+b
+				})
+			} else {
+				console.log("oops!")
+				return null
+			}
+
 		},
 		sortByDate: function(data){
 			return data.sort(function(a,b){
@@ -125,13 +133,13 @@ var vm = new Vue({
 	//Average for given month
 	//could pass month in as argument to identify month immediately if needed
 		calcAverageMonth: function(filteredOrUnfilteredArray){
-			var self = this
+			// var this = this
 			var tempdate = filteredOrUnfilteredArray[0].date
 			var date = new Date(tempdate)
 			var year = date.getFullYear()
 			var month = date.getMonth() + 1
-			var total = self.calcTotal(filteredOrUnfilteredArray)
-			var days = self.daysInMonth(month, year)
+			var total = this.calcTotal(filteredOrUnfilteredArray)
+			var days = this.daysInMonth(month, year)
 			// var averageAsNumber = parseFloat((total/days).toFixed(0)) //returns Number
 			return (total / days).toFixed(0) //returns String
 		},
@@ -143,18 +151,17 @@ var vm = new Vue({
 		},
 //Average since your first entry, up to today
 		calcAverageAllTime: function(data){
-			var self = this
+			// var this = this
 			var firstday = new Date(data[0].date)
 			var today = new Date()
-			var daysBetween = self.diffDates(firstday, today)
-			var total = self.calcTotal(data)
+			var daysBetween = this.diffDates(firstday, today)
+			var total = this.calcTotal(data)
 			return (total / daysBetween).toFixed(0)
 		},
 		//END Count Functions
 		//BEGIN Goal Functions
 		submitGoal: function(data, event){
 			event.preventDefault()
-			var self = this
 			var formData = {
 				words: parseInt(data.words),
 				date: new Date(data.date)
@@ -164,24 +171,24 @@ var vm = new Vue({
 				url: "/setgoal",
 				type: "POST",
 				data: formData,
-				success: function(data){
+				success: (data)=>{
 					console.log(data)
-					console.log(self.calcWpdToGoal(data))
+					console.log(this.calcWpdToGoal(data))
 					//render
-					self.stats.goalWordsPerDay = self.calcWpdToGoal(data)
+					this.stats.goalWordsPerDay = this.calcWpdToGoal(data)
 					//end render
-					self.goal.words = ""
-					self.goal.date = ""
+					this.goal.words = ""
+					this.goal.date = ""
 				}
 			})
 		},
 		calcWpdToGoal: function(data){
-			var self = this
+			// var this = this
 			var today = new Date()
 			var goalDate = new Date(data.date)
 			//date selector selects for local instead of UTC time and it messes up diffDates() calc.
 			//fix later
-			var daysBetween = self.diffDates(today, goalDate) + 1
+			var daysBetween = this.diffDates(today, goalDate) + 1
 			var goalAmount = data.words
 			return ( goalAmount / daysBetween).toFixed(0)
 		},
@@ -190,7 +197,6 @@ var vm = new Vue({
 		submitProfile: function(profile, event){
 			event.preventDefault()
 			console.log(profile)
-			var self = this
 			$.ajax({
 				url: "/createprofile",
 				type: "POST",
@@ -199,9 +205,9 @@ var vm = new Vue({
 				cache: false,
 				contentType: false,
 				processData: false,
-				success: function(data){
+				success: (data)=>{
 					console.log(data)
-					self.renderPhoto(data)
+					this.renderPhoto(data)
 				}
 			})
 			profile.submitted = true
@@ -218,7 +224,8 @@ var vm = new Vue({
 		signUp: function(data, event){
 			event.preventDefault()
 			console.log(data)
-			var self = this
+			// var this = this
+			//working as expected
 			$.post('/signup', data, function(data){
 				console.log(data)
 			})
@@ -253,35 +260,35 @@ var vm = new Vue({
 })
 
 
-	$('#signup-form').on('submit', function(event){
+	// $('#signup-form').on('submit', function(event){
 
-		$.post('/signup', signupInfo, function(data){
-			console.log(data)
-			// window.location.href = "/dashboard"
-			showFriendsOnLogin()
-			getAllUsers()
-			renderBadge(data)
+	// 	$.post('/signup', signupInfo, function(data){
+	// 		console.log(data)
+	// 		// window.location.href = "/dashboard"
+	// 		showFriendsOnLogin()
+	// 		getAllUsers()
+	// 		renderBadge(data)
 			
-		})
-		$("#overlay").hide()
-	})
+	// 	})
+	// 	$("#overlay").hide()
+	// })
 
-	$('#login-form').on('submit', function(event){
-		event.preventDefault()
-		var signupInfo = {
-			username: $('#login-form .username').val(),
-			password: $('#login-form .password').val()
-		}
-		$.post('/login', signupInfo, function(data){
-			console.log(data)
-			// renderProfileData(data)
-			showFriendsOnLogin()
-			// renderCharts(data.counts)
-			// window.location.href="/dashboard"
-			getAllUsers()
-		})
-		$("#overlay").hide()
-	})
+	// $('#login-form').on('submit', function(event){
+	// 	event.preventDefault()
+	// 	var signupInfo = {
+	// 		username: $('#login-form .username').val(),
+	// 		password: $('#login-form .password').val()
+	// 	}
+	// 	$.post('/login', signupInfo, function(data){
+	// 		console.log(data)
+	// 		// renderProfileData(data)
+	// 		showFriendsOnLogin()
+	// 		// renderCharts(data.counts)
+	// 		// window.location.href="/dashboard"
+	// 		getAllUsers()
+	// 	})
+	// 	$("#overlay").hide()
+	// })
 
 
 

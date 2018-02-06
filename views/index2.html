@@ -36,15 +36,15 @@
 				<input class="password" v-model="profile.password" placeholder="password">
 				<input type="submit" class="button" value="submit">
 			</form>
-			<form id="login-form" class="su-form" v-if="!signup">
+			<form id="login-form" class="su-form" v-on:submit="signUp(profile, $event)" v-if="!signup">
 				<h2>Log In</h2>
-				<input class="username" placeholder="username">
-				<input class="password" placeholder="password">
+				<input class="username" placeholder="username" v-model="profile.username">
+				<input class="password" placeholder="password" v-model="profile.password">
 				<input type="submit" class="button" value="submit">
 			</form>
-			<!-- not tested -->
-			<a href="#" class="right" id="li-button" v-on:click="signup = !signup; message = 'Sign Up'"><h3>{{message}}</h3></a>
-			<a href="#" class="right" id="su-button" v-on:click="signup = !signup; message = 'Log In'"><h3>{{message}}</h3></a>
+			
+			<a href="#" class="right" id="li-button" v-on:click="toggleForm()"><h3>{{message}}</h3></a>
+<!-- 			<a href="#" class="right" id="su-button" v-on:click="signup = !signup; message = 'Log In'"><h3>{{message}}</h3></a> -->
 		</div>
 	</div>
 

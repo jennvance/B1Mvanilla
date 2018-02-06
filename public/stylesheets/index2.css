@@ -96,7 +96,7 @@
 }
 
 .option-1 {
-	display: none;
+	/*display: none;*/
 }
 
 .option-2 {
@@ -160,7 +160,7 @@
 }
 
 #signup-form, #li-button {
-	display: none;
+	/*display: none;*/
 }
 
 #x {

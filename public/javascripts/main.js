@@ -221,7 +221,7 @@ var vm = new Vue({
 			console.log(data)
 			var self = this
 			$.post('/signup', data, function(data){
-
+				console.log(data)
 			})
 		},
 		logIn: function(){
@@ -230,6 +230,16 @@ var vm = new Vue({
 		showOverlay: function(event){
 			// event.preventDefault()
 			this.overlay = true
+		},
+		toggleForm: function(){
+
+			if(this.signup === false){
+				this.message = "Sign Up"
+				this.signup = true
+			} else if (this.message === true ){
+				this.message = "Log In"
+				this.signup = false
+			}
 		}
 
 

@@ -21,11 +21,11 @@ $(document).ready(function(){
 	// 	// e.preventDefault()
 	// })
 
-	$("#editProfile").on("click", function(e){
-		e.preventDefault()
-		$(".option-2").hide()
-		$(".option-1").show()
-	})
+	// $("#editProfile").on("click", function(e){
+	// 	e.preventDefault()
+	// 	$(".option-2").hide()
+	// 	$(".option-1").show()
+	// })
 
 	$("#setGoalLink").on("click", function(e){
 		e.preventDefault()
@@ -35,9 +35,9 @@ $(document).ready(function(){
 	// $("#showOverlay").on("click", function(){
 	// 	$("#overlay").show()
 	// })
-	$("#overlay, #x").on("click", function(e){
-		e.preventDefault()
-		$("#overlay").hide();
-	})
+	// $("#overlay, #x").on("click", function(e){
+	// 	e.preventDefault()
+	// 	$("#overlay").hide();
+	// })
 
 })

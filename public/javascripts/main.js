@@ -1,10 +1,18 @@
+//Deleted functions: (clean code of them later)
+//renderProfileData()
+
 
 var vm = new Vue({
 	el: "#burn",
 	data: {
 		overlay: false,
 		message: "Sign Up",
-		signup: false,
+		showSignup: false,
+		signIn: {
+			name: "",
+			username: "",
+			password: ""
+		},
 		count: {
 			words: "",
 			date: ""
@@ -216,93 +224,87 @@ var vm = new Vue({
 			})
 			profile.submitted = true
 		},
+		renderProfile: function(data){
+			console.log("render!=", data)
+			this.profile.name = data.name
+			this.profile.genre = data.genre
+			this.profile.bio = data.bio
+		},
 		renderPhoto: function(data){
 			document.getElementById("profilePhoto").src = "/" + data.photo;
 		},
 		editProfile: function(event){
 			event.preventDefault()
-			this.profile.submitted = false
+			//remove this; submitted should only change 1x
+			// this.profile.submitted = false
 		},
 		//END Profile Functions
 		//BEGIN Login/Signup Functions
 		signUp: function(data, event){
 			event.preventDefault()
-			console.log(data)
-			// var this = this
-			//working as expected
-			$.post('/signup', data, function(data){
-				console.log(data)
+			var self = this
+			$.post('/signup', data, function(successData){
+				//if user already exists, need to redirect to login
+				if(successData === "<h1>User already exists; please log in.</h1>"){
+					self.toggleForm()
+					self.signIn.password = ""
+				} else {
+					self.profile.name = self.signIn.name
+					self.signIn = {
+						name: "",
+						username: "",
+						password: ""
+					}
+					self.overlay = false
+				}
+				console.log(successData)
+				// showFriendsOnLogin()
+				// getAllUsers()
+				// renderBadge(sucessData)
+				
 			})
 		},
-		logIn: function(){
-			console.log("let's log in")
+		logIn: function(data, event){
+			event.preventDefault()
+			console.log(data)
+			var self = this
+			$.post('/login', data, function(successData){
+				console.log(successData)
+				self.renderProfile(successData)
+				// showFriendsOnLogin()
+				// getAllUsers()
+			})
+			this.signIn = {
+				name: "",
+				username: "",
+				password: ""
+			}
+			this.overlay = false
 		},
 		showOverlay: function(event){
 			// event.preventDefault()
 			this.overlay = true
 		},
+		hideOverlay: function(event){
+			event.preventDefault()
+			this.overlay = false
+		},
 		toggleForm: function(){
 			console.log('toggle')
-			if(this.signup === false){
+			if(this.showSignup === false){
 				this.message = "Log In"
-				this.signup = true
-			} else if (this.signup === true ){
+				this.showSignup = true
+			} else if (this.showSignup === true ){
 				this.message = "Sign Up"
-				this.signup = false
+				this.showSignup = false
 			}
 		}
-
-
-
-
-
 
 	},
 	created: function(){
 		console.log("Hi Jenn <3 !")
 	}
 })
-
-
-	// $('#signup-form').on('submit', function(event){
-
-	// 	$.post('/signup', signupInfo, function(data){
-	// 		console.log(data)
-	// 		// window.location.href = "/dashboard"
-	// 		showFriendsOnLogin()
-	// 		getAllUsers()
-	// 		renderBadge(data)
-			
-	// 	})
-	// 	$("#overlay").hide()
-	// })
-
-	// $('#login-form').on('submit', function(event){
-	// 	event.preventDefault()
-	// 	var signupInfo = {
-	// 		username: $('#login-form .username').val(),
-	// 		password: $('#login-form .password').val()
-	// 	}
-	// 	$.post('/login', signupInfo, function(data){
-	// 		console.log(data)
-	// 		// renderProfileData(data)
-	// 		showFriendsOnLogin()
-	// 		// renderCharts(data.counts)
-	// 		// window.location.href="/dashboard"
-	// 		getAllUsers()
-	// 	})
-	// 	$("#overlay").hide()
-	// })
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -381,7 +383,7 @@ $(document).ready(function(){
 			success: function(data){
 				console.log(data)
 				console.log(generateRandom(data))
-				renderProfileData(generateRandom(data))
+				// renderProfileData(generateRandom(data))
 			}
 		})
 	}

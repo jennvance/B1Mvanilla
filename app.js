@@ -120,40 +120,49 @@ app.get('/session-test', function(req, res){
 
 
 app.all('/signup', function(req, res){
-    // this user object has a plain-text password
-    // we must hash the password before we save the user
-    
-    console.log('body??', req.body)
-    var newUser = new UltimateModel(req.body)
-    var aspiringAuthor = new BadgeModel({
-        title: "Aspiring Author",
-        summary: "You have joined but not written anything.",
-        img: "/public/images/penbadge.png"
-    })
-    aspiringAuthor.save()
-    newUser.badges.push(aspiringAuthor)
-    newUser.famous = false;
-    newUser.save()
+    UltimateModel.findOne({username: req.body.username}, function(err, user){
+        if ( err ) { console.log('there was an error')}
+        else if ( user ) { 
+            console.log('User already exists')
+            res.send('<h1>User already exists; please log in.</h1>')
+        }
+        else {
+            console.log('body??', req.body)
+            var newUser = new UltimateModel(req.body)
+            // var aspiringAuthor = new BadgeModel({
+            //     title: "Aspiring Author",
+            //     summary: "You have joined but not written anything.",
+            //     img: "/public/images/penbadge.png"
+            // })
+            // aspiringAuthor.save()
+            // newUser.badges.push(aspiringAuthor)
+            // newUser.famous = false;
+            // newUser.save()
 
 
-    console.log("user: " + newUser)
-    bcrypt.genSalt(11, function(saltErr, salt){
-        if (saltErr) {console.log(saltErr)}
-        console.log('salt generated: ', salt)
+            console.log("user: " + newUser)
+            // this user object has a plain-text password
+            // we must hash the password before we save the user
+            bcrypt.genSalt(11, function(saltErr, salt){
+                if (saltErr) {console.log(saltErr)}
+                console.log('salt generated: ', salt)
 
-        bcrypt.hash(newUser.password, salt, function(hashErr, hashedPassword){
-            if ( hashErr){ console.log(hashErr) }
-            newUser.password = hashedPassword
+                bcrypt.hash(newUser.password, salt, function(hashErr, hashedPassword){
+                    if ( hashErr){ console.log(hashErr) }
+                    newUser.password = hashedPassword
 
-            newUser.save(function(saveErr, user){
-                if ( saveErr ) { console.log(saveErr)}
-                else {
-                    req.session._id = user._id // this line is what actually logs the user in. 
-                    res.send(user)
-                }
+                    newUser.save(function(saveErr, user){
+                        if ( saveErr ) { console.log(saveErr)}
+                        else {
+                            req.session._id = user._id // this line is what actually logs the user in. 
+                            res.send(user)
+                        }
+                    })
+                })
+
             })
-        })
 
+        }
     })
 
 

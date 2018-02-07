@@ -29,19 +29,19 @@
 <div class="container">
 	<div id="overlay" v-if="overlay" v-cloak>
 		<div class="su-panel">
-			<a href="" id="x">X</a>
-			<form id="signup-form" class="su-form" v-on:submit="signUp(profile, $event)" v-show="signup">
+			<a href="" id="x" v-on:click="hideOverlay($event)">X</a>
+			<form id="signup-form" class="su-form" v-on:submit="signUp(signIn, $event)" v-show="showSignup">
 				<h2>Sign Up</h2>
-				<input class="name" v-model="profile.name" placeholder="Your Name">
-				<input class="username" v-model="profile.username" placeholder="username">
-				<input class="password" v-model="profile.password" placeholder="password">
+				<input class="name" v-model="signIn.name" placeholder="Your Name">
+				<input class="username" v-model="signIn.username" placeholder="username">
+				<input class="password" v-model="signIn.password" placeholder="password">
 				<input type="submit" class="button" value="submit">
 
 			</form>
-			<form id="login-form" class="su-form" v-on:submit="signUp(profile, $event)" v-show="!signup">
+			<form id="login-form" class="su-form" v-on:submit="logIn(signIn, $event)" v-show="!showSignup">
 				<h2>Log In</h2>
-				<input class="username" placeholder="username" v-model="profile.username">
-				<input class="password" placeholder="password" v-model="profile.password">
+				<input class="username" placeholder="username" v-model="signIn.username">
+				<input class="password" placeholder="password" v-model="signIn.password">
 				<input type="submit" class="button" value="submit">
 
 			</form>

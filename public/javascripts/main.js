@@ -70,6 +70,8 @@ var vm = new Vue({
 					//calcAverageMonth calculates entire month, but more pressingly need
 					//month up until today for current month only
 					console.log(this.calcAverageMonth(this.selectByMonth(data, 1)))
+
+					//returns infinity if run on the first day user signs up, because #days = 0
 					console.log(this.calcAverageAllTime(this.sortByDate(data)))
 					//Function might be off by 1 day. Thought it was working before but maybe not.
 					console.log(this.findProductiveDay(data))
@@ -169,7 +171,13 @@ var vm = new Vue({
 			var today = new Date()
 			var daysBetween = this.diffDates(firstday, today)
 			var total = this.calcTotal(data)
+			// Raph, can I change value of check variable inside check?
+			if(daysBetween === 0){
+				console.log("Infinity Averted!")
+				daysBetween = 1
+			}
 			return (total / daysBetween).toFixed(0)
+			
 		},
 		//END Count Functions
 		//BEGIN Goal Functions
@@ -209,7 +217,7 @@ var vm = new Vue({
 		//BEGIN Profile Functions
 		submitProfile: function(profile, event){
 			event.preventDefault()
-			console.log(profile)
+			// console.log(profile)
 			$.ajax({
 				url: "/createprofile",
 				type: "POST",
@@ -219,23 +227,21 @@ var vm = new Vue({
 				contentType: false,
 				processData: false,
 				success: (data)=>{
-					console.log("data indluding photo=",data)
 					this.renderPhoto(data)
-					//shouldn't need renderProfile here because
-					//already attached to model
 				}
 			})
 			this.showProfileForm = false
 			this.showProfile = true
 		},
 		renderPhoto: function(data){
-			document.getElementById("profilePhoto").src = "/" + data.photo;
+			if(data.photo){
+				document.getElementById("profilePhoto").src = "/" + data.photo;
+			}
 		},
 		editProfile: function(event){
 			event.preventDefault()
 			this.showProfile = false
 			this.showProfileForm = true
-
 		},
 		//END Profile Functions
 		//BEGIN Login/Signup Functions
@@ -256,7 +262,6 @@ var vm = new Vue({
 					}
 					self.overlay = false
 				}
-				console.log(successData)
 				// showFriendsOnLogin()
 				// getAllUsers()
 				// renderBadge(sucessData)

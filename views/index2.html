@@ -177,7 +177,7 @@
 
 		<img src="#" class="profile-photo" id="profilePhoto" v-model="profile.photo">
 
-		<div class="option-1" v-if="showProfileForm">
+		<div class="option-1" v-if="showProfileForm" v-cloak>
 			<div class="profile-form">
 				<form id="profileForm" enctype="multipart/form-data" v-on:submit="submitProfile(profile, $event)">
 					

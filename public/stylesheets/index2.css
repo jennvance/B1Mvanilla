@@ -145,7 +145,7 @@
 
 .su-form {
 	background-color: #E27822;
-	padding: 3%;
+	padding: 1%;
 	width: 300px;
 	border-radius: 10px;
 	margin: 2% auto;
@@ -157,6 +157,11 @@
 	margin: 7px auto;
 	height:25px;
 	width: 150px;
+}
+
+.li-form {
+	/*padding: 3%;*/
+	margin-top: 7%;
 }
 
 .right {

@@ -13,17 +13,17 @@
 
 </head>
 <body>
-	<h1 class="fire">
-<!-- 		<div class="red">B</div>
+<!-- 	<h1 class="fire">
+		<div class="red">B</div>
 		<div class="orange">U</div>
 		<div class="yellow">R</div>
 		<div class="green">N</div>
 		<div class="blue">O</div>
 		<div class="violet">N</div>
 		<div class="red">E</div>
-		<div class="orange">M</div> -->
+		<div class="orange">M</div>
 		BURN ONE MILLION
-	</h1>
+	</h1> -->
 
 <div id="burn">
 <div class="container">
@@ -177,29 +177,30 @@
 
 		<img src="#" class="profile-photo" id="profilePhoto" v-model="profile.photo">
 
-		<div class="option-1" v-if="!profile.submitted">
+		<div class="option-1" v-if="showProfileForm">
 			<div class="profile-form">
 				<form id="profileForm" enctype="multipart/form-data" v-on:submit="submitProfile(profile, $event)">
 					
 					<input type="text" name="name" placeholder="Your Name" required class="name" v-model="profile.name">
 					<input type="text" name="genre" placeholder="Genre" required class="genre" v-model="profile.genre">
 					<textarea class="bio" name="bio" placeholder="Author Bio" v-model="profile.bio"></textarea >
-					<input type="file" name="photo" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto" v-model="profile.photo" required>
+					<input type="file" name="photo" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto" v-model="profile.photo">
 					<button type="submit" class="button">Submit</button>
 				</form>
 			</div>
 		</div>
 
-		<div class="option-2" v-if="profile.submitted">
+		<div class="option-2" v-if="showProfile">
 
 
 			<h2 id="profileName">{{profile.name}}</h2>
 			<h3>Genre: <span id="profileGenre">{{profile.genre}}</span></h3>
 			<p id="profileBio">{{profile.bio}}</p>
+			<button id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
 
 		</div>
 
-		<button id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
+
 
 		<div class="badge-bucket">
 			<div class="badge-single">

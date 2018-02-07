@@ -8,6 +8,8 @@ var vm = new Vue({
 		overlay: false,
 		message: "Sign Up",
 		showSignup: false,
+		showProfileForm: false,
+		showProfile: false,
 		signIn: {
 			name: "",
 			username: "",
@@ -25,8 +27,7 @@ var vm = new Vue({
 			name: "",
 			genre: "",
 			bio: "",
-			photo: "",
-			submitted: false
+			photo: ""
 		},
 		stats: {
 			allTimeTotal: 1,
@@ -218,25 +219,23 @@ var vm = new Vue({
 				contentType: false,
 				processData: false,
 				success: (data)=>{
-					console.log(data)
+					console.log("data indluding photo=",data)
 					this.renderPhoto(data)
+					//shouldn't need renderProfile here because
+					//already attached to model
 				}
 			})
-			profile.submitted = true
-		},
-		renderProfile: function(data){
-			console.log("render!=", data)
-			this.profile.name = data.name
-			this.profile.genre = data.genre
-			this.profile.bio = data.bio
+			this.showProfileForm = false
+			this.showProfile = true
 		},
 		renderPhoto: function(data){
 			document.getElementById("profilePhoto").src = "/" + data.photo;
 		},
 		editProfile: function(event){
 			event.preventDefault()
-			//remove this; submitted should only change 1x
-			// this.profile.submitted = false
+			this.showProfile = false
+			this.showProfileForm = true
+
 		},
 		//END Profile Functions
 		//BEGIN Login/Signup Functions
@@ -270,7 +269,13 @@ var vm = new Vue({
 			var self = this
 			$.post('/login', data, function(successData){
 				console.log(successData)
-				self.renderProfile(successData)
+				//could go in function
+				self.profile.name = successData.name
+				self.profile.genre = successData.genre
+				self.profile.bio = successData.bio
+				//end function
+				self.renderPhoto(successData)
+				self.showProfile = true
 				// showFriendsOnLogin()
 				// getAllUsers()
 			})

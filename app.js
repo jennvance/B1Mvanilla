@@ -229,8 +229,9 @@ app.post('/createprofile', upload.single('photo'), function(req,res){
             user.name = req.body.name;
             user.genre = req.body.genre;
             user.bio = req.body.bio;
-            //breaks code if not required for submit
-            user.photo = req.file.filename;
+            if(req.file) {
+                user.photo = req.file.filename;
+            }
             user.save(function(){
                 // console.log(UltimateModel)
             })

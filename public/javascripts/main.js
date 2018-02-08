@@ -343,9 +343,6 @@ var vm = new Vue({
 				//rewrite feedAnnouncements
 				var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
 				self.announcements.push(announcement)
-				// console.log(self.announcements)
-				//next:
-				//render the announcement
 			})
 		}
 
@@ -508,6 +505,11 @@ GOAL button visible
 
 Upon submitting profile, following friend, adding count:
 
+following friend:
+move user from "youMayKnow" to friends
+remove "follow" button; replace with profile data
+this will fix bug where if you're already friends, the
+server returns undefined
 
 */
 

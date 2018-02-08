@@ -55,16 +55,36 @@
 
 <div class="container-left">
 	<!-- <h3>Friends</h3> -->
+	<ul id="friend-bucket">
+		<li class="friend-single" v-for="person in youMayKnow">
+			<img v-bind:src="person.photo" class="friend-single-photo">
+			<h5 class="friend-single-name">{{person.name}}</h5>
+			<h6>{{person.genre}}</h6>
+
+			<button v-on:click="addFriend(person, $event)" class="button followButton">Follow</button>
+		</li>
+
+	</ul>	
+
+
+<!-- 
 	<div id="friend-bucket">
 		<div class="friend-single">
 			<img src="#" class="friend-single-photo">
 			<h4 class="friend-single-name">Jenn Vance</h4>
 			<h4>Genre or Thumbnail Bio</h4>
 		</div>
-		<div class="friend-single">			<img src="#" class="friend-single-photo">
+		<div class="friend-single">			
+			<img src="#" class="friend-single-photo">
 			<h4 class="friend-single-name">Jenn Vance</h4>
-			<h4>Genre or Thumbnail Bio</h4></div>
-	</div>
+			<h4>Genre or Thumbnail Bio</h4>
+		</div>
+		<div class="friend-single">			
+			<img src="#" class="friend-single-photo">
+			<h4 class="friend-single-name">Jenn Vance</h4>
+			<h4>Genre or Thumbnail Bio</h4>
+		</div>
+	</div> -->
 
 	<div id="feed">
 	</div>
@@ -127,10 +147,10 @@
 <!-- 		<div class="cell a">All time total: </div>
 		<div class="cell b" id="allTimeTotal">0</div> -->
 		<div class="cell a">Total for month: </div>
-		<div class="cell b" id="totalmonth">0</div>
+		<div class="cell b" id="totalmonth">{{stats.monthTotal}}</div>
 
 		<div class="cell a">Daily average for month: </div>
-		<div class="cell b" id="avgmonth">0</div>
+		<div class="cell b" id="avgmonth">{{stats.monthAverage}}</div>
 
 		<div class="cell a">Most productive day of month: </div>
 		<div class="cell b" id="prodDate">{{stats.mostProductiveDate.date}}<span id="prodDateCt">{{stats.mostProductiveDate.words}}</span> words</div>
@@ -139,10 +159,10 @@
 		<div class="cell b">{{stats.mostProductiveDay}}</div>
 
 		<div class="cell a">Daily Average since you started: </div>
-		<div class="cell b" id="dailyAvg">0</div>
+		<div class="cell b" id="dailyAvg">{{stats.allTimeAverage}}</div>
 
-		<div class="cell a">Average excluding zero days: </div>
-		<div class="cell b" id="onlyAvg">0</div>
+<!-- 		<div class="cell a">Average excluding zero days: </div>
+		<div class="cell b" id="onlyAvg">0</div> -->
 	</div>
 
 

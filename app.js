@@ -278,7 +278,7 @@ app.post("/setgoal", function(req,res){
     })
 })
 
-app.get("/getfriends", function(req,res){
+app.get("/getallusers", function(req,res){
     console.log(req.body)
     UltimateModel.find({}, function(err, user){
         if (user){

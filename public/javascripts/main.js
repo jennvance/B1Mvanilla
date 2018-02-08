@@ -31,10 +31,15 @@ var vm = new Vue({
 		},
 		stats: {
 			allTimeTotal: 1,
+			allTimeAverage: 0,
+			monthTotal: 0,
+			monthAverage: 0,
 			goalWordsPerDay: 0,
 			mostProductiveDate: {},
-			mostProductiveDay: ""
-		}
+			mostProductiveDay: "First, Write!"
+		},
+		youMayKnow: [],
+		announcements: []
 
 	},
 	methods: {
@@ -54,33 +59,25 @@ var vm = new Vue({
 				success: (data)=>{
 					console.log("success DATA", data)
 					//run logic functions
-					console.log(this.calcTotal(data))
 					this.sortByDate(data)
-
 					//render new calculation
 					this.stats.allTimeTotal = this.calcTotal(data)
-
 					//run other logic functions
 					console.log(this.selectByMonth(data, 1))
-					console.log(this.calcTotal(this.selectByMonth(data, 1)))
-					//returns date string with timestamp included but set to 00:00:00:000z
-					//figure out why format is weird and where to correct
-					console.log(this.findProductiveDate(this.selectByMonth(data,1)))
-					
+					this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, 1))
 					//calcAverageMonth calculates entire month, but more pressingly need
 					//month up until today for current month only
+					this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, 1))
 					console.log(this.calcAverageMonth(this.selectByMonth(data, 1)))
-
 					//returns infinity if run on the first day user signs up, because #days = 0
-					console.log(this.calcAverageAllTime(this.sortByDate(data)))
+					//also returns negative number if user enters count from before signup date
+					this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
 					//Function might be off by 1 day. Thought it was working before but maybe not.
 					console.log(this.findProductiveDay(data))
-
+					//returns date string with timestamp included but set to 00:00:00:000z
+					//figure out why format is weird and where to correct
 					this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,1))
 					this.stats.mostProductiveDay = this.findProductiveDay(data)
-
-
-
 					//announce new entry in feed
 					// 		var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
 					// 		$("#feed").append(text)
@@ -262,8 +259,8 @@ var vm = new Vue({
 					}
 					self.overlay = false
 				}
-				// showFriendsOnLogin()
-				// getAllUsers()
+				self.showFriendsOnLogin()
+				self.getAllUsers()
 				// renderBadge(sucessData)
 				
 			})
@@ -281,8 +278,8 @@ var vm = new Vue({
 				//end function
 				self.renderPhoto(successData)
 				self.showProfile = true
-				// showFriendsOnLogin()
-				// getAllUsers()
+				self.showFriendsOnLogin()
+				self.getAllUsers()
 			})
 			this.signIn = {
 				name: "",
@@ -308,6 +305,48 @@ var vm = new Vue({
 				this.message = "Sign Up"
 				this.showSignup = false
 			}
+		},
+		//END Login/Signup Functions
+		//BEGIN Friend Functions
+		showFriendsOnLogin: function(){
+			$("#friend-bucket").css("display", "flex")
+			// console.log("test")
+		},
+		getAllUsers: function(){
+			$.ajax({
+				url: "/getallusers",
+				type: "GET",
+				success: (data)=>{
+					console.log(data)
+					this.renderAllUsers(data)
+				}
+			})
+		},
+		renderAllUsers: function(data){
+			for(var i=0; i<data.length; i++){
+				this.youMayKnow.push({
+					name: data[i].name,
+					genre: data[i].genre,
+					bio: data[i].bio,
+					photo: data[i].photo,
+					id: data[i]._id
+				})
+			}
+			console.log(this.youMayKnow)
+		},
+		addFriend: function(person, event){
+			event.preventDefault()
+			console.log(person)
+			var self = this
+			$.post("/addfriend", {newFriendId: person.id}, function(data){
+				console.log("you two are friends now:", data)
+				//rewrite feedAnnouncements
+				var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
+				self.announcements.push(announcement)
+				// console.log(self.announcements)
+				//next:
+				//render the announcement
+			})
 		}
 
 	},
@@ -317,12 +356,9 @@ var vm = new Vue({
 })
 
 
-
-
-
 var timeoutId = 0;
 
-$(document).ready(function(){
+
 
 
 	var results = []
@@ -417,10 +453,7 @@ $(document).ready(function(){
 		})
 	}
 
-	function showFriendsOnLogin(){
-		$("#friend-bucket").css("display", "flex")
 
-	}
 
 	function renderBadge(data){
 		console.log(data)
@@ -432,70 +465,54 @@ $(document).ready(function(){
 	}
 
 
-	
-
-
-
-	function getAllUsers(){
-		$.ajax({
-			url: "/getfriends",
-			type: "GET",
-			success: function(data){
-				console.log(data)
-				renderAllUsers(data)
-			}
-		})
-	}
 
 	
 
 
-	function renderAllUsers(data){
-		var newHTML = []
-		var limit = 7
-		if (data.length <=7){
-			limit = data.length
-		}
-		//do I need this else?
-		else {
-			limit = 7
-		}
-		for(var i=0; i<=limit; i++){
-			var entry = {
-				name: data[i].name,
-				genre: data[i].genre,
-				photo: data[i].photo
-			}
-			var entryHTML = "<div class=\"friend-single\"><img src=\"/" + entry.photo + "\" class=\"friend-single-photo\"><h4 class=\"friend-single-name\">" + entry.name + "</h4><h5>" + entry.genre + "</h5><button data-id='" + data[i]._id + "' class=\"button followButton\">Follow</button></div>"
+/*
 
-			newHTML.push(entryHTML)
-		}
-		//rendering All Users in Friend Bucket doesn't work
-		//bc getAllUsers gets called while #friend-bucket is display:none
-		//fixed temporarily by putting function call in login 
-		//(wait, why temporarily?)
-		$("#friend-bucket").html(newHTML.join(""))
-	}
+Upon visiting page first time:
 
-	$("#friend-bucket").on("click", ".followButton", function(event){
-		console.log($(event.target).attr('data-id'))
-		$.post("/addfriend", {newFriendId: $(event.target).attr('data-id') }, function(data){
-			var feedAnnounce = "<p>"+ data.friend1 + " and " + data.friend2 + " are now friends.</p>"
-			$("#feed").append(feedAnnounce)
-		})
+LEFT side order:
+1. FRIEND profiles (view 4 at a time, allow user to click through to reveal 4 more in "window")
+2. FEED of all FRIENDS (including famous, which will be friends)
+3. PEOPLE TO FOLLOW (all site users, randomized)
 
-		
-	})
+PROFILE reads famous author
+CENTER reads marketing txt; below it is add count form
+LEFT reads "people you may know", famous only, no follow buttons
+BADGES hidden
+FEED reveals famous announcements
+
+Upon signup:
+
+PROFILE reads blank; "please fill out"
+CENTER reads add count form
+LEFT reads: auto-follow famous; add Follow buttons
+(and people you may know)
+BADGES revealed; Aspiring Author awarded
+FEED reveals 
+GOAL button visible; can click for form
+
+
+Upon login:
+
+PROFILE reads current profile
+CENTER stays same
+LEFT reads famous AND following
+(and people you may know)
+BADGES stays same
+GOAL button visible
 
 
 
+Upon submitting profile, following friend, adding count:
 
 
+*/
 
 
-
-
-
+	
 
 
 
@@ -506,8 +523,4 @@ $(document).ready(function(){
 
 
 
-
-
-
-})
 

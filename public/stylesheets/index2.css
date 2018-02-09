@@ -195,7 +195,14 @@
 	width: 50%;
 }
 
+.fade-in {
+	animation: fadein 2s;
+}
 
+@keyframes fadein {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
 
 @media screen and (min-width:600px) {
 	.container-center,.container-left,.container-right{

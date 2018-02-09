@@ -319,6 +319,7 @@ var vm = new Vue({
 				success: (data)=>{
 					console.log(data)
 					this.renderAllUsers(data)
+					// return data
 				}
 			})
 		},
@@ -337,13 +338,22 @@ var vm = new Vue({
 		addFriend: function(person, event){
 			event.preventDefault()
 			console.log(person)
-			var self = this
-			$.post("/addfriend", {newFriendId: person.id}, function(data){
-				console.log("you two are friends now:", data)
-				//rewrite feedAnnouncements
-				var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
-				self.announcements.push(announcement)
+			var id = {newFriendId: person.id}
+			$.ajax({
+				url: "/addfriend",
+				type: "POST",
+				data: id,
+				success: (data)=>{
+					console.log("you two are friends now:", data)
+					var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
+					this.announcements.unshift(announcement)
+					// this.renderFriends()				
+				}
+
 			})
+		},
+		renderFriends: function(allUsers, friendIds){
+
 		}
 
 	},

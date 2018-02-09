@@ -79,16 +79,6 @@
 	"famous": true
 },
 {
-	"username": "tomwolfe",
-	"password": "tomwolfe",
-	"name": "Tom Wolfe",
-	"genre": "Narrative Nonfiction",
-	"bio": "Get on the bus!",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
-	"friends": [],
-	"famous": true
-},
-{
 	"username": "fscottfitzgerald",
 	"password": "fscottfitzgerald",
 	"name": "F. Scott Fitzgerald",

@@ -66,8 +66,8 @@
 
 	</ul>	
 
-	<ul v-for="announcement in announcements">
-		<li class="fade-in">{{announcement}}</li>
+	<ul v-for="(announcement, index) in announcements" v-bind:key="announcement.id">
+		<li class="fade-in">{{announcement.text}}</li>
 	</ul>
 
 	<ul>

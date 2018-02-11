@@ -39,7 +39,10 @@ var vm = new Vue({
 			mostProductiveDay: "First, Write!"
 		},
 		youMayKnow: [],
-		announcements: []
+		announcements: [{
+			text: "",
+			id: 0
+		}]
 
 	},
 	methods: {
@@ -346,7 +349,13 @@ var vm = new Vue({
 				success: (data)=>{
 					console.log("you two are friends now:", data)
 					var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
-					this.announcements.unshift(announcement)
+					var identification = this.announcements.length
+					console.log(this.announcements.length)
+					this.announcements.unshift({
+						text: announcement,
+						id: identification
+					})
+					console.log(this.announcements)
 					// this.renderFriends()				
 				}
 

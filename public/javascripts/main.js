@@ -39,10 +39,12 @@ var vm = new Vue({
 			mostProductiveDay: "First, Write!"
 		},
 		youMayKnow: [],
+		friends: [],
 		announcements: [{
 			text: "",
 			id: 0
 		}]
+		
 
 	},
 	methods: {
@@ -282,6 +284,7 @@ var vm = new Vue({
 				self.renderPhoto(successData)
 				self.showProfile = true
 				self.showFriendsOnLogin()
+				//need to exclude self from view of all users
 				self.getAllUsers()
 			})
 			this.signIn = {
@@ -315,6 +318,7 @@ var vm = new Vue({
 			$("#friend-bucket").css("display", "flex")
 			// console.log("test")
 		},
+		//need to remove user's own profile plus all friend profiles
 		getAllUsers: function(){
 			$.ajax({
 				url: "/getallusers",
@@ -347,14 +351,31 @@ var vm = new Vue({
 				type: "POST",
 				data: id,
 				success: (data)=>{
-					console.log("you two are friends now:", data)
-					var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
-					var identification = this.announcements.length
-					this.announcements.unshift({
-						text: announcement,
-						id: identification
-					})
-					// this.renderFriends()				
+					console.log(data)
+					if(data === "friends already"){
+						console.log("You're already friends!")
+					} else {
+						console.log("you two are friends now:", data)
+						var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
+						var identification = this.announcements.length
+						this.announcements.unshift({
+							text: announcement,
+							id: identification
+						})
+						for(var i=0; i<this.youMayKnow.length; i++) {
+							if(this.youMayKnow[i].name === data.friend2){
+								this.youMayKnow.splice(i, 1)
+								console.log(this.youMayKnow)
+							}
+						}
+
+						this.friends = data.fullList
+						console.log(this.friends)
+
+						
+						// this.renderFriends()					
+					}
+					
 				}
 
 			})

@@ -293,34 +293,42 @@ app.post("/addfriend", function(req, res){
         if(newFriend){
             UltimateModel.findOne({_id:req.session._id}, function(err, user){
                 if(user){
-                    console.log("New Friend: ",newFriend)
+                    console.log("New Friend: ", newFriend, user)
                     //check to see if friend already in user's friends
-                    for(var i = 0; i<user.friends.length; i++){
-                        console.log(typeof user.friends[i], " ", typeof newFriend._id)
-                        if ( user.friends[i].equals(newFriend._id) ) {
-                            console.log(user.friends[i], " ",newFriend._id)
-                            return res.send("You're already friends with that person!")
-                        }
+                    if(user.friends.length > 0) {
+                        for(var i = 0; i<user.friends.length; i++){
+                            // console.log(typeof user.friends[i], " ", typeof newFriend._id)
+                            if ( user.friends[i]._id.equals(newFriend._id) ) {
+                                console.log(user.friends[i], " ",newFriend._id)
+                                return res.send("friends already")
+                            }
+                        }                        
                     }
-                    user.friends.push(newFriend._id)
+
+                    console.log("newFriend=", newFriend)
+                    user.friends.push({
+                        id: newFriend._id,
+                        name: newFriend.name,
+                        genre: newFriend.genre,
+                        bio: newFriend.bio
+                    })
                     user.save()
                     //Should also add logged in user to newFriend's friend or follower list
-                    newFriend.friends.push(user._id)
-                    newFriend.save()
-                     
-                   
+                    //Actually, DONT do this. call it following (unmutual) instead of friending (mutual)
+                    // newFriend.friends.push(user)
+                    // newFriend.save()
                     var list = user.friends
                     var friend1 = user.name
                     var friend2 = newFriend.name
-                    var friends = {
+                    var friendlist = {
                         friend1: friend1,
                         friend2: friend2,
                         fullList: list
                     }
-                    res.send(friends)
+                    res.send(friendlist)
                 }
                 else {
-                    res.send("who are you?")
+                    res.send("please log in")
                 }
             })
         }

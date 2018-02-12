@@ -32,16 +32,16 @@
 			<a href="" id="x" v-on:click="hideOverlay($event)">X</a>
 			<form id="signup-form" class="su-form" v-on:submit="signUp(signIn, $event)" v-show="showSignup">
 				<h2>Sign Up</h2>
-				<input class="name" v-model="signIn.name" placeholder="Your Name">
-				<input class="username" v-model="signIn.username" placeholder="username">
-				<input class="password" v-model="signIn.password" placeholder="password">
+				<input class="name" v-model="signIn.name" placeholder="Your Name"required>
+				<input class="username" v-model="signIn.username" placeholder="username" required>
+				<input class="password" v-model="signIn.password" placeholder="password" required>
 				<input type="submit" class="button" value="submit">
 
 			</form>
 			<form id="login-form" class="su-form li-form" v-on:submit="logIn(signIn, $event)" v-show="!showSignup">
 				<h2>Log In</h2>
-				<input class="username" placeholder="username" v-model="signIn.username">
-				<input class="password" placeholder="password" v-model="signIn.password">
+				<input class="username" placeholder="username" v-model="signIn.username" required>
+				<input class="password" placeholder="password" v-model="signIn.password" required>
 				<input type="submit" class="button" value="submit">
 
 			</form>
@@ -70,8 +70,8 @@
 		<li class="fade-in">{{announcement.text}}</li>
 	</ul>
 
-	<ul>
-		<li></li>
+	<ul v-for="friend in friends">
+		<li>{{friend}}</li>
 
 
 	</ul>

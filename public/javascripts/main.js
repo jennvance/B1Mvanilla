@@ -350,12 +350,10 @@ var vm = new Vue({
 					console.log("you two are friends now:", data)
 					var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
 					var identification = this.announcements.length
-					console.log(this.announcements.length)
 					this.announcements.unshift({
 						text: announcement,
 						id: identification
 					})
-					console.log(this.announcements)
 					// this.renderFriends()				
 				}
 

@@ -66,7 +66,7 @@
 
 	</ul>	
 
-	<ul v-for="(announcement, index) in announcements" v-bind:key="announcement.id">
+	<ul v-for="(announcement, index) in announcements" v-bind:key="announcement.id" class="feed">
 		<li class="fade-in">{{announcement.text}}</li>
 	</ul>
 

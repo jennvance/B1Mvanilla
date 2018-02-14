@@ -286,6 +286,7 @@ var vm = new Vue({
 				self.showFriendsOnLogin()
 				//need to exclude self from view of all users
 				self.getAllUsers()
+				self.getStrangersOnly()
 			})
 			this.signIn = {
 				name: "",
@@ -319,6 +320,31 @@ var vm = new Vue({
 			// console.log("test")
 		},
 		//need to remove user's own profile plus all friend profiles
+		getStrangersOnly: function(){
+			$.ajax({
+				url: "/getstrangers",
+				type: "GET",
+				success: (data)=>{
+					console.log(data)
+					for(var i=0;i<data.length;i++){
+						this.friends.push({
+							name: data[i].name,
+							genre: data[i].genre,
+							bio: data[i].bio,
+							photo: data[i].photo,
+							id: data[i]._id
+						})
+					}
+					console.log(this.friends)
+				}
+			})
+			//take session id, send to server,
+			//locate user,
+			//look up user's friends
+			//take user and their friends's (ids?)
+			//filter from database
+			//return what's left
+		},
 		getAllUsers: function(){
 			$.ajax({
 				url: "/getallusers",

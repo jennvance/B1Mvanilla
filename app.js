@@ -287,23 +287,70 @@ app.get("/getallusers", function(req,res){
     })
 })
 
+app.get("/getstrangers",function(req,res){
+    console.log("291=", req.body)
+    UltimateModel.findOne({_id:req.session._id}, function(err,myself){
+        if(myself){
+            var excluded = []
+            var strangers = []
+            for(var i=0; i<myself.friends.length; i++){
+                excluded.push(myself.friends[i].id)
+            }
+            excluded.push(myself._id)
+            UltimateModel.find({}, function(err,user){
+                
+                if(user){
+                    console.log("user=",user)
+                    for(var k=0;k<user.length;k++){
+                        strangers.push({
+                            name: user[k].name,
+                            genre: user[k].genre,
+                            bio: user[k].bio
+                        })
+                        console.log("INSIDE STRANGERS ", strangers)
+                        for(var j=0;j<excluded.length;i++){
+                            if(user[k]._id === excluded[j].id){
+                                strangers.pop()
+                            }
+                        }
+                    }
+
+                    console.log("strangers=",strangers)
+                    res.send(strangers)
+                    
+                }
+                else {
+                    res.send("please log in")
+                }
+            })
+
+
+
+
+            
+        }
+    })
+})
+
 app.post("/addfriend", function(req, res){
     console.log(req.body.newFriendId)
     UltimateModel.findOne({_id:req.body.newFriendId}, function(err, newFriend){
         if(newFriend){
             UltimateModel.findOne({_id:req.session._id}, function(err, user){
                 if(user){
-                    console.log("New Friend: ", newFriend, user)
+                    console.log("USER: ", user.friends.length)
                     //check to see if friend already in user's friends
-                    if(user.friends.length > 0) {
-                        for(var i = 0; i<user.friends.length; i++){
-                            // console.log(typeof user.friends[i], " ", typeof newFriend._id)
-                            if ( user.friends[i]._id.equals(newFriend._id) ) {
-                                console.log(user.friends[i], " ",newFriend._id)
-                                return res.send("friends already")
-                            }
-                        }                        
-                    }
+                    //avoid including by
+                    //removing friends and self from "getAllUsers"
+                    // if(user.friends.length > 0) {
+                    //     for(var i = 0; i<user.friends.length; i++){
+                    //         // console.log(typeof user.friends[i], " ", typeof newFriend._id)
+                    //         if ( user.friends[i]._id.equals(newFriend._id) ) {
+                    //             console.log(user.friends[i], " ",newFriend._id)
+                    //             return res.send("friends already")
+                    //         }
+                    //     }                        
+                    // }
 
                     console.log("newFriend=", newFriend)
                     user.friends.push({

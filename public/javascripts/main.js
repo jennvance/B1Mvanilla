@@ -179,7 +179,6 @@ var vm = new Vue({
 				daysBetween = 1
 			}
 			return (total / daysBetween).toFixed(0)
-			
 		},
 		//END Count Functions
 		//BEGIN Goal Functions
@@ -275,17 +274,10 @@ var vm = new Vue({
 			console.log(data)
 			var self = this
 			$.post('/login', data, function(successData){
-				console.log(successData)
-				//could go in function
-				self.profile.name = successData.name
-				self.profile.genre = successData.genre
-				self.profile.bio = successData.bio
-				//end function
+				self.renderUser(successData)
 				self.renderPhoto(successData)
 				self.showProfile = true
 				self.showFriendsOnLogin()
-				//need to exclude self from view of all users
-				self.getAllUsers()
 				self.getStrangersOnly()
 			})
 			this.signIn = {
@@ -294,6 +286,14 @@ var vm = new Vue({
 				password: ""
 			}
 			this.overlay = false
+		},
+		renderUser: function(data){
+				this.profile.name = data.name
+				this.profile.genre = data.genre
+				this.profile.bio = data.bio
+				for(var i=0; i<data.friends.length; i++){
+					this.friends.push(data.friends[i])
+				}
 		},
 		showOverlay: function(event){
 			// event.preventDefault()
@@ -317,7 +317,6 @@ var vm = new Vue({
 		//BEGIN Friend Functions
 		showFriendsOnLogin: function(){
 			$("#friend-bucket").css("display", "flex")
-			// console.log("test")
 		},
 		//need to remove user's own profile plus all friend profiles
 		getStrangersOnly: function(){
@@ -326,25 +325,21 @@ var vm = new Vue({
 				type: "GET",
 				success: (data)=>{
 					console.log(data)
-					for(var i=0;i<data.length;i++){
-						this.friends.push({
-							name: data[i].name,
-							genre: data[i].genre,
-							bio: data[i].bio,
-							photo: data[i].photo,
-							id: data[i]._id
-						})
-					}
-					console.log(this.friends)
+					this.renderStrangers(data)
+					// for(var i=0;i<data.length;i++){
+					// 	this.friends.push({
+					// 		name: data[i].name,
+					// 		genre: data[i].genre,
+					// 		bio: data[i].bio,
+					// 		photo: data[i].photo,
+					// 		id: data[i]._id
+					// 	})
+					// }
+					// console.log(this.friends)
 				}
 			})
-			//take session id, send to server,
-			//locate user,
-			//look up user's friends
-			//take user and their friends's (ids?)
-			//filter from database
-			//return what's left
 		},
+		//need to exclude self from view of all users
 		getAllUsers: function(){
 			$.ajax({
 				url: "/getallusers",
@@ -356,7 +351,7 @@ var vm = new Vue({
 				}
 			})
 		},
-		renderAllUsers: function(data){
+		renderStrangers: function(data){
 			for(var i=0; i<data.length; i++){
 				this.youMayKnow.push({
 					name: data[i].name,

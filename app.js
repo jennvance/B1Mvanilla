@@ -291,10 +291,11 @@ app.get("/getstrangers",function(req,res){
     UltimateModel.findOne({_id:req.session._id}, function(err,myself){
         if(myself){
             var excluded = []
+            excluded.push(myself)
+            console.log("excl=", excluded)
             for(var i=0; i<myself.friends.length; i++){
                 excluded.push(myself.friends[i])
             }
-            excluded.push(myself._id)
             UltimateModel.find({}, function(err,user){
                 //Raph why is user an array?
                 if(user){

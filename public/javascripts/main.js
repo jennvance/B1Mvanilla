@@ -264,7 +264,8 @@ var vm = new Vue({
 					self.overlay = false
 				}
 				self.showFriendsOnLogin()
-				self.getAllUsers()
+				self.getStrangersOnly()
+				// self.getAllUsers()
 				// renderBadge(sucessData)
 				
 			})
@@ -361,7 +362,7 @@ var vm = new Vue({
 					id: data[i]._id
 				})
 			}
-			console.log(this.youMayKnow)
+			// console.log(this.youMayKnow)
 		},
 		addFriend: function(person, event){
 			event.preventDefault()
@@ -377,7 +378,7 @@ var vm = new Vue({
 						console.log("You're already friends!")
 					} else {
 						console.log("you two are friends now:", data)
-						var announcement = data.friend1 + " and " + data.friend2 + " are now friends."
+						var announcement = data.friend1 + " is now following " + data.friend2 + "."
 						var identification = this.announcements.length
 						this.announcements.unshift({
 							text: announcement,

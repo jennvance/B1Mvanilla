@@ -294,29 +294,44 @@ app.get("/getstrangers",function(req,res){
             var excluded = []
             var strangers = []
             for(var i=0; i<myself.friends.length; i++){
-                excluded.push(myself.friends[i].id)
+                excluded.push(myself.friends[i])
             }
             excluded.push(myself._id)
             UltimateModel.find({}, function(err,user){
-                
+                //Raph why is user an array?
                 if(user){
                     console.log("user=",user)
-                    for(var k=0;k<user.length;k++){
-                        strangers.push({
-                            name: user[k].name,
-                            genre: user[k].genre,
-                            bio: user[k].bio
-                        })
-                        console.log("INSIDE STRANGERS ", strangers)
-                        for(var j=0;j<excluded.length;i++){
-                            if(user[k]._id === excluded[j].id){
-                                strangers.pop()
-                            }
-                        }
-                    }
+                    console.log("excluded=", excluded)
+                    //take each id in excluded
+                    //and delete its equivalent in user
+                    //then send user
+                    var filteredStrangers = user.filter(function(user_el){
+                        return excluded.filter(function(excluded_el){
+                            return excluded_el.id == user_el.id;
+                        }).length == 0
+                    });
 
-                    console.log("strangers=",strangers)
-                    res.send(strangers)
+                    console.log(filteredStrangers)
+
+
+
+
+                    // for(var k=0;k<user.length;k++){
+                    //     strangers.push({
+                    //         name: user[k].name,
+                    //         genre: user[k].genre,
+                    //         bio: user[k].bio
+                    //     })
+                    //     console.log("INSIDE STRANGERS ", strangers)
+                    //     for(var j=0;j<excluded.length;i++){
+                    //         if(user[k]._id === excluded[j].id){
+                    //             strangers.pop()
+                    //         }
+                    //     }
+                    // }
+
+                    // console.log("strangers=",strangers)
+                    res.send(filteredStrangers)
                     
                 }
                 else {

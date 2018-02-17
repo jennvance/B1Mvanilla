@@ -327,16 +327,7 @@ var vm = new Vue({
 				success: (data)=>{
 					console.log(data)
 					this.renderStrangers(data)
-					// for(var i=0;i<data.length;i++){
-					// 	this.friends.push({
-					// 		name: data[i].name,
-					// 		genre: data[i].genre,
-					// 		bio: data[i].bio,
-					// 		photo: data[i].photo,
-					// 		id: data[i]._id
-					// 	})
-					// }
-					// console.log(this.friends)
+
 				}
 			})
 		},
@@ -402,8 +393,17 @@ var vm = new Vue({
 
 			})
 		},
-		renderFriends: function(allUsers, friendIds){
-
+		renderFriends: function(data){
+			// for(var i=0;i<data.length;i++){
+			// 	this.friends.push({
+			// 		name: data[i].name,
+			// 		genre: data[i].genre,
+			// 		bio: data[i].bio,
+			// 		photo: data[i].photo,
+			// 		id: data[i]._id
+			// 	})
+			// }
+			// console.log(this.friends)
 		}
 
 	},

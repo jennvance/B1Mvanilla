@@ -339,7 +339,8 @@ app.post("/addfriend", function(req, res){
                         id: newFriend._id,
                         name: newFriend.name,
                         genre: newFriend.genre,
-                        bio: newFriend.bio
+                        bio: newFriend.bio,
+                        photo: newFriend.photo
                     })
                     user.save()
                     //Should also add logged in user to newFriend's friend or follower list

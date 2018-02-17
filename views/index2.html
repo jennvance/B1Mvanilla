@@ -71,7 +71,11 @@
 	</ul>
 
 	<ul v-for="friend in friends">
-		<li>{{friend.name}}</li>
+		<li>
+			<img v-bind:src="friend.photo" class="friend-single-photo">
+			<h4>{{friend.name}}</h4>
+			
+		</li>
 
 
 	</ul>

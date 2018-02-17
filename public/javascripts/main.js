@@ -10,6 +10,7 @@ var vm = new Vue({
 		showSignup: false,
 		showProfileForm: false,
 		showProfile: false,
+		active: false,
 		signIn: {
 			name: "",
 			username: "",

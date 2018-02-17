@@ -208,6 +208,18 @@ ul.feed {
 	list-style: none;
 }
 
+.background {
+	position: relative;
+	height: 75px;
+}
+.panel {
+	position: absolute;
+	height: 40px;
+	bottom: 0;
+	background-color: black;
+	color: white;
+}
+
 @media screen and (min-width:600px) {
 	.container-center,.container-left,.container-right{
 		width: 33%;	

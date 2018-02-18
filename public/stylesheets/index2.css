@@ -220,6 +220,10 @@ ul.feed {
 	color: white;
 }
 
+.hovered {
+	color: green;
+}
+
 @media screen and (min-width:600px) {
 	.container-center,.container-left,.container-right{
 		width: 33%;	

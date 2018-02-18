@@ -356,6 +356,9 @@ var vm = new Vue({
 			}
 			// console.log(this.youMayKnow)
 		},
+		hover:function(item, v){
+			item.hovered = v
+		},
 		addFriend: function(person, event){
 			event.preventDefault()
 			console.log(person)
@@ -384,6 +387,9 @@ var vm = new Vue({
 						}
 
 						this.friends = data.fullList
+						for(var i=0;i<this.friends.length;i++){
+							this.friends[i].hovered = false
+						}
 						console.log(this.friends)
 
 						

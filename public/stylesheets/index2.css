@@ -210,18 +210,26 @@ ul.feed {
 
 .background {
 	position: relative;
-	height: 75px;
+	/*height: 75px;*/
 }
 .panel {
 	position: absolute;
-	height: 40px;
+	
 	bottom: 0;
 	background-color: black;
 	color: white;
+	height: inherit;
+	min-width: 100%;
 }
 
 .hovered {
 	color: green;
+/*	position: absolute;
+	background-color: white;
+	border: 2px solid red;
+	height: 50px;
+	width: 50px;*/
+
 }
 
 @media screen and (min-width:600px) {

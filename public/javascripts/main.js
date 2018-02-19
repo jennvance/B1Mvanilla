@@ -85,8 +85,12 @@ var vm = new Vue({
 					this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,1))
 					this.stats.mostProductiveDay = this.findProductiveDay(data)
 					//announce new entry in feed
-					// 		var text = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
-					// 		$("#feed").append(text)
+					var announcement = this.profile.name + " just wrote " + data[data.length-1].words + " words."
+					var identification = this.announcements.length
+					this.announcements.unshift({
+						text: announcement,
+						id: identification
+					})
 
 					this.count.words = ""
 					this.count.date = ""
@@ -358,6 +362,8 @@ var vm = new Vue({
 		},
 		hover:function(item, v){
 			item.hovered = v
+			console.log(item)
+
 		},
 		addFriend: function(person, event){
 			event.preventDefault()

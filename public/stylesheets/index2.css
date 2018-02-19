@@ -212,14 +212,18 @@ ul.feed {
 	position: relative;
 	/*height: 75px;*/
 }
-.panel {
+.genre-panel {
 	position: absolute;
-	
+	display: none;
 	bottom: 0;
 	background-color: black;
 	color: white;
 	height: inherit;
 	min-width: 100%;
+}
+
+.background:hover .genre-panel {
+	display: block;
 }
 
 .hovered {

@@ -71,17 +71,13 @@
 	</ul>
 
 	<ul>
-		<li class="background" v-for="friend in friends"
-			v-bind:class="{hovered:friend.hovered}"
-			v-on:mouseover="hover(friend,1)"
-			v-on:mouseout="hover(friend,0)"
-		>
-
-		<h4 v-on:mouseover="active = !active">{{friend.name}}</h4>
+		<li class="background" v-for="friend in friends">
+			<h4>{{friend.name}}</h4>
 			<img v-bind:src="friend.photo" class="friend-single-photo">
-			<div v-show="active" class="panel">{{friend.genre}}</div>
-
-			
+			<div class="genre-panel">
+				<h5>{{friend.genre}}</h5>
+				<p>{{friend.bio}}</p>
+			</div>
 		</li>
 
 <!-- Maybe need to put mouseover panels in an identical ul that lies

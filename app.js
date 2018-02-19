@@ -129,13 +129,13 @@ app.all('/signup', function(req, res){
         else {
             console.log('body??', req.body)
             var newUser = new UltimateModel(req.body)
-            // var aspiringAuthor = new BadgeModel({
-            //     title: "Aspiring Author",
-            //     summary: "You have joined but not written anything.",
-            //     img: "/public/images/penbadge.png"
-            // })
-            // aspiringAuthor.save()
-            // newUser.badges.push(aspiringAuthor)
+            var aspiringAuthor = new BadgeModel({
+                title: "Aspiring Author",
+                summary: "You have joined but not written anything.",
+                img: "/public/images/penbadge.png"
+            })
+            aspiringAuthor.save()
+            newUser.badges.push(aspiringAuthor)
             // newUser.famous = false;
             // newUser.save()
 

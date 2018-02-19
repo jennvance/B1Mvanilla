@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<!-- 	<h1 class="fire">
+<!-- 		<h1 class="fire">
 		<div class="red">B</div>
 		<div class="orange">U</div>
 		<div class="yellow">R</div>
@@ -27,6 +27,7 @@
 
 <div id="burn">
 <div class="container">
+	<h1>{{logo}}</h1>
 	<div id="overlay" v-if="overlay" v-cloak>
 		<div class="su-panel">
 			<a href="" id="x" v-on:click="hideOverlay($event)">X</a>
@@ -65,6 +66,8 @@
 		</li>
 
 	</ul>	
+
+	<div id="feed"></div>
 
 	<ul class="feed">
 		<li  v-for="(announcement, index) in announcements" v-bind:key="announcement.id" class="fade-in">{{announcement.text}}</li>

@@ -5,6 +5,7 @@
 var vm = new Vue({
 	el: "#burn",
 	data: {
+		logo: "",
 		overlay: false,
 		message: "Sign Up",
 		showSignup: false,
@@ -417,6 +418,9 @@ var vm = new Vue({
 			// 	})
 			// }
 			// console.log(this.friends)
+		},
+		renderLogo: function(){
+			
 		}
 
 	},
@@ -450,7 +454,7 @@ var timeoutId = 0;
 		var famousArray = ["Henry Miller", "Anais Nin", "Stephen King", "J.K. Rowling", "Sylvia Plath", "Earnest Hemingway", "Cormac McCarthy", "Roxane Gay", "Mary Shelley"]
 		//maybe rewrite to generate random number?
 		var countsArray = [150, 500, 1000, 1200, 2000, 5000]
-		var badgesArray = ["Aspiring Author", "Hemingway", "Very Productive", "Consecutive Days"]
+		var badgesArray = ["Hemingway", "Very Productive", "Streak", "Completed Manuscript"]
 		for(var i=0;i<=3; i++){
 			var person = famousArray[Math.floor(Math.random() * famousArray.length)]
 			var count = countsArray[Math.floor(Math.random() * countsArray.length)]
@@ -484,12 +488,12 @@ var timeoutId = 0;
 
 	function appendToDOM(){
 		$("#feed").append(results[Math.floor(Math.random() * results.length)])
-		timeoutId = setTimeout(appendToDOM, ( (Math.random() * 4) + 3 ) * 1000)
+		timeoutId = setTimeout(appendToDOM, ( (Math.random() * 4) + 6 ) * 1000)
 	}
-	// appendToDOM()
-	timeoutId = setTimeout(appendToDOM, 7000)
+	appendToDOM()
+	timeoutId = setTimeout(appendToDOM, 10000)
 	//to stop setTimeout; might not actually be what I need
-	clearTimeout(timeoutId)
+	// clearTimeout(timeoutId)
 
 	
 	function getFamous(){

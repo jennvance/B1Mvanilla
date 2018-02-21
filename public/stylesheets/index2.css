@@ -28,7 +28,7 @@
 }
 
 #friend-bucket {
-	/*display: flex;*/
+	display: flex;
 	flex-wrap: wrap;
 	margin: 0 auto;
 	padding: 0;

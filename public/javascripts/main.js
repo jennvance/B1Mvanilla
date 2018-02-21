@@ -1,11 +1,8 @@
-//Deleted functions: (clean code of them later)
-//renderProfileData()
-
 
 var vm = new Vue({
 	el: "#burn",
 	data: {
-		logo: "",
+		logo: "logo",
 		overlay: false,
 		message: "Sign Up",
 		showSignup: false,
@@ -40,6 +37,7 @@ var vm = new Vue({
 			mostProductiveDate: {},
 			mostProductiveDay: "First, Write!"
 		},
+		famous: [],
 		youMayKnow: [],
 		friends: [],
 		announcements: [{
@@ -323,7 +321,7 @@ var vm = new Vue({
 		//END Login/Signup Functions
 		//BEGIN Friend Functions
 		showFriendsOnLogin: function(){
-			$("#friend-bucket").css("display", "flex")
+			// $("#friend-bucket").css("display", "flex")
 		},
 		//need to remove user's own profile plus all friend profiles
 		getStrangersOnly: function(){
@@ -420,18 +418,56 @@ var vm = new Vue({
 			// console.log(this.friends)
 		},
 		renderLogo: function(){
-			
+			var logoArray = ["b","u","r","n"," ","o","n","e"," ","m","i","l","l","i","o","n"]
+			//at interval, remove index 0 from array and add to this.logo string
+			console.log("hey", this.logo)
+			var typedLogo = setInterval(function(){
+				var item = logoArray.shift()
+				if(this.logo){
+					this.logo = this.logo + item
+				}
+				// console.log(item)
+				// console.log(this.logo)
+				// console.log(this.logo)
+				if(logoArray.length===0){
+					clearInterval(typedLogo)
+				}
+			},500)
+		},
+		getFamous: function(){
+			$.ajax({
+				url: "/getfamous",
+				type: "GET",
+				success: (data)=>{
+					console.log(data)
+					// console.log(this.generateRandom(data))
+					var w = this.generateRandom(data)
+					console.log(w)
+					this.renderStrangers(data)
+				}
+			})
+		},
+		generateRandom: function(array){
+			console.log(array)
+			return array[0][Math.floor(Math.random() * array[0].length)]
 		}
 
 	},
 	created: function(){
-		console.log("Hi Jenn <3 !")
+		console.log("Hi Jenn <3 !", this.logo)
+		// this.renderLogo()
+		this.getFamous()
 	}
 })
 
 
 var timeoutId = 0;
-
+	// function appendToDOM(){
+	// 	$("#feed").append(results[Math.floor(Math.random() * results.length)])
+	// 	timeoutId = setTimeout(appendToDOM, ( (Math.random() * 4) + 6 ) * 1000)
+	// }
+	// appendToDOM()
+	// timeoutId = setTimeout(appendToDOM, 10000)
 
 
 
@@ -494,38 +530,6 @@ var timeoutId = 0;
 	timeoutId = setTimeout(appendToDOM, 10000)
 	//to stop setTimeout; might not actually be what I need
 	// clearTimeout(timeoutId)
-
-	
-	function getFamous(){
-		$.ajax({
-			url: "/getfamous",
-			type: "GET",
-			success: function(data){
-				console.log(data)
-				console.log(generateRandom(data))
-				// renderProfileData(generateRandom(data))
-			}
-		})
-	}
-	// getFamous()
-
-	function generateRandom(array){
-		return array[0][Math.floor(Math.random() * array[0].length)]
-	}
-
-
-
-	//Wrote function but didn't use it. Maybe delete later.
-	function getCounts(){
-		$.ajax({
-			url: "/getcounts",
-			type: "GET",
-			success: function(data){
-				//deleted renderCharts function
-				renderCharts(data.counts)
-			}
-		})
-	}
 
 
 

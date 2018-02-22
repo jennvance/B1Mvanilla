@@ -7,7 +7,7 @@ var vm = new Vue({
 		message: "Sign Up",
 		showSignup: false,
 		showProfileForm: false,
-		showProfile: false,
+		showProfile: true,
 		active: false,
 		signIn: {
 			name: "",
@@ -440,9 +440,8 @@ var vm = new Vue({
 				type: "GET",
 				success: (data)=>{
 					console.log(data)
-					// console.log(this.generateRandom(data))
-					var w = this.generateRandom(data)
-					console.log(w)
+					this.renderRandom(this.generateRandom(data))
+					//change name of renderStrangers?? since not as semantic here
 					this.renderStrangers(data)
 				}
 			})
@@ -450,6 +449,14 @@ var vm = new Vue({
 		generateRandom: function(array){
 			console.log(array)
 			return array[0][Math.floor(Math.random() * array[0].length)]
+		},
+		renderRandom: function(random){
+			console.log(random)
+			this.profile.name = random.name
+			this.profile.genre = random.genre
+			this.profile.bio = random.bio
+			this.renderPhoto(random)
+
 		}
 
 	},

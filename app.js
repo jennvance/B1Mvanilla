@@ -368,15 +368,6 @@ app.post("/addfriend", function(req, res){
     })
 })
 
-app.get("/getcounts", function(req,res){
-    console.log("line 254: ", req.body)
-    UltimateModel.findOne({_id:req.session._id}, function(err, user){
-        if(user){
-            // user.counts = req.body.counts
-            res.send(user)
-        }
-    })
-})
 
 app.get("/getfamous", function(req,res){
     UltimateModel.find({famous:true}, function(err, user){

@@ -370,17 +370,12 @@ app.post("/addfriend", function(req, res){
 
 
 app.get("/getfamous", function(req,res){
-    UltimateModel.find({famous:true}, function(err, user){
-        var testArray = []
+    UltimateModel.find({famous:true}, function(err, users){
         //Don't need testArray; user is already an array
         //if don't use testArray then need to remove [0]
         //from generateRandom func
-        //Raph, which is better?
-        if(user){
-            testArray.push(user)
-            res.send(testArray)
-            // res.send(user)
-        }
+        res.send(users)
+        
     })
 })
 

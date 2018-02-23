@@ -177,9 +177,10 @@ var vm = new Vue({
 			var today = new Date()
 			var daysBetween = this.diffDates(firstday, today)
 			var total = this.calcTotal(data)
-			// Raph, can I change value of check variable inside check?
 			if(daysBetween === 0){
 				console.log("Infinity Averted!")
+				//account for identical values for
+				//zero days between and one actual day between
 				daysBetween = 1
 			}
 			return (total / daysBetween).toFixed(0)

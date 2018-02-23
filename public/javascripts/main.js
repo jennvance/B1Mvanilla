@@ -449,7 +449,7 @@ var vm = new Vue({
 		},
 		generateRandom: function(array){
 			console.log(array)
-			return array[0][Math.floor(Math.random() * array[0].length)]
+			return array[Math.floor(Math.random() * array.length)]
 		},
 		renderRandom: function(random){
 			console.log(random)

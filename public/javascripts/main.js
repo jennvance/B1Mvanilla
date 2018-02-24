@@ -37,6 +37,9 @@ var vm = new Vue({
 			mostProductiveDate: {},
 			mostProductiveDay: "First, Write!"
 		},
+		timeoutId: 0,
+		famousFeedStaging: [],
+		famousFeedRender: [],
 		famous: [],
 		youMayKnow: [],
 		friends: [],
@@ -457,7 +460,38 @@ var vm = new Vue({
 			this.profile.genre = random.genre
 			this.profile.bio = random.bio
 			this.renderPhoto(random)
+		},
+		randomizeFamousFeed: function(){
 
+			var famousArray = ["Henry Miller", "Anais Nin", "Truman Capote", "F. Scott Fitzgerald", "Sylvia Plath", "Earnest Hemingway", "Mary Shelley", "Virginia Woolf"]
+			var badgesArray = ["Hemingway", "Very Productive", "Streak", "Completed Manuscript"]
+			for(var i=0;i<=3;i++){
+				var person = famousArray[Math.floor(Math.random() * famousArray.length)]
+				var count = Math.floor(Math.random() * 1000)
+				var justWrote = person + " just wrote " + count + " words."
+				this.famousFeedStaging.push(justWrote)
+				for(var j=0; j<=1; j++){
+					var person1 = famousArray[Math.floor(Math.random() * famousArray.length)]
+					var person2 = famousArray[Math.floor(Math.random() * famousArray.length)]
+					if(person1 !== person2){
+						var nowFriends = person1 + " and " + person2 + " are now friends."
+						this.famousFeedStaging.push(nowFriends)
+					}
+					for(var k=0; k<=1; k++){
+						var badgeperson = famousArray[Math.floor(Math.random() * famousArray.length)]
+						var badge = badgesArray[Math.floor(Math.random() * badgesArray.length)]
+						var earnedBadge = badgeperson + " just earned the " + badge + " badge."
+						this.famousFeedStaging.push(earnedBadge)
+					}
+				}
+
+			}
+			console.log(this.famousFeedStaging)
+		},
+		appendToDOM: function(){
+			this.famousFeedRender.push(this.famousFeedStaging[Math.floor(Math.random() * this.famousFeedStaging.length)])
+			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 13 ) + 7 ) * 2000)
+			console.log(this.famousFeedRender)
 		}
 
 	},
@@ -465,77 +499,15 @@ var vm = new Vue({
 		console.log("Hi Jenn <3 !", this.logo)
 		// this.renderLogo()
 		this.getFamous()
+		//puts feed items into array
+		this.randomizeFamousFeed()
+		// adds feed items to array at intervals
+		this.appendToDOM()
+		this.timeoutId = setTimeout(this.appendToDOM, 10000)
 	}
 })
 
 
-var timeoutId = 0;
-	// function appendToDOM(){
-	// 	$("#feed").append(results[Math.floor(Math.random() * results.length)])
-	// 	timeoutId = setTimeout(appendToDOM, ( (Math.random() * 4) + 6 ) * 1000)
-	// }
-	// appendToDOM()
-	// timeoutId = setTimeout(appendToDOM, 10000)
-
-
-
-	var results = []
-	function randomizeFeed(){
-		var feedItems = []
-		//to help us semantically for now, until we need to use func for nonfamous array
-		//change these variable names where they appear elsewhere in code to be more semantic
-		//also add p tags to var text
-		// var text = 
-		// var feedAnnounce = 
-		// var feedAnnouncement = 
-		// var writeItem = data.name = " just wrote " + data.counts[data.counts.length-1].words + " words."
-		// var friendItem = "<p>"+ data.friend1 + " and " + data.friend2 + " are now friends.</p>"
-		// var badgeItem = "<p>"+ data.name + " just earned the " + data.badges[0].title + " badge.</p>"
-		// feedItems.push(writeItem)
-		// feedItems.push(friendItem)
-		// feedItems.push(badgeItem)
-
-		var famousArray = ["Henry Miller", "Anais Nin", "Stephen King", "J.K. Rowling", "Sylvia Plath", "Earnest Hemingway", "Cormac McCarthy", "Roxane Gay", "Mary Shelley"]
-		//maybe rewrite to generate random number?
-		var countsArray = [150, 500, 1000, 1200, 2000, 5000]
-		var badgesArray = ["Hemingway", "Very Productive", "Streak", "Completed Manuscript"]
-		for(var i=0;i<=3; i++){
-			var person = famousArray[Math.floor(Math.random() * famousArray.length)]
-			var count = countsArray[Math.floor(Math.random() * countsArray.length)]
-			var justWrote = "<p>"+ person + " just wrote " + count + " words.</p>"
-			// $("#feed").append(justWrote)
-			results.push(justWrote)
-			for(var j=0; j<=1; j++){
-				// var rand = 
-				var person1 = famousArray[Math.floor(Math.random() * famousArray.length)]
-				var person2 = famousArray[Math.floor(Math.random() * famousArray.length)]
-				console.log(person1, person2)
-				if(person1 !== person2){
-					var nowFriends = "<p>"+ person1 + " and " + person2 + " are now friends.</p>"
-					results.push(nowFriends)
-					// $("#feed").append(nowFriends)
-				}
-				
-				for(var k=0; k<=1; k++){
-					var badgeperson = famousArray[Math.floor(Math.random() * famousArray.length)]
-					var badge = badgesArray[Math.floor(Math.random() * badgesArray.length)]
-					var earnedBadge = "<p>"+ badgeperson + " just earned the " + badge + " badge.</p>"
-					// $("#feed").append(earnedBadge)
-					results.push(earnedBadge)
-				}
-			}
-		}
-		console.log(results)
-
-	}
-	randomizeFeed()
-
-	function appendToDOM(){
-		$("#feed").append(results[Math.floor(Math.random() * results.length)])
-		timeoutId = setTimeout(appendToDOM, ( (Math.random() * 4) + 6 ) * 1000)
-	}
-	appendToDOM()
-	timeoutId = setTimeout(appendToDOM, 10000)
 	//to stop setTimeout; might not actually be what I need
 	// clearTimeout(timeoutId)
 

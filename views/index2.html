@@ -5,6 +5,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Special+Elite" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
 	<link link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
 	<link rel='stylesheet', href='/stylesheets/style.css'>
 	<link rel='stylesheet', href='/stylesheets/fire.css'>
 	<link rel='stylesheet', href='/stylesheets/index2.css'>
@@ -27,7 +28,7 @@
 
 <div id="burn">
 <div class="container">
-
+	<h2 v-model="logo">{{logo}}</h2>
 	<div id="overlay" v-if="overlay" v-cloak>
 		<div class="su-panel">
 			<a href="" id="x" v-on:click="hideOverlay($event)">X</a>
@@ -56,30 +57,35 @@
 
 <div class="container-left">
 	<!-- <h3>Friends</h3> -->
-	<h2 v-model="logo">{{logo}}</h2>
-	<ul id="friend-bucket">
-		<li class="friend-single" v-for="person in youMayKnow">
-			<img v-bind:src="person.photo" class="friend-single-photo">
-			<h5 class="friend-single-name">{{person.name}}</h5>
-			<h6>{{person.genre}}</h6>
+	<h3>You May Know</h3>
+	<ul id="follow-bucket">
+		<li class="follow-single" v-for="person in youMayKnow">
+			<div class="float-left">
+				<img v-bind:src="person.photo" class="follow-single-photo">
+			</div>
+			<div class="float-right">
+				<h4 class="follow-single-name">{{person.name}}</h4>
+				<h5>{{person.genre}}</h5>
+				<h6>{{person.bio}}</h6>
+			</div>
 
-			<button v-on:click="addFriend(person, $event)" class="button followButton">Follow</button>
+			<button v-if="loggedIn" v-on:click="addFriend(person, $event)" class="button followButton">Follow</button>
 		</li>
 
 	</ul>	
 
-	<ul id="feed" class="feed">
-		<li v-for="(item, index) in famousFeedRender" v-bind:key="item.id" class="fade-in">{{item.text}}</li>
+	<ul id="feed" class="feed famousFeed">
+		<li v-for="(item, index) in famousFeedRender.slice(0,5)" v-bind:key="item.id" class="fade-in">{{item.text}}</li>
 	</ul>
 
-	<ul class="feed">
-		<li  v-for="(announcement, index) in announcements" v-bind:key="announcement.id" class="fade-in">{{announcement.text}}</li>
+	<ul class="feed" v-if="loggedIn">
+		<li  v-for="(announcement, index) in announcements.slice(0,10)" v-bind:key="announcement.id" class="fade-in">{{announcement.text}}</li>
 	</ul>
 
 	<ul>
 		<li class="background" v-for="friend in friends">
 			<h4>{{friend.name}}</h4>
-			<img v-bind:src="friend.photo" class="friend-single-photo">
+			<img v-bind:src="friend.photo" class="follow-single-photo">
 			<div class="genre-panel">
 				<h5>{{friend.genre}}</h5>
 				<p>{{friend.bio}}</p>
@@ -134,7 +140,7 @@ Transition classes maybe-->
 
 
 
-	<h2>Add Count. How many words did you write today?</h2>
+	<h2>Add Count. ...?</h2>
 	<div class="ux1">
 		<form id="wordct" v-on:submit="submitCount(count, $event)">
 			<input type="number" name="numwds" required id="numwds" v-model="count.words">

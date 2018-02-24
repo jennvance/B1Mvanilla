@@ -2,6 +2,7 @@
 var vm = new Vue({
 	el: "#burn",
 	data: {
+		loggedIn: false,
 		logo: "logo",
 		overlay: false,
 		message: "Sign Up",
@@ -39,6 +40,10 @@ var vm = new Vue({
 		},
 		timeoutId: 0,
 		famousFeedStaging: [],
+		//Raph, removing initial obj here
+		//creates Vue blip
+		//but leaving it
+		//creates empty list item in UI
 		famousFeedRender: [{
 			text: "",
 			id: 0
@@ -274,6 +279,7 @@ var vm = new Vue({
 					}
 					self.overlay = false
 				}
+				self.loggedIn = true
 				self.showFriendsOnLogin()
 				self.getStrangersOnly()
 				// self.getAllUsers()
@@ -298,6 +304,7 @@ var vm = new Vue({
 				password: ""
 			}
 			this.overlay = false
+			this.loggedIn = true
 		},
 		renderUser: function(data){
 				this.profile.name = data.name
@@ -328,7 +335,7 @@ var vm = new Vue({
 		//END Login/Signup Functions
 		//BEGIN Friend Functions
 		showFriendsOnLogin: function(){
-			// $("#friend-bucket").css("display", "flex")
+			// $("#follow-bucket").css("display", "flex")
 		},
 		//need to remove user's own profile plus all friend profiles
 		getStrangersOnly: function(){
@@ -465,6 +472,11 @@ var vm = new Vue({
 			this.renderPhoto(random)
 		},
 		randomizeFamousFeed: function(){
+			//lots of bugs
+			//need to prevent "...wrote 0 words"
+			//need to remove item from staging array after adding to render array
+			//to prevent repeats
+			//need to shorten text so feed isn't multi-line
 
 			var famousArray = ["Henry Miller", "Anais Nin", "Truman Capote", "F. Scott Fitzgerald", "Sylvia Plath", "Earnest Hemingway", "Mary Shelley", "Virginia Woolf"]
 			var badgesArray = ["Hemingway", "Very Productive", "Streak", "Completed Manuscript"]
@@ -492,14 +504,13 @@ var vm = new Vue({
 			console.log(this.famousFeedStaging)
 		},
 		appendToDOM: function(){
-			var identification = this.famousFeedRender.length
 			this.famousFeedRender.unshift({
 				text: this.famousFeedStaging[Math.floor(Math.random() * this.famousFeedStaging.length)],
-				id: identification
+				id: this.famousFeedRender.length
 			})
+
 			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 13 ) + 7 ) * 2000)
 		}
-
 	},
 	created: function(){
 		console.log("Hi Jenn <3 !", this.logo)

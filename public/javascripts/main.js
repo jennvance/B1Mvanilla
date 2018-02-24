@@ -39,7 +39,10 @@ var vm = new Vue({
 		},
 		timeoutId: 0,
 		famousFeedStaging: [],
-		famousFeedRender: [],
+		famousFeedRender: [{
+			text: "",
+			id: 0
+		}],
 		famous: [],
 		youMayKnow: [],
 		friends: [],
@@ -489,9 +492,12 @@ var vm = new Vue({
 			console.log(this.famousFeedStaging)
 		},
 		appendToDOM: function(){
-			this.famousFeedRender.push(this.famousFeedStaging[Math.floor(Math.random() * this.famousFeedStaging.length)])
+			var identification = this.famousFeedRender.length
+			this.famousFeedRender.unshift({
+				text: this.famousFeedStaging[Math.floor(Math.random() * this.famousFeedStaging.length)],
+				id: identification
+			})
 			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 13 ) + 7 ) * 2000)
-			console.log(this.famousFeedRender)
 		}
 
 	},

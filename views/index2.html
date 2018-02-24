@@ -68,12 +68,9 @@
 
 	</ul>	
 
-	<div id="feed">
-		<li
-			v-for="item in famousFeedRender" 
-		>{{item}}</li>
-
-	</div>
+	<ul id="feed" class="feed">
+		<li v-for="(item, index) in famousFeedRender" v-bind:key="item.id" class="fade-in">{{item.text}}</li>
+	</ul>
 
 	<ul class="feed">
 		<li  v-for="(announcement, index) in announcements" v-bind:key="announcement.id" class="fade-in">{{announcement.text}}</li>

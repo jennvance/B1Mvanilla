@@ -117,8 +117,15 @@
 	width: 200px;
 }
 
-.profile-dashboard p {
+.profile-dashboard {
+	border: 10px ridge gray;
+	margin: 3% 5%;
+	padding: 10%;
+}
 
+.profile-dashboard h2, .profile-dashboard h3, .profile-dashboard p {
+	padding: 3%;
+	border-bottom: 1px solid black;
 }
 
 .option-1 {
@@ -133,6 +140,9 @@
 	padding: 2%;
 }
 
+.right {
+	text-align: right;
+}
 
 #overlay {
 	height: 100vh;
@@ -271,6 +281,11 @@ ul.feed {
 	height: 50px;
 	width: 50px;*/
 
+}
+
+.login-link {
+	/*text-decoration: none;*/
+	padding: 3%;
 }
 
 @media screen and (min-width:600px) {

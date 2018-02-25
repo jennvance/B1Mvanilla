@@ -222,8 +222,9 @@ Transition classes maybe-->
 
 <div class="container-right">
 
-	<a href="#" id="showOverlay" v-on:click="showOverlay($event)"><h2>Login/Signup</h2></a>
+	<a href="#" class="login-link dk-orange" v-on:click="showOverlay($event)"><h3>LOGIN/SIGNUP</h3></a>
 
+	<h2 v-if="!loggedIn">Featured Author:</h2>
 	<div class="profile-dashboard">
 
 
@@ -244,17 +245,16 @@ Transition classes maybe-->
 
 		<div class="option-2" v-if="showProfile">
 
-
 			<h2 id="profileName">{{profile.name}}</h2>
 			<h3>Genre: <span id="profileGenre">{{profile.genre}}</span></h3>
 			<p id="profileBio">{{profile.bio}}</p>
-			<button id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
+			<button v-if="loggedIn" id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
 
 		</div>
 
 
 
-		<div class="badge-bucket">
+		<div class="badge-bucket" v-if="loggedIn">
 			<div class="badge-single">
 				<h3 class="badge-title"></h3>
 				<p class="badge-summary"></p>

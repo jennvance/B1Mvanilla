@@ -170,10 +170,10 @@ app.all('/signup', function(req, res){
 
 app.post('/login', function(req, res){
     UltimateModel.findOne({username: req.body.username}, function(err, user){
-        if ( err ) { console.log('failed to find user')}
+        if ( err ) { console.log('Failed to log in')}
         else if ( !user ) { 
             console.log('no user found')
-            res.send('<h1>Failed to log in</h1>')
+            res.send('Failed to log in')
         }
         else {
             // at this point, we know they're trying to log in as someone who DOES exist in our database, but do they have the right password?
@@ -182,7 +182,7 @@ app.post('/login', function(req, res){
                 //matched will be either true or false
                 else if ( !matched ) {
                     console.log('passwords dont match')
-                    res.send('<h1>Failed to log in</h1>')
+                    res.send('Failed to log in')
                 }
                 else {
                     req.session._id = user._id

@@ -73,6 +73,12 @@ var vm = new Vue({
 				type: "POST",
 				data: formData,
 				success: (data)=>{
+					if(data==="Please log in"){
+						this.overlay = true
+						//except also need to save count
+						//and add to counts upon login
+					} else {
+
 					console.log("success DATA", data)
 					//run logic functions
 					this.sortByDate(data)
@@ -103,7 +109,9 @@ var vm = new Vue({
 					})
 
 					this.count.words = ""
-					this.count.date = ""
+					this.count.date = ""						
+					}
+
 				}
 			})
 		},
@@ -271,7 +279,16 @@ var vm = new Vue({
 					self.toggleForm()
 					self.signIn.password = ""
 				} else {
-					self.profile.name = self.signIn.name
+					self.profile.name = 
+					self.profile.genre = 
+					self.profile = {
+						name: self.signIn.name,
+						genre: "",
+						bio: "",
+						photo: ""
+					},
+					document.getElementById("profilePhoto").src = "/" + self.profile.photo;
+		
 					self.signIn = {
 						name: "",
 						username: "",
@@ -292,19 +309,24 @@ var vm = new Vue({
 			console.log(data)
 			var self = this
 			$.post('/login', data, function(successData){
-				self.renderUser(successData)
-				self.renderPhoto(successData)
-				self.showProfile = true
-				self.showFriendsOnLogin()
-				self.getStrangersOnly()
+				if(successData === "Failed to log in"){
+					self.toggleForm()
+				} else {
+					self.renderUser(successData)
+					self.renderPhoto(successData)
+					self.showProfile = true
+					self.showFriendsOnLogin()
+					self.getStrangersOnly()	
+					this.overlay = false
+					this.loggedIn = true				
+				}
 			})
 			this.signIn = {
 				name: "",
 				username: "",
 				password: ""
 			}
-			this.overlay = false
-			this.loggedIn = true
+
 		},
 		renderUser: function(data){
 				this.profile.name = data.name

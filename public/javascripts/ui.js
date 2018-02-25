@@ -32,12 +32,5 @@ $(document).ready(function(){
 		$(".hide").show()
 	})
 
-	// $("#showOverlay").on("click", function(){
-	// 	$("#overlay").show()
-	// })
-	// $("#overlay, #x").on("click", function(e){
-	// 	e.preventDefault()
-	// 	$("#overlay").hide();
-	// })
 
 })

@@ -296,10 +296,9 @@ app.get("/getstrangers",function(req,res){
             for(var i=0; i<myself.friends.length; i++){
                 excluded.push(myself.friends[i])
             }
-            UltimateModel.find({}, function(err,user){
-                //Raph why is user an array?
-                if(user){
-                    var filteredStrangers = user.filter(function(user_el){
+            UltimateModel.find({}, function(err,users){
+                if(users){
+                    var filteredStrangers = users.filter(function(user_el){
                         return excluded.filter(function(excluded_el){
                             return excluded_el.id == user_el.id;
                         }).length == 0

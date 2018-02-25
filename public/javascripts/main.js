@@ -3,7 +3,7 @@ var vm = new Vue({
 	el: "#burn",
 	data: {
 		loggedIn: false,
-		logo: "logo",
+		logo: "",
 		overlay: false,
 		message: "Sign Up",
 		showSignup: false,
@@ -40,14 +40,7 @@ var vm = new Vue({
 		},
 		timeoutId: 0,
 		famousFeedStaging: [],
-		//Raph, removing initial obj here
-		//creates Vue blip
-		//but leaving it
-		//creates empty list item in UI
-		famousFeedRender: [{
-			text: "",
-			id: 0
-		}],
+		famousFeedRender: [],
 		famous: [],
 		youMayKnow: [],
 		friends: [],
@@ -297,6 +290,7 @@ var vm = new Vue({
 					self.overlay = false
 				}
 				self.loggedIn = true
+				self.youMayKnow = []
 				self.showFriendsOnLogin()
 				self.getStrangersOnly()
 				// self.getAllUsers()
@@ -312,13 +306,14 @@ var vm = new Vue({
 				if(successData === "Failed to log in"){
 					self.toggleForm()
 				} else {
+					self.youMayKnow = []
 					self.renderUser(successData)
 					self.renderPhoto(successData)
 					self.showProfile = true
 					self.showFriendsOnLogin()
 					self.getStrangersOnly()	
-					this.overlay = false
-					this.loggedIn = true				
+					self.overlay = false
+					self.loggedIn = true				
 				}
 			})
 			this.signIn = {
@@ -457,18 +452,19 @@ var vm = new Vue({
 			var logoArray = ["b","u","r","n"," ","o","n","e"," ","m","i","l","l","i","o","n"]
 			//at interval, remove index 0 from array and add to this.logo string
 			console.log("hey", this.logo)
-			var typedLogo = setInterval(function(){
+
+			var typedLogo = setInterval(()=>{
 				var item = logoArray.shift()
-				if(this.logo){
+				// if(this.logo){
 					this.logo = this.logo + item
-				}
-				// console.log(item)
-				// console.log(this.logo)
+				// }
+				console.log(item)
+				console.log(this.logo)
 				// console.log(this.logo)
 				if(logoArray.length===0){
 					clearInterval(typedLogo)
 				}
-			},500)
+			},250)
 		},
 		getFamous: function(){
 			$.ajax({
@@ -536,7 +532,7 @@ var vm = new Vue({
 	},
 	created: function(){
 		console.log("Hi Jenn <3 !", this.logo)
-		// this.renderLogo()
+		this.renderLogo()
 		this.getFamous()
 		//puts feed items into array
 		this.randomizeFamousFeed()

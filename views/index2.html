@@ -28,7 +28,6 @@
 
 <div id="burn">
 <div class="container">
-	<h2 v-model="logo">{{logo}}</h2>
 	<div id="overlay" v-if="overlay" v-cloak>
 		<div class="su-panel">
 			<a href="" id="x" v-on:click="hideOverlay($event)">X</a>
@@ -125,6 +124,7 @@ Transition classes maybe-->
 
 
 <div class="container-center">
+	<h1 v-model="logo" class="logo">{{logo}}</h1>
 
 <!-- 	<canvas id="myChart" width="200" height="200"></canvas> -->
 
@@ -135,15 +135,14 @@ Transition classes maybe-->
 
 
 	
-	<div class="alltimetotal dk-orange" id="allTimeTotal">{{stats.allTimeTotal}}</div>
-	<div>Total</div>
+	<div class="totalDisplay" id="allTimeTotal"><span class="small">Total:</span><span class="center">{{stats.allTimeTotal}}</span></div>
 
 
 
-	<h2>Add Count. ...?</h2>
-	<div class="ux1">
+	<h2 class="count-label">How many words did you write today?</h2>
+	<div class="center-form">
 		<form id="wordct" v-on:submit="submitCount(count, $event)">
-			<input type="number" name="numwds" required id="numwds" v-model="count.words">
+			<input type="number" name="numwds" required id="numwds" v-model="count.words" placeholder="Enter Count">
 			<input type="date" name="date" required id="datewds" v-model="count.date">
 			<button type="submit" class="button">Submit</button>
 		</form>
@@ -154,9 +153,9 @@ Transition classes maybe-->
 
 
 
-	<a href="#" id="viewStatsLink"><h3>View Stats</h3></a>
+	<!-- <a href="#" id="viewStatsLink"><h3>View Stats</h3></a> -->
 	<a href="#" id="setGoalLink"><h3>Set Goal</h3></a>
-	<form name="monthform" id="monthform" >
+<!-- 	<form name="monthform" id="monthform" >
 		<label for="selectmonth">Choose Month to View Stats:</label>
 		<select name="month" id="selectmonth">
 			<option value="0">January</option>
@@ -172,7 +171,7 @@ Transition classes maybe-->
 			<option value="10">November</option>
 			<option value="11">December</option>
 		</select>
-	</form>
+	</form> -->
 
 	<div id="stats">
 		<!-- allTimeTotal id is already used line 91 -->
@@ -205,10 +204,10 @@ Transition classes maybe-->
 
 
 	<h2 class="hide">How many words do you wish to write by [Set Date]?</h2>
-	<div id="ux3" class="hide">
+	<div class="center-form hide">
 		
 		<form id="setGoal" v-on:submit="submitGoal(goal, $event)">
-			<input type="number" name="goalWds" id="goalWds" required placeholder="number of words" v-model="goal.words">
+			<input type="number" name="goalWds" id="goalWds" required placeholder="Enter Goal" v-model="goal.words">
 			<input type="date" name="goalDate" id="goalDate" required v-model="goal.date">
 			<button type="submit" class="button">Submit</button>
 		</form>

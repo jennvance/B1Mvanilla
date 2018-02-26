@@ -5,6 +5,11 @@ body {
 	font-family: 'Special Elite', cursive;
 }
 
+.container * {
+	margin: 0 auto;
+	text-align: center;
+}
+
 :focus {
 	outline: #E27822 auto 5px;
 }
@@ -31,10 +36,7 @@ body {
 
 
 
-.container * {
-	margin: 0 auto;
-	text-align: center;
-}
+
 
 .hide {
 	display: none;
@@ -44,42 +46,54 @@ body {
 	display: block;
 }
 
-.button {
-	background-color: #22ACE2;
-	color: white;
-	border: 0;
-	border-radius: 5px;
-	text-transform: uppercase;
-	font-size: 15px;
+.count-label {
+	
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+	-webkit-margin-start: 20px;
+	-webkit-margin-end: 20px;
+	padding: 1%;
 }
 
-.ux1,#ux3 {
+.center-form {
 	height: 55px;
 	width: 450px;
-	background-color: #E25822;
-	border-radius: 5px;
+	background-color: white;
+	border-radius: 0px;
+	/*border: 1px solid #E29822;*/
+	margin: 20px auto;
 }
 
-.ux1 h2, #ux3 h2 {
+.center-form h2 {
 	padding: 3% 0 1% 0;
-	color: white;
+	color: black;
 }
 
-.ux1 form, #ux3 form {
+.center-form form {
 	width: 410px;
 }
 
-.ux1 input, .ux1 button,#ux3 input, #ux3 button {
+.center-form input, .center-form button {
 	display: block;
 	float: left;
 	margin: 2.5% 2%;
 	padding: 2%;
-	border: 0;
+	border:0;
+	border-bottom: 1px black solid;
+	height: 34px;
 }
 
-/*.ux1 input:first-child, #ux3 input:first-child {
-	height: 17px;
-}*/
+.center-form button {
+	border:1px black solid;
+}
+
+.center-form input {
+	width: 135px;
+}
+
+.center-form input:first-child {
+	/*height: 34px;*/
+}
 
 
 

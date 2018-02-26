@@ -30,7 +30,7 @@ var vm = new Vue({
 			photo: ""
 		},
 		stats: {
-			allTimeTotal: 1,
+			allTimeTotal: 0,
 			allTimeAverage: 0,
 			monthTotal: 0,
 			monthAverage: 0,
@@ -125,7 +125,6 @@ var vm = new Vue({
 				console.log("oops!")
 				return null
 			}
-
 		},
 		sortByDate: function(data){
 			return data.sort(function(a,b){

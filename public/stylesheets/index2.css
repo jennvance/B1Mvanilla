@@ -2,6 +2,8 @@
 	display:none;
 }
 
+
+
 .container-center,.container-left,.container-right {
 	width: 100%;
 }
@@ -18,10 +20,35 @@
 	/*background-color: purple;*/
 }
 
-.alltimetotal {
+.button {
+	background-color: white;
+	color: black;
+	border: 1px solid black;
+	border-radius: 0px;
+	text-transform: lowercase;
+	font-size: 15px;
+}
+
+.totalDisplay {
+	border-bottom: 2px solid black;
+	margin: 120px 20% 100px 20%;
+	text-align: left;
+	position: relative;
+	z-index: -1;
+}
+
+.small {
+	font-size: 16px;
+}
+
+.center {
 	font-size: 124px;
-	height: 200px;
-	border-radius: 10px;
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+	bottom: -20px;
+	width: inherit;
 }
 
 .profile-photo {
@@ -203,6 +230,8 @@
 #signup-form, #li-button {
 	/*display: none;*/
 }
+
+
 
 #x {
 	float: right;

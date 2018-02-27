@@ -5,6 +5,11 @@ body {
 	font-family: 'Special Elite', cursive;
 }
 
+a {
+	color: #E25822;
+	text-transform: lowercase;
+}
+
 .container * {
 	margin: 0 auto;
 	text-align: center;
@@ -46,7 +51,7 @@ body {
 	display: block;
 }
 
-.count-label {
+.count-form-label {
 	
 	-webkit-margin-before: 0;
 	-webkit-margin-after: 0;

@@ -3,6 +3,11 @@ var vm = new Vue({
 	el: "#burn",
 	data: {
 		loggedIn: false,
+		addingGoal: false,
+		addingMessage: "How many words did you write today?",
+		addingLinkText: "Add Goal",
+		submittedGoal: true,
+		submittedCount: true,
 		logo: "",
 		overlay: false,
 		message: "Sign Up",
@@ -71,38 +76,39 @@ var vm = new Vue({
 						//except also need to save count
 						//and add to counts upon login
 					} else {
+						console.log("success DATA", data)
+						//run logic functions
+						this.sortByDate(data)
+						//render new calculation
+						this.stats.allTimeTotal = this.calcTotal(data)
+						//run other logic functions
+						console.log(this.selectByMonth(data, 1))
+						this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, 1))
+						//calcAverageMonth calculates entire month, but more pressingly need
+						//month up until today for current month only
+						this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, 1))
+						console.log(this.calcAverageMonth(this.selectByMonth(data, 1)))
+						//returns infinity if run on the first day user signs up, because #days = 0
+						//also returns negative number if user enters count from before signup date
+						this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
+						//Function might be off by 1 day. Thought it was working before but maybe not.
+						console.log(this.findProductiveDay(data))
+						//returns date string with timestamp included but set to 00:00:00:000z
+						//figure out why format is weird and where to correct
+						this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,1))
+						this.stats.mostProductiveDay = this.findProductiveDay(data)
+						//announce new entry in feed
+						var announcement = this.profile.name + " just wrote " + data[data.length-1].words + " words."
+						var identification = this.announcements.length
+						this.announcements.unshift({
+							text: announcement,
+							id: identification
+						})
 
-					console.log("success DATA", data)
-					//run logic functions
-					this.sortByDate(data)
-					//render new calculation
-					this.stats.allTimeTotal = this.calcTotal(data)
-					//run other logic functions
-					console.log(this.selectByMonth(data, 1))
-					this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, 1))
-					//calcAverageMonth calculates entire month, but more pressingly need
-					//month up until today for current month only
-					this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, 1))
-					console.log(this.calcAverageMonth(this.selectByMonth(data, 1)))
-					//returns infinity if run on the first day user signs up, because #days = 0
-					//also returns negative number if user enters count from before signup date
-					this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
-					//Function might be off by 1 day. Thought it was working before but maybe not.
-					console.log(this.findProductiveDay(data))
-					//returns date string with timestamp included but set to 00:00:00:000z
-					//figure out why format is weird and where to correct
-					this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,1))
-					this.stats.mostProductiveDay = this.findProductiveDay(data)
-					//announce new entry in feed
-					var announcement = this.profile.name + " just wrote " + data[data.length-1].words + " words."
-					var identification = this.announcements.length
-					this.announcements.unshift({
-						text: announcement,
-						id: identification
-					})
-
-					this.count.words = ""
-					this.count.date = ""						
+						this.count.words = ""
+						this.count.date = ""
+						this.submittedCount = true
+						this.submittedGoal = false						
 					}
 
 				}
@@ -217,6 +223,8 @@ var vm = new Vue({
 					//end render
 					this.goal.words = ""
 					this.goal.date = ""
+					this.submittedGoal = true
+					this.submittedCount = false
 				}
 			})
 		},
@@ -229,6 +237,17 @@ var vm = new Vue({
 			var daysBetween = this.diffDates(today, goalDate) + 1
 			var goalAmount = data.words
 			return ( goalAmount / daysBetween).toFixed(0)
+		},
+		toggleGoalForm: function(){
+			if(this.addingGoal === false){
+				this.addingMessage = "How many words do you wish to write by [enter date]?"
+				this.addingLinkText = "Add Count"
+				this.addingGoal = true
+			} else if (this.addingGoal === true ){
+				this.addingMessage = "How many words did you write today?"
+				this.addingLinkText = "Add Goal"
+				this.addingGoal = false
+			}
 		},
 		//END Goal Functions
 		//BEGIN Profile Functions
@@ -339,7 +358,6 @@ var vm = new Vue({
 			this.overlay = false
 		},
 		toggleForm: function(){
-			console.log('toggle')
 			if(this.showSignup === false){
 				this.message = "Log In"
 				this.showSignup = true

@@ -58,7 +58,7 @@
 	background-color: #22ACE2;
 }
 
-#follow-bucket {
+.follow-bucket {
 	display: flex;
 	flex-wrap: wrap;
 	margin: 0 auto;
@@ -245,13 +245,18 @@
 	color: #E27822;
 }
 
-#stats .a {
+.stats {
+	max-width: 500px;
+	padding: 5%;
+}
+
+.stats .a {
 	float: left;
 	text-align: left;
 	width: 50%;
 }
 
-#stats .b {
+.stats .b {
 	float: right;
 	width: 50%;
 }
@@ -296,6 +301,7 @@ ul.feed {
 	color: white;
 	height: inherit;
 	min-width: 100%;
+	font-size: 14px;
 }
 
 .background:hover .genre-panel {
@@ -315,6 +321,17 @@ ul.feed {
 .login-link {
 	/*text-decoration: none;*/
 	padding: 3%;
+}
+
+.copy {
+	max-width: 300px;
+	margin: 10% auto;
+}
+
+.copy p {
+	margin: 10px auto;
+	/*font-family: 'Raleway', sans-serif;*/
+	font-family: 'Crimson Text', serif;
 }
 
 @media screen and (min-width:600px) {

@@ -81,24 +81,37 @@
 		<li  v-for="(announcement, index) in announcements.slice(0,10)" v-bind:key="announcement.id" class="fade-in">{{announcement.text}}</li>
 	</ul>
 
-	<ul>
-		<li class="background" v-for="friend in friends">
-			<h4>{{friend.name}}</h4>
-			<img v-bind:src="friend.photo" class="follow-single-photo">
-			<div class="genre-panel">
+	<ul class="follow-bucket">
+		<li class="background follow-single" v-for="friend in friends">
+			<div class="float-left">
+				<img v-bind:src="friend.photo" class="follow-single-photo">
+			</div>
+			<div class="float-right">
+				<h4 class="follow-single-name">{{friend.name}}</h4>
 				<h5>{{friend.genre}}</h5>
+				<h6>{{friend.bio}}</h6>
+			</div>
+			<div class="genre-panel">
+				<!-- <h5>{{friend.genre}}</h5> -->
 				<p>{{friend.bio}}</p>
 			</div>
 		</li>
-
-<!-- Maybe need to put mouseover panels in an identical ul that lies
-under friends ul instead of h4 inside ul
-Can you index the mouseover so dont all show on mousing over one
-Transition classes maybe-->
-
-
-
 	</ul>
+	<ul>
+<!-- 		<li class="follow-single" v-for="person in youMayKnow">
+			<div class="float-left">
+				<img v-bind:src="person.photo" class="follow-single-photo">
+			</div>
+			<div class="float-right">
+				<h4 class="follow-single-name">{{person.name}}</h4>
+				<h5>{{person.genre}}</h5>
+				<h6>{{person.bio}}</h6>
+			</div>
+
+			<button v-if="loggedIn" v-on:click="addFriend(person, $event)" class="button followButton">Follow</button>
+		</li> -->
+
+	</ul>	
 
 
 <!-- 
@@ -128,19 +141,22 @@ Transition classes maybe-->
 
 <!-- 	<canvas id="myChart" width="200" height="200"></canvas> -->
 
-
+	<div v-if="!loggedIn" class="copy">
+		<p>My advice to the young writer is likely to be unpalatable in an age of instant successes and meteoric falls. I tell the neophyte: Write a million words–the absolute best you can write, then throw it all away and bravely turn your back on what you have written. At that point, you’re ready to begin.</p>
+		<p>-David Eddings</p>
+	</div>
 
 
 
 
 
 	
-	<div class="totalDisplay" id="allTimeTotal"><span class="small">Total:</span><span class="center">{{stats.allTimeTotal}}</span></div>
+	<div v-if="loggedIn" class="totalDisplay" id="allTimeTotal"><span class="small">Total:</span><span class="center">{{stats.allTimeTotal}}</span></div>
 
 
 
-	<h2 class="count-label">How many words did you write today?</h2>
-	<div class="center-form">
+	<h2 class="count-form-label">{{addingMessage}}</h2>
+	<div class="center-form" v-if="!addingGoal">
 		<form id="wordct" v-on:submit="submitCount(count, $event)">
 			<input type="number" name="numwds" required id="numwds" v-model="count.words" placeholder="Enter Count">
 			<input type="date" name="date" required id="datewds" v-model="count.date">
@@ -149,12 +165,19 @@ Transition classes maybe-->
 	</div>
 
 
+	<!-- <h2 class="count-form-label">{{addingMessage}}</h2> -->
+	<div class="center-form" v-if="addingGoal">
+		
+		<form id="setGoal" v-on:submit="submitGoal(goal, $event)">
+			<input type="number" name="goalWds" id="goalWds" required placeholder="Enter Goal" v-model="goal.words">
+			<input type="date" name="goalDate" id="goalDate" required v-model="goal.date">
+			<button type="submit" class="button">Submit</button>
+		</form>
+	</div>
 
 
-
-
-	<!-- <a href="#" id="viewStatsLink"><h3>View Stats</h3></a> -->
-	<a href="#" id="setGoalLink"><h3>Set Goal</h3></a>
+<!-- <a href="#" id="viewStatsLink" v-on:click="toggleGoalForm()"><h3>Add Count</h3></a> -->
+	<a href="#" id="setGoalLink" v-on:click="toggleGoalForm()"><h3>{{addingLinkText}}</h3></a>
 <!-- 	<form name="monthform" id="monthform" >
 		<label for="selectmonth">Choose Month to View Stats:</label>
 		<select name="month" id="selectmonth">
@@ -172,28 +195,31 @@ Transition classes maybe-->
 			<option value="11">December</option>
 		</select>
 	</form> -->
+	<div class="stats">
+		<div v-if="submittedGoal">Words Per Day You Must Write to Meet Goal: <span id="wpdToGoal">{{stats.goalWordsPerDay}}</span> </div>
 
-	<div id="stats">
-		<!-- allTimeTotal id is already used line 91 -->
-<!-- 		<div class="cell a">All time total: </div>
-		<div class="cell b" id="allTimeTotal">0</div> -->
-		<div class="cell a">Total for month: </div>
-		<div class="cell b" id="totalmonth">{{stats.monthTotal}}</div>
+		<div v-if="submittedCount">
+			<!-- allTimeTotal id is already used line 91 -->
+	<!-- 		<div class="cell a">All time total: </div>
+			<div class="cell b" id="allTimeTotal">0</div> -->
+			<div class="cell a">Total for month: </div>
+			<div class="cell b" id="totalmonth">{{stats.monthTotal}}</div>
 
-		<div class="cell a">Daily average for month: </div>
-		<div class="cell b" id="avgmonth">{{stats.monthAverage}}</div>
+			<div class="cell a">Daily average for month: </div>
+			<div class="cell b" id="avgmonth">{{stats.monthAverage}}</div>
 
-		<div class="cell a">Most productive day of month: </div>
-		<div class="cell b" id="prodDate">{{stats.mostProductiveDate.date}}<span id="prodDateCt">{{stats.mostProductiveDate.words}}</span> words</div>
+			<div class="cell a">Most productive day of month: </div>
+			<div class="cell b" id="prodDate">{{stats.mostProductiveDate.date}}<span id="prodDateCt">{{stats.mostProductiveDate.words}}</span> words</div>
 
-		<div class="cell a">Most productive day of week:</div>
-		<div class="cell b">{{stats.mostProductiveDay}}</div>
+			<div class="cell a">Most productive day of week:</div>
+			<div class="cell b">{{stats.mostProductiveDay}}</div>
 
-		<div class="cell a">Daily Average since you started: </div>
-		<div class="cell b" id="dailyAvg">{{stats.allTimeAverage}}</div>
+			<div class="cell a">Daily Average since you started: </div>
+			<div class="cell b" id="dailyAvg">{{stats.allTimeAverage}}</div>
 
-<!-- 		<div class="cell a">Average excluding zero days: </div>
-		<div class="cell b" id="onlyAvg">0</div> -->
+	<!-- 		<div class="cell a">Average excluding zero days: </div>
+			<div class="cell b" id="onlyAvg">0</div> -->
+		</div>
 	</div>
 
 
@@ -203,17 +229,7 @@ Transition classes maybe-->
 
 
 
-	<h2 class="hide">How many words do you wish to write by [Set Date]?</h2>
-	<div class="center-form hide">
-		
-		<form id="setGoal" v-on:submit="submitGoal(goal, $event)">
-			<input type="number" name="goalWds" id="goalWds" required placeholder="Enter Goal" v-model="goal.words">
-			<input type="date" name="goalDate" id="goalDate" required v-model="goal.date">
-			<button type="submit" class="button">Submit</button>
-		</form>
 
-		<div class="hide">Words Per Day You Must Write to Meet Goal: <span id="wpdToGoal">{{stats.goalWordsPerDay}}</span> </div>
-	</div>
 
 
 
@@ -221,7 +237,7 @@ Transition classes maybe-->
 
 <div class="container-right">
 
-	<a href="#" class="login-link dk-orange" v-on:click="showOverlay($event)"><h3>login/signup</h3></a>
+	<a href="#" class="login-link" v-on:click="showOverlay($event)"><h3>login/signup</h3></a>
 
 	<h2 v-if="!loggedIn">Featured Author:</h2>
 	<div class="profile-dashboard">
@@ -269,7 +285,6 @@ Transition classes maybe-->
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <script type="text/javascript" src="javascripts/main.js"></script>
-<script type="text/javascript" src="javascripts/ui.js"></script>
 
 </body>
 </html>

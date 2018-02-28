@@ -48,14 +48,13 @@
 			</form>
 			
 			<a href="#" class="right" id="li-button" v-on:click="toggleForm()"><h3>{{message}}</h3></a>
-<!-- 			<a href="#" class="right" id="su-button" v-on:click="signup = !signup; message = 'Log In'"><h3>{{message}}</h3></a> -->
 		</div>
 	</div>
 
 
 
 <div class="container-left">
-	<!-- <h3>Friends</h3> -->
+	
 	<h3>You May Know</h3>
 	<ul id="follow-bucket">
 		<li class="follow-single" v-for="person in youMayKnow">
@@ -77,7 +76,8 @@
 		<li v-for="(item, index) in announcements.slice(0,5)" v-bind:key="item.id" class="fade-in">{{item.text}}</li>
 	</ul>
 
-	<ul class="follow-bucket">
+	<h3 v-if="loggedIn">Friends</h3>
+	<ul v-if="loggedIn" class="follow-bucket">
 		<li class="background follow-single" v-for="friend in friends">
 			<div class="float-left">
 				<img v-bind:src="friend.photo" class="follow-single-photo">
@@ -93,41 +93,6 @@
 			</div>
 		</li>
 	</ul>
-	<ul>
-<!-- 		<li class="follow-single" v-for="person in youMayKnow">
-			<div class="float-left">
-				<img v-bind:src="person.photo" class="follow-single-photo">
-			</div>
-			<div class="float-right">
-				<h4 class="follow-single-name">{{person.name}}</h4>
-				<h5>{{person.genre}}</h5>
-				<h6>{{person.bio}}</h6>
-			</div>
-
-			<button v-if="loggedIn" v-on:click="addFriend(person, $event)" class="button followButton">Follow</button>
-		</li> -->
-
-	</ul>	
-
-
-<!-- 
-	<div id="friend-bucket">
-		<div class="friend-single">
-			<img src="#" class="friend-single-photo">
-			<h4 class="friend-single-name">Jenn Vance</h4>
-			<h4>Genre or Thumbnail Bio</h4>
-		</div>
-		<div class="friend-single">			
-			<img src="#" class="friend-single-photo">
-			<h4 class="friend-single-name">Jenn Vance</h4>
-			<h4>Genre or Thumbnail Bio</h4>
-		</div>
-		<div class="friend-single">			
-			<img src="#" class="friend-single-photo">
-			<h4 class="friend-single-name">Jenn Vance</h4>
-			<h4>Genre or Thumbnail Bio</h4>
-		</div>
-	</div> -->
 
 </div>
 
@@ -142,14 +107,7 @@
 		<p>-David Eddings</p>
 	</div>
 
-
-
-
-
-	
 	<div v-if="loggedIn" class="totalDisplay" id="allTimeTotal"><span class="small">Total:</span><span class="center">{{stats.allTimeTotal}}</span></div>
-
-
 
 	<h2 class="count-form-label">{{addingMessage}}</h2>
 	<div class="center-form" v-if="!addingGoal">
@@ -160,8 +118,6 @@
 		</form>
 	</div>
 
-
-	<!-- <h2 class="count-form-label">{{addingMessage}}</h2> -->
 	<div class="center-form" v-if="addingGoal">
 		
 		<form id="setGoal" v-on:submit="submitGoal(goal, $event)">
@@ -171,8 +127,6 @@
 		</form>
 	</div>
 
-
-<!-- <a href="#" id="viewStatsLink" v-on:click="toggleGoalForm()"><h3>Add Count</h3></a> -->
 	<a href="#" id="setGoalLink" v-on:click="toggleGoalForm()"><h3>{{addingLinkText}}</h3></a>
 <!-- 	<form name="monthform" id="monthform" >
 		<label for="selectmonth">Choose Month to View Stats:</label>
@@ -238,10 +192,8 @@
 	<h2 v-if="!loggedIn">Featured Author:</h2>
 	<div class="profile-dashboard">
 
-
-<!-- 		<img src="#" class="profile-photo" id="profilePhoto" v-model="profile.photo"> -->
-
-		<img v-bind:src="profile.photo" class="profile-photo" v-cloak id="profilePhoto">
+		<img v-bind:src="famousPhoto" class="profile-photo" v-cloak v-if="!loggedIn">
+		<img v-bind:src="profile.photo" class="profile-photo" v-cloak id="profilePhoto" v-if="loggedIn">
 
 		<div class="option-1" v-if="showProfileForm" v-cloak>
 			<div class="profile-form">
@@ -267,13 +219,13 @@
 
 
 
-		<div class="badge-bucket" v-if="loggedIn">
+<!-- 		<div class="badge-bucket" v-if="loggedIn">
 			<div class="badge-single">
 				<h3 class="badge-title"></h3>
 				<p class="badge-summary"></p>
 				<img src="#" class="badge-img">
 			</div>
-		</div>
+		</div> -->
 	</div>
 
 

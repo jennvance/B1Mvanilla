@@ -144,6 +144,10 @@
 	width: 200px;
 }
 
+button#editProfile {
+	margin: 8% auto 0% auto;
+}
+
 .profile-dashboard {
 	border: 10px ridge gray;
 	margin: 3% 5%;
@@ -302,6 +306,10 @@ ul.feed {
 	height: inherit;
 	min-width: 100%;
 	font-size: 14px;
+}
+
+.genre-panel p {
+	padding: 1%;
 }
 
 .background:hover .genre-panel {

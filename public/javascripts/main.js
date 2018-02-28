@@ -44,6 +44,7 @@ var vm = new Vue({
 			mostProductiveDay: "First, Write!"
 		},
 		timeoutId: 0,
+		famousPhoto: "",
 		famousFeedStaging: [],
 		famous: [],
 		youMayKnow: [],
@@ -267,6 +268,7 @@ var vm = new Vue({
 			if(data.photo){
 				document.getElementById("profilePhoto").src = "/" + data.photo;
 				console.log(data.photo)
+				// this.profile.photo = data.photo
 			}
 		},
 		editProfile: function(event){
@@ -278,8 +280,10 @@ var vm = new Vue({
 		//BEGIN Login/Signup Functions
 		signUp: function(data, event){
 			event.preventDefault()
+			this.loggedIn = true
 			var self = this
 			$.post('/signup', data, function(successData){
+				
 				//if user already exists, need to redirect to login
 				if(successData === "<h1>User already exists; please log in.</h1>"){
 					self.toggleForm()
@@ -302,7 +306,7 @@ var vm = new Vue({
 					}
 					self.overlay = false
 				}
-				self.loggedIn = true
+				
 				self.youMayKnow = []
 				self.showFriendsOnLogin()
 				self.getStrangersOnly()
@@ -314,19 +318,21 @@ var vm = new Vue({
 		logIn: function(data, event){
 			event.preventDefault()
 			console.log(data)
+			this.loggedIn = true
 			var self = this
 			$.post('/login', data, function(successData){
 				if(successData === "Failed to log in"){
 					self.toggleForm()
 				} else {
 					self.youMayKnow = []
+					
 					self.renderUser(successData)
 					self.renderPhoto(successData)
 					self.showProfile = true
 					self.showFriendsOnLogin()
 					self.getStrangersOnly()	
 					self.overlay = false
-					self.loggedIn = true				
+									
 				}
 			})
 			this.signIn = {
@@ -499,7 +505,9 @@ var vm = new Vue({
 			this.profile.name = random.name
 			this.profile.genre = random.genre
 			this.profile.bio = random.bio
-			this.profile.photo = random.photo
+			//assign to diff local variable than profile.photo
+			//ruins render of user photo after login/profile submit
+			this.famousPhoto = random.photo
 			// this.renderPhoto(random)
 		},
 		randomizeFamousFeed: function(){

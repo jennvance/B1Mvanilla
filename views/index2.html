@@ -74,11 +74,7 @@
 	</ul>	
 
 	<ul id="feed" class="feed famousFeed">
-		<li v-for="(item, index) in famousFeedRender.slice(0,5)" v-bind:key="item.id" class="fade-in">{{item.text}}</li>
-	</ul>
-
-	<ul class="feed" v-if="loggedIn">
-		<li  v-for="(announcement, index) in announcements.slice(0,10)" v-bind:key="announcement.id" class="fade-in">{{announcement.text}}</li>
+		<li v-for="(item, index) in announcements.slice(0,5)" v-bind:key="item.id" class="fade-in">{{item.text}}</li>
 	</ul>
 
 	<ul class="follow-bucket">

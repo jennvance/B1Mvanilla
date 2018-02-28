@@ -45,16 +45,10 @@ var vm = new Vue({
 		},
 		timeoutId: 0,
 		famousFeedStaging: [],
-		famousFeedRender: [],
 		famous: [],
 		youMayKnow: [],
 		friends: [],
-		announcements: [{
-			text: "",
-			id: 0
-		}]
-		
-
+		announcements: []
 	},
 	methods: {
 		//BEGIN Count Functions
@@ -541,9 +535,9 @@ var vm = new Vue({
 			console.log(this.famousFeedStaging)
 		},
 		appendToDOM: function(){
-			this.famousFeedRender.unshift({
+			this.announcements.unshift({
 				text: this.famousFeedStaging[Math.floor(Math.random() * this.famousFeedStaging.length)],
-				id: this.famousFeedRender.length
+				id: this.announcements.length
 			})
 
 			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 13 ) + 7 ) * 2000)

@@ -243,7 +243,9 @@
 	<div class="profile-dashboard">
 
 
-		<img src="#" class="profile-photo" id="profilePhoto" v-model="profile.photo">
+<!-- 		<img src="#" class="profile-photo" id="profilePhoto" v-model="profile.photo"> -->
+
+		<img v-bind:src="profile.photo" class="profile-photo" v-cloak id="profilePhoto">
 
 		<div class="option-1" v-if="showProfileForm" v-cloak>
 			<div class="profile-form">

@@ -4,7 +4,7 @@
 	"name": "Henry Miller",
 	"genre": "Nonfiction",
 	"bio": "Paris Expat",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/a/a5/HenryMillerMuseum.jpg",
 	"friends":[],
 	"famous": true
 },
@@ -14,7 +14,7 @@
 	"name": "Anais Nin",
 	"genre": "Nonfiction",
 	"bio": "Paris Expat",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Anais_Nin.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -24,7 +24,7 @@
 	"name": "Sylvia Plath",
 	"genre": "Poetry, Tragedy",
 	"bio": "Burned more than just words",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Sylvia_Plath.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -34,7 +34,7 @@
 	"name": "Earnest Hemingway",
 	"genre": "fiction",
 	"bio": "Lived in Florida",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Ernest_Hemingway_Fishing%2C_Key_West%2C_1928.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -44,7 +44,7 @@
 	"name": "Mary Shelley",
 	"genre": "Fiction",
 	"bio": "Wrote Frankenstein",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/6/65/RothwellMaryShelley.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -54,7 +54,7 @@
 	"name": "Virginia Woolf",
 	"genre": "Cultural Critique",
 	"bio": "Lived in a room.",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/0/0b/George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -64,7 +64,7 @@
 	"name": "Gertrude Stein",
 	"genre": "Fiction",
 	"bio": "Paris Expat",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/8/86/Gertrude_stein.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -74,7 +74,7 @@
 	"name": "Jack Kerouac",
 	"genre": "Diarism",
 	"bio": "Road Trip!",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Kerouac_by_Palumbo.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -84,7 +84,7 @@
 	"name": "F. Scott Fitzgerald",
 	"genre": "Fiction",
 	"bio": "Wrote The Great Gatsby",
-	"photo": "uploads/18dc0b072e8fe0714e35cbc6dcf2fc6b",
+	"photo": "https://upload.wikimedia.org/wikipedia/commons/5/50/Portrait_of_F._Scott_Fitzgerald_LCCN2004662885.jpg",
 	"friends": [],
 	"famous": true
 }

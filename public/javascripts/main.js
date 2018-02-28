@@ -272,6 +272,7 @@ var vm = new Vue({
 		renderPhoto: function(data){
 			if(data.photo){
 				document.getElementById("profilePhoto").src = "/" + data.photo;
+				console.log(data.photo)
 			}
 		},
 		editProfile: function(event){
@@ -298,7 +299,7 @@ var vm = new Vue({
 						bio: "",
 						photo: ""
 					},
-					document.getElementById("profilePhoto").src = "/" + self.profile.photo;
+					// document.getElementById("profilePhoto").src = "/" + self.profile.photo;
 		
 					self.signIn = {
 						name: "",
@@ -504,7 +505,8 @@ var vm = new Vue({
 			this.profile.name = random.name
 			this.profile.genre = random.genre
 			this.profile.bio = random.bio
-			this.renderPhoto(random)
+			this.profile.photo = random.photo
+			// this.renderPhoto(random)
 		},
 		randomizeFamousFeed: function(){
 			//lots of bugs

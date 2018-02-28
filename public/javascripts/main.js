@@ -233,7 +233,8 @@ var vm = new Vue({
 			var goalAmount = data.words
 			return ( goalAmount / daysBetween).toFixed(0)
 		},
-		toggleGoalForm: function(){
+		toggleGoalForm: function(event){
+			event.preventDefault()
 			if(this.addingGoal === false){
 				this.addingMessage = "How many words do you wish to write by [enter date]?"
 				this.addingLinkText = "Add Count"

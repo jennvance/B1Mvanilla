@@ -13,7 +13,7 @@
 	"password": "anaisnin",
 	"name": "Anais Nin",
 	"genre": "Nonfiction",
-	"bio": "Paris Expat",
+	"bio": "American diarist, essayist, novelist, and writer of short stories and erotica",
 	"photo": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Anais_Nin.jpg",
 	"friends": [],
 	"famous": true
@@ -22,8 +22,8 @@
 	"username": "sylviaplath",
 	"password": "sylviaplath",
 	"name": "Sylvia Plath",
-	"genre": "Poetry, Tragedy",
-	"bio": "Burned more than just words",
+	"genre": "Poetry",
+	"bio": "American poet, novelist, and short-story writer.",
 	"photo": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Sylvia_Plath.jpg",
 	"friends": [],
 	"famous": true
@@ -32,8 +32,8 @@
 	"username": "earnesthemingway",
 	"password": "earnesthemingway",
 	"name": "Earnest Hemingway",
-	"genre": "fiction",
-	"bio": "Lived in Florida",
+	"genre": "Fiction",
+	"bio": "American novelist, short story writer, and journalist.",
 	"photo": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Ernest_Hemingway_Fishing%2C_Key_West%2C_1928.jpg",
 	"friends": [],
 	"famous": true
@@ -43,7 +43,7 @@
 	"password": "maryshelley",
 	"name": "Mary Shelley",
 	"genre": "Fiction",
-	"bio": "Wrote Frankenstein",
+	"bio": "English writer who is, perhaps, equally-famously remembered as the wife of Romantic poet Percy Bysshe Shelley and as the author of Frankenstein, or The Modern Prometheus.",
 	"photo": "https://upload.wikimedia.org/wikipedia/commons/6/65/RothwellMaryShelley.jpg",
 	"friends": [],
 	"famous": true

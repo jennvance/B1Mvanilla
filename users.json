@@ -3,8 +3,8 @@
 	"password": "henrymiller",
 	"name": "Henry Miller",
 	"genre": "Nonfiction",
-	"bio": "Paris Expat",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/a/a5/HenryMillerMuseum.jpg",
+	"bio": "American writer, expatriated in Paris at his flourishing.",
+	"photo": "uploads/HenryMiller.jpg",
 	"friends":[],
 	"famous": true
 },
@@ -14,7 +14,7 @@
 	"name": "Anais Nin",
 	"genre": "Nonfiction",
 	"bio": "American diarist, essayist, novelist, and writer of short stories and erotica",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Anais_Nin.jpg",
+	"photo": "uploads/AnaisNin.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -24,7 +24,7 @@
 	"name": "Sylvia Plath",
 	"genre": "Poetry",
 	"bio": "American poet, novelist, and short-story writer.",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Sylvia_Plath.jpg",
+	"photo": "uploads/SylviaPlath.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -34,7 +34,7 @@
 	"name": "Earnest Hemingway",
 	"genre": "Fiction",
 	"bio": "American novelist, short story writer, and journalist.",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Ernest_Hemingway_Fishing%2C_Key_West%2C_1928.jpg",
+	"photo": "uploads/ErnestHemingway.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -44,7 +44,7 @@
 	"name": "Mary Shelley",
 	"genre": "Fiction",
 	"bio": "English writer who is, perhaps, equally-famously remembered as the wife of Romantic poet Percy Bysshe Shelley and as the author of Frankenstein, or The Modern Prometheus.",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/6/65/RothwellMaryShelley.jpg",
+	"photo": "uploads/MaryShelley.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -52,9 +52,9 @@
 	"username": "virginiawoolf",
 	"password": "virginiawoolf",
 	"name": "Virginia Woolf",
-	"genre": "Cultural Critique",
-	"bio": "Lived in a room.",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/0/0b/George_Charles_Beresford_-_Virginia_Woolf_in_1902_-_Restoration.jpg",
+	"genre": "Nonfiction",
+	"bio": "English writer, who is considered one of the foremost modernist authors of the 20th century and a pioneer in the use of stream of consciousness as a narrative device.",
+	"photo": "uploads/VirginiaWoolf.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -63,8 +63,8 @@
 	"password": "gertrudestein",
 	"name": "Gertrude Stein",
 	"genre": "Fiction",
-	"bio": "Paris Expat",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/8/86/Gertrude_stein.jpg",
+	"bio": "American novelist, poet, playwright, and art collector.",
+	"photo": "uploads/GertrudeStein.jpg",
 	"friends": [],
 	"famous": true
 },
@@ -72,9 +72,9 @@
 	"username": "jackkerouac",
 	"password": "jackkerouac",
 	"name": "Jack Kerouac",
-	"genre": "Diarism",
-	"bio": "Road Trip!",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Kerouac_by_Palumbo.jpg",
+	"genre": "Nonfiction",
+	"bio": "American novelist and poet of French-Canadian descent.",
+	"photo": "uploads/JackKerouac.png",
 	"friends": [],
 	"famous": true
 },
@@ -83,8 +83,8 @@
 	"password": "fscottfitzgerald",
 	"name": "F. Scott Fitzgerald",
 	"genre": "Fiction",
-	"bio": "Wrote The Great Gatsby",
-	"photo": "https://upload.wikimedia.org/wikipedia/commons/5/50/Portrait_of_F._Scott_Fitzgerald_LCCN2004662885.jpg",
+	"bio": "American writer, whose works illustrate the Jazz Age. Wrote The Great Gatsby",
+	"photo": "uploads/FScottFitzgerald.jpg",
 	"friends": [],
 	"famous": true
 }

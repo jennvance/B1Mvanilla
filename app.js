@@ -43,18 +43,18 @@ mongoose.connect("mongodb://localhost/burndb", function(err){
 })
 
 
-//wrap aspiringAuthor in function that only runs on SIGNUP
-//
+//All Badges Go Here?: Firsts, milestones, social, productivity
 
+function badgeFirstCount(user){
+    var firstEntry = new BadgeModel({
+        title: "First Entry",
+        summary: "You wrote a thing!",
+        img: "/public/images/penbadge.png"
+    })
+    firstEntry.save()
+    user.badges.push(firstEntry)
+}
 
-var firstEntry = new BadgeModel({
-    title: "First Entry",
-    summary: "You wrote a thing!",
-    img: "/public/images/penbadge.png"
-})
-
-
-firstEntry.save()
 
 var checkIfLoggedIn = function(req, res, next){
     if ( req.session._id ) {

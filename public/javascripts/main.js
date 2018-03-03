@@ -43,15 +43,32 @@ var vm = new Vue({
 			mostProductiveDate: {},
 			mostProductiveDay: "First, Write!"
 		},
+		badges: [],
 		timeoutId: 0,
 		famousPhoto: "",
 		famousFeedStaging: [],
-		famous: [],
+		// famous: [],
 		youMayKnow: [],
 		friends: [],
 		announcements: []
 	},
 	methods: {
+		//BEGIN Badge Functions
+		renderBadges: function(personData){
+			console.log(personData)
+			for (var i=0;i<personData.badges.length; i++){
+				this.badges.push(personData.badges[i])
+			}
+			var announcement = personData.name + " just earned the " + personData.badges[personData.badges.length-1].title + " badge."
+			var identification = this.announcements.length
+			this.announcements.unshift({
+				text: announcement,
+				id: identification
+			})
+			console.log(this.announcements)
+			console.log(this.badges)
+		},
+		//END Badge Functions
 		//BEGIN Count Functions
 		submitCount: function(data, event){
 			event.preventDefault()
@@ -306,6 +323,7 @@ var vm = new Vue({
 						password: ""
 					}
 					self.overlay = false
+					self.renderBadges(successData)
 				}
 				
 				self.youMayKnow = []
@@ -428,7 +446,7 @@ var vm = new Vue({
 						console.log("You're already friends!")
 					} else {
 						console.log("you two are friends now:", data)
-						var announcement = data.friend1 + " is now following " + data.friend2 + "."
+						var announcement = data.friend1 + " is following " + data.friend2 + "."
 						var identification = this.announcements.length
 						this.announcements.unshift({
 							text: announcement,
@@ -523,19 +541,19 @@ var vm = new Vue({
 			for(var i=0;i<=3;i++){
 				var person = famousArray[Math.floor(Math.random() * famousArray.length)]
 				var count = Math.floor(Math.random() * 1000)
-				var justWrote = person + " just wrote " + count + " words."
+				var justWrote = person + " wrote " + count + " words."
 				this.famousFeedStaging.push(justWrote)
 				for(var j=0; j<=1; j++){
 					var person1 = famousArray[Math.floor(Math.random() * famousArray.length)]
 					var person2 = famousArray[Math.floor(Math.random() * famousArray.length)]
 					if(person1 !== person2){
-						var nowFriends = person1 + " and " + person2 + " are now friends."
+						var nowFriends = person1 + " is following " + person2 + "."
 						this.famousFeedStaging.push(nowFriends)
 					}
 					for(var k=0; k<=1; k++){
 						var badgeperson = famousArray[Math.floor(Math.random() * famousArray.length)]
 						var badge = badgesArray[Math.floor(Math.random() * badgesArray.length)]
-						var earnedBadge = badgeperson + " just earned the " + badge + " badge."
+						var earnedBadge = badgeperson + " earned the " + badge + " badge."
 						this.famousFeedStaging.push(earnedBadge)
 					}
 				}
@@ -568,16 +586,6 @@ var vm = new Vue({
 	//to stop setTimeout; might not actually be what I need
 	// clearTimeout(timeoutId)
 
-
-
-	function renderBadge(data){
-		console.log(data)
-		$(".badge-title").html(data.badges[0].title)
-		$(".badge-summary").html(data.badges[0].summary)
-		$(".badge-img").attr("src", data.badges[0].img)
-		var feedAnnouncement = "<p>"+ data.name + " just earned the " + data.badges[0].title + " badge.</p>"
-		$("#feed").append(feedAnnouncement)
-	}
 
 
 

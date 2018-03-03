@@ -13,7 +13,7 @@
 	"password": "anaisnin",
 	"name": "Anais Nin",
 	"genre": "Nonfiction",
-	"bio": "American diarist, essayist, novelist, and writer of short stories and erotica",
+	"bio": "American diarist, essayist, novelist, and writer of short stories and erotica.",
 	"photo": "uploads/AnaisNin.jpg",
 	"friends": [],
 	"famous": true
@@ -83,7 +83,7 @@
 	"password": "fscottfitzgerald",
 	"name": "F. Scott Fitzgerald",
 	"genre": "Fiction",
-	"bio": "American writer, whose works illustrate the Jazz Age. Wrote The Great Gatsby",
+	"bio": "American writer whose works illustrate the Jazz Age. Wrote The Great Gatsby",
 	"photo": "uploads/FScottFitzgerald.jpg",
 	"friends": [],
 	"famous": true

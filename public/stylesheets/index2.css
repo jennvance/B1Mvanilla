@@ -120,19 +120,19 @@
 
 
 .profile-form {
-	background-color: #E25822;
-	border-radius: 5px;
-	padding: 4% 0;
-	width: 250px;
+	/*background-color: #E25822;*/
+	/*border-radius: 5px;*/
+/*	padding: 4% 0;
+	width: 250px;*/
 }
 
 
-.profile-form form * {
+.profile-form .profile-input {
 	display: block;
-	margin: 0 auto 1%;
-	padding: 2%;
-	border: 0;
-	width: 200px;
+	margin: 3% auto;
+	padding: 3%;
+	border: 1px solid black;
+	width: 180px;
 }
 
 /*.profile-form input:first-child, #ux3 input:first-child {
@@ -140,12 +140,21 @@
 }*/
 
 .profile-form textarea {
-	height: 150px;
-	width: 200px;
+	height: 135px;
+	width: 180px;
+	border: 1px solid black;
 }
 
-button#editProfile {
-	margin: 8% auto 0% auto;
+.profile-float {
+	text-align: left;
+	margin: 5% auto;
+	padding: 5%;
+	font-size: 12px;
+}
+
+
+#editProfile {
+	margin: 8% auto 0%;
 }
 
 .profile-dashboard {

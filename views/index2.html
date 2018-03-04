@@ -201,15 +201,18 @@
 			<div class="profile-form">
 				<form id="profileForm" enctype="multipart/form-data" v-on:submit="submitProfile(profile, $event)">
 					
-					<input type="text" name="name" placeholder="Your Name" required class="name" v-model="profile.name">
-					<input type="text" name="genre" placeholder="Genre" required class="genre" v-model="profile.genre">
-					<textarea class="bio" name="bio" placeholder="Author Bio" v-model="profile.bio"></textarea >
-					<input type="file" name="photo" placeholder="upload photo" class="photo" accept="image/*" id="inputPhoto" v-model="profile.photo">
+					<input type="text" name="name" placeholder="Your Name" required class="profile-input" v-model="profile.name">
+					<input type="text" name="genre" placeholder="Genre" required class="profile-input" v-model="profile.genre">
+					<textarea name="bio" placeholder="Author Bio" v-model="profile.bio"></textarea >
+					<div class="profile-float">
+						<label for="file">Add Photo</label>
+						<input type="file" name="photo" placeholder="upload photo" accept="image/*" id="inputPhoto" v-model="profile.photo">
+					</div>
 					<button type="submit" class="button">Submit</button>
 				</form>
 			</div>
 		</div>
-
+<!-- showProfile var can prob be changed to loggedIn?? -->
 		<div class="option-2" v-if="showProfile">
 
 			<h2 id="profileName">{{profile.name}}</h2>

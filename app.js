@@ -12,9 +12,6 @@ var pug = require('pug');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
 var UltimateModel = require('./dbmodels/createprofile')
 var BadgeModel = require('./dbmodels/badgemodels')
 var app = express();
@@ -31,9 +28,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('./uploads'))
-
-// app.use('/', routes);
-// app.use('/users', users);
 
 
 //Begin login code (rewrite later)
@@ -102,7 +96,7 @@ app.use(function(req, res, next){
 })
 
 app.get('/', function(req, res){
-    res.sendFile('./views/index2.html', {root:'./'})
+    res.sendFile('./views/index.html', {root:'./'})
 })
 
 

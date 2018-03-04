@@ -94,16 +94,9 @@
 }
 
 
-.logo {
-	font-size: 52px;
-	text-align: center;	
-	padding: 3%;
-	white-space: nowrap;
-	color: black; 
-	text-decoration: none;	        	  	  
-}
-
 @keyframes type{ 
 	from { width: 0; } 
 }
+
+
 

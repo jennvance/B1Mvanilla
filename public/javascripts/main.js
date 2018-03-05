@@ -331,7 +331,6 @@ var vm = new Vue({
 				}
 				
 				self.youMayKnow = []
-				self.showFriendsOnLogin()
 				self.getStrangersOnly()
 				// self.getAllUsers()
 				// renderBadge(sucessData)
@@ -353,7 +352,6 @@ var vm = new Vue({
 					self.renderUser(successData)
 					self.renderPhoto(successData)
 					self.showProfile = true
-					self.showFriendsOnLogin()
 					self.getStrangersOnly()	
 					self.overlay = false
 									
@@ -398,9 +396,6 @@ var vm = new Vue({
 		},
 		//END Login/Signup Functions
 		//BEGIN Friend Functions
-		showFriendsOnLogin: function(){
-			// $("#follow-bucket").css("display", "flex")
-		},
 		//need to remove user's own profile plus all friend profiles
 		getStrangersOnly: function(){
 			$.ajax({
@@ -498,8 +493,6 @@ var vm = new Vue({
 		renderLogo: function(){
 			var logoArray = ["b","u","r","n"," ","o","n","e"," ","m","i","l","l","i","o","n"]
 			//at interval, remove index 0 from array and add to this.logo string
-			console.log("hey", this.logo)
-
 			var typedLogo = setInterval(()=>{
 				var item = logoArray.shift()
 				// if(this.logo){
@@ -507,7 +500,6 @@ var vm = new Vue({
 				// }
 				console.log(item)
 				console.log(this.logo)
-				// console.log(this.logo)
 				if(logoArray.length===0){
 					clearInterval(typedLogo)
 				}
@@ -546,28 +538,33 @@ var vm = new Vue({
 			//to prevent repeats
 			//need to shorten text so feed isn't multi-line
 
-			var famousArray = ["Henry Miller", "Anais Nin", "Truman Capote", "F. Scott Fitzgerald", "Sylvia Plath", "Earnest Hemingway", "Mary Shelley", "Virginia Woolf"]
+			var famousArray = ["Henry Miller", "Anais Nin", "Truman Capote", "F. Scott Fitzgerald", "Sylvia Plath", "Earnest Hemingway", "Mary Shelley", "Virginia Woolf", "Gertrude Stein", "Jack Kerouac"]
 			var badgesArray = ["Hemingway", "Very Productive", "Streak", "Completed Manuscript"]
-			for(var i=0;i<=3;i++){
+			for(var i=0;i<20;i++){
 				var person = famousArray[Math.floor(Math.random() * famousArray.length)]
 				var count = Math.floor(Math.random() * 1000)
+				if(count < 30) {
+					count = count * 90
+				}
+				if(count < 300){
+					count = count * 10
+				}
 				var justWrote = person + " wrote " + count + " words."
 				this.famousFeedStaging.push(justWrote)
-				for(var j=0; j<=1; j++){
-					var person1 = famousArray[Math.floor(Math.random() * famousArray.length)]
-					var person2 = famousArray[Math.floor(Math.random() * famousArray.length)]
-					if(person1 !== person2){
-						var nowFriends = person1 + " is following " + person2 + "."
-						this.famousFeedStaging.push(nowFriends)
-					}
-					for(var k=0; k<=1; k++){
-						var badgeperson = famousArray[Math.floor(Math.random() * famousArray.length)]
-						var badge = badgesArray[Math.floor(Math.random() * badgesArray.length)]
-						var earnedBadge = badgeperson + " earned the " + badge + " badge."
-						this.famousFeedStaging.push(earnedBadge)
-					}
+			}
+			for(var j=0; j<20; j++){
+				var person1 = famousArray[Math.floor(Math.random() * famousArray.length)]
+				var person2 = famousArray[Math.floor(Math.random() * famousArray.length)]
+				if(person1 !== person2){
+					var nowFriends = person1 + " is following " + person2 + "."
+					this.famousFeedStaging.push(nowFriends)
 				}
-
+			}
+			for(var k=0; k<20; k++){
+				var badgeperson = famousArray[Math.floor(Math.random() * famousArray.length)]
+				var badge = badgesArray[Math.floor(Math.random() * badgesArray.length)]
+				var earnedBadge = badgeperson + " earned the " + badge + " badge."
+				this.famousFeedStaging.push(earnedBadge)
 			}
 			console.log(this.famousFeedStaging)
 		},

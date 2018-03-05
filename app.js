@@ -273,21 +273,11 @@ app.post("/setgoal", function(req,res){
     })
 })
 
-app.get("/getallusers", function(req,res){
-    console.log(req.body)
-    UltimateModel.find({}, function(err, user){
-        if (user){
-            res.send(user)
-        }
-    })
-})
-
 app.get("/getstrangers",function(req,res){
     UltimateModel.findOne({_id:req.session._id}, function(err,myself){
         if(myself){
             var excluded = []
             excluded.push(myself)
-            console.log("excl=", excluded)
             for(var i=0; i<myself.friends.length; i++){
                 excluded.push(myself.friends[i])
             }

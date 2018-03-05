@@ -332,7 +332,6 @@ var vm = new Vue({
 				
 				self.youMayKnow = []
 				self.getStrangersOnly()
-				// self.getAllUsers()
 				// renderBadge(sucessData)
 				
 			})
@@ -369,10 +368,19 @@ var vm = new Vue({
 		// 	event.preventDefault()
 		// 	window.location.href="/logout"
 		// },
+		shuffle: function(array){
+			for(var i = array.length-1; i>0; i-- ){
+				var j = Math.floor(Math.random() * (i+1))
+				var temp = array[i]
+				array[i] = array[j]
+				array[j] = temp
+			}
+		},
 		renderUser: function(data){
 				this.profile.name = data.name
 				this.profile.genre = data.genre
 				this.profile.bio = data.bio
+				this.shuffle(data.friends)
 				for(var i=0; i<data.friends.length; i++){
 					this.friends.push(data.friends[i])
 				}
@@ -396,31 +404,20 @@ var vm = new Vue({
 		},
 		//END Login/Signup Functions
 		//BEGIN Friend Functions
-		//need to remove user's own profile plus all friend profiles
+		//removes user's own profile plus all friend profiles
 		getStrangersOnly: function(){
 			$.ajax({
 				url: "/getstrangers",
 				type: "GET",
 				success: (data)=>{
 					console.log(data)
-					this.renderStrangers(data)
+					this.renderYouMayKnow(data)
 
 				}
 			})
 		},
-		//need to exclude self from view of all users
-		getAllUsers: function(){
-			$.ajax({
-				url: "/getallusers",
-				type: "GET",
-				success: (data)=>{
-					console.log(data)
-					this.renderAllUsers(data)
-					// return data
-				}
-			})
-		},
-		renderStrangers: function(data){
+		renderYouMayKnow: function(data){
+			this.shuffle(data)
 			for(var i=0; i<data.length; i++){
 				this.youMayKnow.push({
 					name: data[i].name,
@@ -430,16 +427,12 @@ var vm = new Vue({
 					id: data[i]._id
 				})
 			}
-			// console.log(this.youMayKnow)
 		},
 		hover:function(item, v){
 			item.hovered = v
-			console.log(item)
-
 		},
 		addFriend: function(person, event){
 			event.preventDefault()
-			console.log(person)
 			var id = {newFriendId: person.id}
 			$.ajax({
 				url: "/addfriend",
@@ -467,39 +460,18 @@ var vm = new Vue({
 						this.friends = data.fullList
 						for(var i=0;i<this.friends.length;i++){
 							this.friends[i].hovered = false
-						}
-						console.log(this.friends)
-
-						
-						// this.renderFriends()					
+						}				
 					}
 					
 				}
-
 			})
-		},
-		renderFriends: function(data){
-			// for(var i=0;i<data.length;i++){
-			// 	this.friends.push({
-			// 		name: data[i].name,
-			// 		genre: data[i].genre,
-			// 		bio: data[i].bio,
-			// 		photo: data[i].photo,
-			// 		id: data[i]._id
-			// 	})
-			// }
-			// console.log(this.friends)
 		},
 		renderLogo: function(){
 			var logoArray = ["b","u","r","n"," ","o","n","e"," ","m","i","l","l","i","o","n"]
 			//at interval, remove index 0 from array and add to this.logo string
 			var typedLogo = setInterval(()=>{
 				var item = logoArray.shift()
-				// if(this.logo){
-					this.logo = this.logo + item
-				// }
-				console.log(item)
-				console.log(this.logo)
+				this.logo = this.logo + item
 				if(logoArray.length===0){
 					clearInterval(typedLogo)
 				}
@@ -510,10 +482,8 @@ var vm = new Vue({
 				url: "/getfamous",
 				type: "GET",
 				success: (data)=>{
-					console.log(data)
 					this.renderRandom(this.generateRandom(data))
-					//change name of renderStrangers?? since not as semantic here
-					this.renderStrangers(data)
+					this.renderYouMayKnow(data)
 				}
 			})
 		},

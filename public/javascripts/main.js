@@ -12,8 +12,8 @@ var vm = new Vue({
 		overlay: false,
 		message: "Sign Up",
 		showSignup: false,
-		showProfileForm: false,
-		showProfile: true,
+		editingProfile: false,
+		submittedProfile: true,
 		active: false,
 		signIn: {
 			name: "",
@@ -34,6 +34,7 @@ var vm = new Vue({
 			bio: "",
 			photo: ""
 		},
+		userPhoto: "",
 		stats: {
 			allTimeTotal: 0,
 			allTimeAverage: 0,
@@ -89,28 +90,9 @@ var vm = new Vue({
 						//and add to counts upon login
 					} else {
 						console.log("success DATA", data)
-						//run logic functions
-						this.sortByDate(data)
-						//render new calculation
-						this.stats.allTimeTotal = this.calcTotal(data)
-						//run other logic functions
-						console.log(this.selectByMonth(data, 1))
-						this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, 1))
-						//calcAverageMonth calculates entire month, but more pressingly need
-						//month up until today for current month only
-						this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, 1))
-						console.log(this.calcAverageMonth(this.selectByMonth(data, 1)))
-						//returns infinity if run on the first day user signs up, because #days = 0
-						//also returns negative number if user enters count from before signup date
-						this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
-						//Function might be off by 1 day. Thought it was working before but maybe not.
-						console.log(this.findProductiveDay(data))
-						//returns date string with timestamp included but set to 00:00:00:000z
-						//figure out why format is weird and where to correct
-						this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,1))
-						this.stats.mostProductiveDay = this.findProductiveDay(data)
+						runCalcs(data)
 						//announce new entry in feed
-						var announcement = this.profile.name + " just wrote " + data[data.length-1].words + " words."
+						var announcement = this.profile.name + " just wrote " + formData.words + " words."
 						var identification = this.announcements.length
 						this.announcements.unshift({
 							text: announcement,
@@ -125,6 +107,29 @@ var vm = new Vue({
 
 				}
 			})
+		},
+		runCalcs: function(data){
+			//run logic functions
+			this.sortByDate(data)
+			//render new calculation
+			this.stats.allTimeTotal = this.calcTotal(data)
+			//run other logic functions
+			console.log(this.selectByMonth(data, 2))
+			this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, 2))
+			//calcAverageMonth calculates entire month, but more pressingly need
+			//month up until today for current month only
+			this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, 2))
+			console.log(this.calcAverageMonth(this.selectByMonth(data, 2)))
+			//returns infinity if run on the first day user signs up, because #days = 0
+			//also returns negative number if user enters count from before signup date
+			this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
+			//Function might be off by 1 day. Thought it was working before but maybe not.
+			console.log(this.findProductiveDay(data))
+			//returns date string with timestamp included but set to 00:00:00:000z
+			//figure out why format is weird and where to correct
+			this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,2))
+			this.stats.mostProductiveDay = this.findProductiveDay(data)
+
 		},
 		//if submit count before login, error message:
 		//"reduce of empty array with no initial value"
@@ -279,20 +284,19 @@ var vm = new Vue({
 					this.renderPhoto(data)
 				}
 			})
-			this.showProfileForm = false
-			this.showProfile = true
+			this.editingProfile = false
+			this.submittedProfile = true
 		},
 		renderPhoto: function(data){
 			if(data.photo){
-				document.getElementById("profilePhoto").src = "/" + data.photo;
 				console.log(data.photo)
-				// this.profile.photo = data.photo
+				this.userPhoto = data.photo
 			}
 		},
 		editProfile: function(event){
 			event.preventDefault()
-			this.showProfile = false
-			this.showProfileForm = true
+			this.submittedProfile = false
+			this.editingProfile = true
 		},
 		//END Profile Functions
 		//BEGIN Login/Signup Functions
@@ -307,16 +311,14 @@ var vm = new Vue({
 					self.toggleForm()
 					self.signIn.password = ""
 				} else {
-					self.profile.name = 
-					self.profile.genre = 
+					console.log("success!=", successData)
 					self.profile = {
 						name: self.signIn.name,
 						genre: "",
 						bio: "",
 						photo: ""
 					},
-					// document.getElementById("profilePhoto").src = "/" + self.profile.photo;
-		
+					self.userPhoto = successData.photo
 					self.signIn = {
 						name: "",
 						username: "",
@@ -343,8 +345,9 @@ var vm = new Vue({
 				if(successData === "Failed to log in"){
 					self.toggleForm()
 				} else {
+					self.userPhoto = successData.photo
 					self.youMayKnow = []
-					
+					self.runCalcs(successData.counts)
 					self.renderUser(successData)
 					self.renderPhoto(successData)
 					self.showProfile = true

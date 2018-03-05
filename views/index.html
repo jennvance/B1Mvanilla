@@ -193,9 +193,11 @@
 	<div class="profile-dashboard">
 
 		<img v-bind:src="famousPhoto" class="profile-photo" v-cloak v-if="!loggedIn">
-		<img v-bind:src="profile.photo" class="profile-photo" v-cloak id="profilePhoto" v-if="loggedIn">
 
-		<div class="option-1" v-if="showProfileForm" v-cloak>
+		<img v-bind:src="userPhoto" class="profile-photo" v-cloak v-if="loggedIn">
+
+
+		<div class="option-1" v-if="editingProfile" v-cloak>
 			<div class="profile-form">
 				<form id="profileForm" enctype="multipart/form-data" v-on:submit="submitProfile(profile, $event)">
 					
@@ -210,8 +212,8 @@
 				</form>
 			</div>
 		</div>
-<!-- showProfile var can prob be changed to loggedIn?? -->
-		<div class="option-2" v-if="showProfile">
+<!-- submittedProfile var can prob be changed to loggedIn?? -->
+		<div class="option-2" v-if="submittedProfile">
 
 			<h2 id="profileName">{{profile.name}}</h2>
 			<h3>Genre: <span id="profileGenre">{{profile.genre}}</span></h3>

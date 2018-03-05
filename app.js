@@ -131,6 +131,7 @@ app.all('/signup', function(req, res){
             aspiringAuthor.save()
             newUser.badges.push(aspiringAuthor)
             // newUser.famous = false;
+            newUser.photo = "/public/images/nobody.png"
             // newUser.save()
 
 

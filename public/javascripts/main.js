@@ -90,7 +90,7 @@ var vm = new Vue({
 						//and add to counts upon login
 					} else {
 						console.log("success DATA", data)
-						runCalcs(data)
+						this.runCalcs(data)
 						//announce new entry in feed
 						var announcement = this.profile.name + " just wrote " + formData.words + " words."
 						var identification = this.announcements.length
@@ -109,26 +109,28 @@ var vm = new Vue({
 			})
 		},
 		runCalcs: function(data){
-			//run logic functions
-			this.sortByDate(data)
-			//render new calculation
-			this.stats.allTimeTotal = this.calcTotal(data)
-			//run other logic functions
-			console.log(this.selectByMonth(data, 2))
-			this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, 2))
-			//calcAverageMonth calculates entire month, but more pressingly need
-			//month up until today for current month only
-			this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, 2))
-			console.log(this.calcAverageMonth(this.selectByMonth(data, 2)))
-			//returns infinity if run on the first day user signs up, because #days = 0
-			//also returns negative number if user enters count from before signup date
-			this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
-			//Function might be off by 1 day. Thought it was working before but maybe not.
-			console.log(this.findProductiveDay(data))
-			//returns date string with timestamp included but set to 00:00:00:000z
-			//figure out why format is weird and where to correct
-			this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,2))
-			this.stats.mostProductiveDay = this.findProductiveDay(data)
+			if(data.length) {
+				//run logic functions
+				this.sortByDate(data)
+				//render new calculation
+				this.stats.allTimeTotal = this.calcTotal(data)
+				//run other logic functions
+				console.log(this.selectByMonth(data, 2))
+				this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, 2))
+				//calcAverageMonth calculates entire month, but more pressingly need
+				//month up until today for current month only
+				this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, 2))
+				console.log(this.calcAverageMonth(this.selectByMonth(data, 2)))
+				//returns infinity if run on the first day user signs up, because #days = 0
+				//also returns negative number if user enters count from before signup date
+				this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
+				//Function might be off by 1 day. Thought it was working before but maybe not.
+				console.log(this.findProductiveDay(data))
+				//returns date string with timestamp included but set to 00:00:00:000z
+				//figure out why format is weird and where to correct
+				this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,2))
+				this.stats.mostProductiveDay = this.findProductiveDay(data)
+			}
 
 		},
 		//if submit count before login, error message:
@@ -364,6 +366,11 @@ var vm = new Vue({
 			}
 
 		},
+		//don't need this; wrote "/logout" into a tag href in html
+		// logOut: function(event){
+		// 	event.preventDefault()
+		// 	window.location.href="/logout"
+		// },
 		renderUser: function(data){
 				this.profile.name = data.name
 				this.profile.genre = data.genre

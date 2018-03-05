@@ -187,7 +187,9 @@
 
 <div class="container-right">
 
-	<a href="#" class="login-link" v-on:click="showOverlay($event)"><h3>login/signup</h3></a>
+	<a href="#" class="login-link" v-on:click="showOverlay($event)" v-if="!loggedIn"><h3>login/signup</h3></a>
+
+	<a href="/logout" class="login-link" v-if="loggedIn"><h3>logout</h3></a>
 
 	<h2 v-if="!loggedIn">Featured Author:</h2>
 	<div class="profile-dashboard">

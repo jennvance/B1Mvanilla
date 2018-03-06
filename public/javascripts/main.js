@@ -555,6 +555,7 @@ var vm = new Vue({
 		this.randomizeFamousFeed()
 		// adds feed items to array at intervals
 		this.appendToDOM()
+		//Raph WTF?
 		this.timeoutId = setTimeout(this.appendToDOM, 10000)
 	}
 })

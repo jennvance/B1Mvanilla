@@ -54,15 +54,6 @@ a {
 	text-decoration: none;	        	  	  
 }
 
-
-.hide {
-	display: none;
-}
-
-.show {
-	display: block;
-}
-
 .count-form-label {
 	
 	-webkit-margin-before: 0;
@@ -106,37 +97,6 @@ a {
 
 .center-form input {
 	width: 135px;
-}
-
-.center-form input:first-child {
-	/*height: 34px;*/
-}
-
-
-
-#ux2 {
-	font-size: 20px;
-}
-
-#ux2 select {
-	height: 32px;
-	font-size: 18px;
-}
-
-
-
-
-
-#ux4, #ux5 {
-	height: 100px;
-	width: 450px;
-	background-color: #E25822;
-	border-radius: 10px;
-	margin: 10px auto;
-}
-
-#ux4 h2, #ux5 h2 {
-	padding-top: 15px;
 }
 
 
@@ -201,8 +161,6 @@ a {
 	flex-wrap: wrap;
 	margin: 0 auto;
 	padding: 0 12%;
-	/*width: 50px;*/
-
 }
 
 .follow-single {
@@ -213,7 +171,6 @@ a {
 	overflow: hidden;
 	list-style: none;
 	border-top: solid 2px black;
-	/*margin: 2px;*/
 }
 
 .follow-single h4, .follow-single h5,.follow-single h6 {
@@ -252,17 +209,6 @@ a {
 	need to write styles
 }*/
 
-/*.profile-form form * {
-	display: block;
-}*/
-
-
-.profile-form {
-	/*background-color: #E25822;*/
-	/*border-radius: 5px;*/
-/*	padding: 4% 0;
-	width: 250px;*/
-}
 
 
 .profile-form .profile-input {
@@ -272,10 +218,6 @@ a {
 	border: 1px solid black;
 	width: 180px;
 }
-
-/*.profile-form input:first-child, #ux3 input:first-child {
-	height: 17px;
-}*/
 
 .profile-form textarea {
 	height: 135px;
@@ -306,15 +248,7 @@ a {
 	border-bottom: 1px solid black;
 }
 
-.option-1 {
-	/*display: none;*/
-}
-
-.option-2 {
-	/*display: none;*/
-}
-
-.option-2 p {
+.profile-view p {
 	padding: 2%;
 }
 
@@ -322,26 +256,14 @@ a {
 	text-align: right;
 }
 
-#overlay {
+.overlay {
 	height: 100vh;
 	width: 100vw;
 	position: absolute;
 	top: 0;
 	left: 0;
 	background: rgba(0, 0, 0, 0.5);
-	/*display: none;*/
 }
-
-/*#overlay-fake {
-	height: 200px;
-	width: 350px;
-	position: absolute;
-	top: 25%;
-	left: 25%;
-	background: rgba(0, 0, 0, 0.5);
-
-}
-*/
 .su-panel {
 	background-color: white;
 	height: 200px;
@@ -378,13 +300,9 @@ a {
 	float: right;
 }
 
-#signup-form, #li-button {
-	/*display: none;*/
-}
 
 
-
-#x {
+.x {
 	float: right;
 	text-decoration: none;
 	margin: 5px;
@@ -392,7 +310,7 @@ a {
 	font-size: 14px;
 }
 
-#x:hover {
+.x:hover {
 	color: #E27822;
 }
 

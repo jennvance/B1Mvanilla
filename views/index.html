@@ -27,10 +27,10 @@
 
 <div id="burn">
 <div class="container">
-	<div id="overlay" v-if="overlay" v-cloak>
+	<div class="overlay" v-if="overlay" v-cloak>
 		<div class="su-panel">
-			<a href="" id="x" v-on:click="hideOverlay($event)">X</a>
-			<form id="signup-form" class="su-form" v-on:submit="signUp(signIn, $event)" v-show="showSignup">
+			<a href="#" class="x" v-on:click="hideOverlay($event)">X</a>
+			<form class="su-form" v-on:submit="signUp(signIn, $event)" v-show="showSignup">
 				<h2>Sign Up</h2>
 				<input class="name" v-model="signIn.name" placeholder="Your Name"required>
 				<input class="username" v-model="signIn.username" placeholder="username" required>
@@ -38,7 +38,7 @@
 				<input type="submit" class="button" value="submit">
 
 			</form>
-			<form id="login-form" class="su-form li-form" v-on:submit="logIn(signIn, $event)" v-show="!showSignup">
+			<form class="su-form li-form" v-on:submit="logIn(signIn, $event)" v-show="!showSignup">
 				<h2>Log In</h2>
 				<input class="username" placeholder="username" v-model="signIn.username" required>
 				<input class="password" placeholder="password" v-model="signIn.password" required>
@@ -46,7 +46,7 @@
 
 			</form>
 			
-			<a href="#" class="right" id="li-button" v-on:click="toggleForm()"><h3>{{message}}</h3></a>
+			<a href="#" class="right" v-on:click="toggleForm()"><h3>{{message}}</h3></a>
 		</div>
 	</div>
 
@@ -55,7 +55,7 @@
 <div class="container-left">
 	
 	<h3>You May Know</h3>
-	<ul id="follow-bucket">
+	<ul class="follow-bucket">
 		<li class="follow-single" v-for="person in youMayKnow">
 			<div class="float-left">
 				<img v-bind:src="person.photo" class="follow-single-photo">
@@ -112,23 +112,23 @@
 
 	<h2 class="count-form-label">{{addingMessage}}</h2>
 	<div class="center-form" v-if="!addingGoal">
-		<form id="wordct" v-on:submit="submitCount(count, $event)">
-			<input type="number" name="numwds" required id="numwds" v-model="count.words" placeholder="Enter Count">
-			<input type="date" name="date" required id="datewds" v-model="count.date">
+		<form v-on:submit="submitCount(count, $event)">
+			<input type="number" name="numwds" required v-model="count.words" placeholder="Enter Count">
+			<input type="date" name="date" required v-model="count.date">
 			<button type="submit" class="button">Submit</button>
 		</form>
 	</div>
 
 	<div class="center-form" v-if="addingGoal">
 		
-		<form id="setGoal" v-on:submit="submitGoal(goal, $event)">
-			<input type="number" name="goalWds" id="goalWds" required placeholder="Enter Goal" v-model="goal.words">
-			<input type="date" name="goalDate" id="goalDate" required v-model="goal.date">
+		<form v-on:submit="submitGoal(goal, $event)">
+			<input type="number" name="goalWds" required placeholder="Enter Goal" v-model="goal.words">
+			<input type="date" name="goalDate" required v-model="goal.date">
 			<button type="submit" class="button">Submit</button>
 		</form>
 	</div>
 
-	<a href="#" id="setGoalLink" v-on:click="toggleGoalForm($event)"><h3>{{addingLinkText}}</h3></a>
+	<a href="#" v-on:click="toggleGoalForm($event)"><h3>{{addingLinkText}}</h3></a>
 <!-- 	<form name="monthform" id="monthform" >
 		<label for="selectmonth">Choose Month to View Stats:</label>
 		<select name="month" id="selectmonth">
@@ -147,29 +147,29 @@
 		</select>
 	</form> -->
 	<div class="stats">
-		<div v-if="submittedGoal">Words Per Day You Must Write to Meet Goal: <span id="wpdToGoal">{{stats.goalWordsPerDay}}</span> </div>
+		<div v-if="submittedGoal">Words Per Day You Must Write to Meet Goal: <span>{{stats.goalWordsPerDay}}</span> </div>
 
 		<div v-if="submittedCount">
 			<!-- allTimeTotal id is already used line 91 -->
 	<!-- 		<div class="cell a">All time total: </div>
 			<div class="cell b" id="allTimeTotal">0</div> -->
 			<div class="cell a">Total for month: </div>
-			<div class="cell b" id="totalmonth">{{stats.monthTotal}}</div>
+			<div class="cell b">{{stats.monthTotal}}</div>
 
 			<div class="cell a">Daily average for month: </div>
-			<div class="cell b" id="avgmonth">{{stats.monthAverage}}</div>
+			<div class="cell b">{{stats.monthAverage}}</div>
 
 			<div class="cell a">Most productive day of month: </div>
-			<div class="cell b" id="prodDate">{{stats.mostProductiveDate.date}}<span id="prodDateCt">{{stats.mostProductiveDate.words}}</span> words</div>
+			<div class="cell b">{{stats.mostProductiveDate.date}}<span>{{stats.mostProductiveDate.words}}</span> words</div>
 
 			<div class="cell a">Most productive day of week:</div>
 			<div class="cell b">{{stats.mostProductiveDay}}</div>
 
 			<div class="cell a">Daily Average since you started: </div>
-			<div class="cell b" id="dailyAvg">{{stats.allTimeAverage}}</div>
+			<div class="cell b">{{stats.allTimeAverage}}</div>
 
 	<!-- 		<div class="cell a">Average excluding zero days: </div>
-			<div class="cell b" id="onlyAvg">0</div> -->
+			<div class="cell b">0</div> -->
 		</div>
 	</div>
 
@@ -200,7 +200,7 @@
 		<img v-bind:src="userPhoto" class="profile-photo" v-cloak v-if="loggedIn">
 
 
-		<div class="option-1" v-if="editingProfile" v-cloak>
+		<div v-if="editingProfile" v-cloak>
 			<div class="profile-form">
 				<form id="profileForm" enctype="multipart/form-data" v-on:submit="submitProfile(profile, $event)">
 					
@@ -216,11 +216,11 @@
 			</div>
 		</div>
 <!-- submittedProfile var can prob be changed to loggedIn?? -->
-		<div class="option-2" v-if="submittedProfile">
+		<div class="profile-view" v-if="submittedProfile">
 
-			<h2 id="profileName">{{profile.name}}</h2>
-			<h3>Genre: <span id="profileGenre">{{profile.genre}}</span></h3>
-			<p id="profileBio">{{profile.bio}}</p>
+			<h2>{{profile.name}}</h2>
+			<h3>Genre: <span>{{profile.genre}}</span></h3>
+			<p>{{profile.bio}}</p>
 			<button v-if="loggedIn" id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
 
 		</div>

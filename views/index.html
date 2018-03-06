@@ -54,7 +54,7 @@
 
 <div class="container-left">
 	
-	<h3>You May Know</h3>
+	<h3 class="top">You May Know</h3>
 	<ul class="follow-bucket">
 		<li class="follow-single" v-for="person in youMayKnow">
 			<div class="float-left">
@@ -129,9 +129,10 @@
 	</div>
 
 	<a href="#" v-on:click="toggleGoalForm($event)"><h3>{{addingLinkText}}</h3></a>
-<!-- 	<form name="monthform" id="monthform" >
+	<form name="monthform" id="monthform" v-if="loggedIn">
 		<label for="selectmonth">Choose Month to View Stats:</label>
-		<select name="month" id="selectmonth">
+		<select name="month" id="selectmonth" v-model.number="selectedMonth" v-on:change="selectMonth()">
+			<option disabled value="">select month</option>
 			<option value="0">January</option>
 			<option value="1">February</option>
 			<option value="2">March</option>
@@ -145,11 +146,12 @@
 			<option value="10">November</option>
 			<option value="11">December</option>
 		</select>
-	</form> -->
+	</form>
+
 	<div class="stats">
 		<div v-if="submittedGoal">Words Per Day You Must Write to Meet Goal: <span>{{stats.goalWordsPerDay}}</span> </div>
 
-		<div v-if="submittedCount">
+		<div v-if="loggedIn">
 			<!-- allTimeTotal id is already used line 91 -->
 	<!-- 		<div class="cell a">All time total: </div>
 			<div class="cell b" id="allTimeTotal">0</div> -->
@@ -188,9 +190,9 @@
 
 <div class="container-right">
 
-	<a href="#" class="login-link" v-on:click="showOverlay($event)" v-if="!loggedIn"><h3>login/signup</h3></a>
+	<a href="#" v-on:click="showOverlay($event)" v-if="!loggedIn"><h3 class="login-link">login/signup</h3></a>
 
-	<a href="/logout" class="login-link" v-if="loggedIn"><h3>logout</h3></a>
+	<a href="/logout" v-if="loggedIn"><h3 class="login-link">logout</h3></a>
 
 	<h2 v-if="!loggedIn">Featured Author:</h2>
 	<div class="profile-dashboard">
@@ -208,8 +210,8 @@
 					<input type="text" name="genre" placeholder="Genre" required class="profile-input" v-model="profile.genre">
 					<textarea name="bio" placeholder="Author Bio" v-model="profile.bio"></textarea >
 					<div class="profile-float">
-						<label for="file">Add Photo</label>
-						<input type="file" name="photo" placeholder="upload photo" accept="image/*" id="inputPhoto" v-model="profile.photo">
+						<label for="photo">Add Photo</label>
+						<input type="file" name="photo" id="photo" placeholder="upload photo" accept="image/*" id="inputPhoto" v-model="profile.photo">
 					</div>
 					<button type="submit" class="button">Submit</button>
 				</form>

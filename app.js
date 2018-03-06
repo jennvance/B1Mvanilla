@@ -232,12 +232,24 @@ app.post('/createprofile', upload.single('photo'), function(req,res){
             })
 
         }
+        res.send(user)
         //else (i.e. if no user) direct to signup (and login?)
 
 
-        res.send(user)
+        
     })
     
+})
+
+app.get("/getcounts", function(req,res){
+    UltimateModel.findOne({_id:req.session._id}, function(err,user){
+        if (user){
+            res.send(user.counts)
+        }
+        else {
+            res.send("please log in")
+        }
+    })
 })
 
 app.post("/addcount", function(req,res){

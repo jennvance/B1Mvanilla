@@ -239,7 +239,7 @@ a {
 
 .profile-dashboard {
 	border: 10px ridge gray;
-	margin: 3% 5%;
+	margin: 0 5%;
 	padding: 10%;
 }
 
@@ -381,19 +381,13 @@ ul.feed {
 	display: block;
 }
 
-.hovered {
-	color: green;
-/*	position: absolute;
-	background-color: white;
-	border: 2px solid red;
-	height: 50px;
-	width: 50px;*/
-
+.top {
+	margin-top: 35px;
 }
 
 .login-link {
-	/*text-decoration: none;*/
-	padding: 3%;
+	padding: 5%;
+	margin-top: 25px;
 }
 
 .copy {
@@ -406,6 +400,17 @@ ul.feed {
 	/*font-family: 'Raleway', sans-serif;*/
 	font-family: 'Crimson Text', serif;
 }
+
+select#selectmonth {
+	background-color: white;
+	border-width: 2px;
+	border-style: solid;
+	border-color: black;
+	/*border-image: none;*/
+	border-radius: 0;
+	font: 400 14px "Raleway";
+}
+
 
 @media screen and (min-width:600px) {
 	.container-center,.container-left,.container-right{

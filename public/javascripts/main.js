@@ -8,6 +8,7 @@ var vm = new Vue({
 		addingLinkText: "Add Goal",
 		submittedGoal: false,
 		submittedCount: false,
+		selectedMonth: "",
 		logo: "",
 		overlay: false,
 		message: "Sign Up",
@@ -34,6 +35,7 @@ var vm = new Vue({
 			bio: "",
 			photo: ""
 		},
+		userCounts: [],
 		userPhoto: "",
 		stats: {
 			allTimeTotal: 0,
@@ -48,7 +50,6 @@ var vm = new Vue({
 		timeoutId: 0,
 		famousPhoto: "",
 		famousFeedStaging: [],
-		// famous: [],
 		youMayKnow: [],
 		friends: [],
 		announcements: []
@@ -90,7 +91,12 @@ var vm = new Vue({
 						//and add to counts upon login
 					} else {
 						console.log("success DATA", data)
-						this.runCalcs(data)
+						this.userCounts = data
+						console.log("counts=", this.userCounts)
+						var temp = new Date()
+						var currentMonth = temp.getMonth()
+						console.log(currentMonth)
+						this.runCalcs(this.userCounts, currentMonth)
 						//announce new entry in feed
 						var announcement = this.profile.name + " just wrote " + formData.words + " words."
 						var identification = this.announcements.length
@@ -98,7 +104,6 @@ var vm = new Vue({
 							text: announcement,
 							id: identification
 						})
-
 						this.count.words = ""
 						this.count.date = ""
 						this.submittedCount = true
@@ -108,30 +113,38 @@ var vm = new Vue({
 				}
 			})
 		},
-		runCalcs: function(data){
-			if(data.length) {
+		selectMonth: function(){
+			this.runCalcs(this.userCounts, this.selectedMonth)
+		},
+		runCalcs: function(data, month){
+			if(data === "please log in") {
+				this.allTimeTotal = "please log in"
+			} else  {
 				//run logic functions
 				this.sortByDate(data)
+				console.log(data)
+				console.log(this.userCounts)
 				//render new calculation
 				this.stats.allTimeTotal = this.calcTotal(data)
 				//run other logic functions
-				console.log(this.selectByMonth(data, 2))
-				this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, 2))
+				console.log(this.selectByMonth(data, month))
+				this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, month))
 				//calcAverageMonth calculates entire month, but more pressingly need
 				//month up until today for current month only
-				this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, 2))
-				console.log(this.calcAverageMonth(this.selectByMonth(data, 2)))
+				this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, month))
+				console.log(this.calcAverageMonth(this.selectByMonth(data, month)))
 				//returns infinity if run on the first day user signs up, because #days = 0
 				//also returns negative number if user enters count from before signup date
 				this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
 				//Function might be off by 1 day. Thought it was working before but maybe not.
+				//Also, only finds Productive day for all time, not month
+				//could write month into it
 				console.log(this.findProductiveDay(data))
 				//returns date string with timestamp included but set to 00:00:00:000z
 				//figure out why format is weird and where to correct
-				this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data,2))
+				this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data, month))
 				this.stats.mostProductiveDay = this.findProductiveDay(data)
 			}
-
 		},
 		//if submit count before login, error message:
 		//"reduce of empty array with no initial value"
@@ -152,20 +165,35 @@ var vm = new Vue({
 			}
 		},
 		sortByDate: function(data){
-			return data.sort(function(a,b){
-				return new Date(a.date).getTime() - new Date(b.date).getTime()
-			})
+			if(data.length){
+				return data.sort(function(a,b){
+					return new Date(a.date).getTime() - new Date(b.date).getTime()
+				})				
+			}
+			else {
+				console.log("sortByDate() parameter is empty")
+			}
 		},
 		selectByMonth: function(data, month){
+			//undefined
+			console.log(month, " ", data)
+			
 			return data.filter(function(item){
+				console.log(new Date(item.date).getMonth() === month)
 				return new Date(item.date).getMonth() === month
 			})
 		},
 		//returns object containing date and numwords
 		findProductiveDate: function(filteredArray){
-				return filteredArray.reduce(function(a,b){
-					return (b.words > a.words) ? b : a;
-				})
+				if(filteredArray.length) {
+					return filteredArray.reduce(function(a,b){
+						return (b.words > a.words) ? b : a;
+					})					
+				}
+				else {
+					return "No dates found"
+				}
+
 		},
 		findProductiveDay: function(data){
 			var days = [0,0,0,0,0,0,0]
@@ -190,15 +218,21 @@ var vm = new Vue({
 	//Average for given month
 	//could pass month in as argument to identify month immediately if needed
 		calcAverageMonth: function(filteredOrUnfilteredArray){
-			// var this = this
-			var tempdate = filteredOrUnfilteredArray[0].date
-			var date = new Date(tempdate)
-			var year = date.getFullYear()
-			var month = date.getMonth() + 1
-			var total = this.calcTotal(filteredOrUnfilteredArray)
-			var days = this.daysInMonth(month, year)
-			// var averageAsNumber = parseFloat((total/days).toFixed(0)) //returns Number
-			return (total / days).toFixed(0) //returns String
+			console.log(filteredOrUnfilteredArray)
+			if(filteredOrUnfilteredArray.length) {
+				var tempdate = filteredOrUnfilteredArray[0].date
+				var date = new Date(tempdate)
+				var year = date.getFullYear()
+				var month = date.getMonth() + 1
+				var total = this.calcTotal(filteredOrUnfilteredArray)
+				var days = this.daysInMonth(month, year)
+				// var averageAsNumber = parseFloat((total/days).toFixed(0)) //returns Number
+				return (total / days).toFixed(0) //returns String				
+			}
+			else {
+				return 0
+			}
+
 		},
 		diffDates: function(a,b){
 			var msPerDay = 1000*60*60*24
@@ -208,7 +242,7 @@ var vm = new Vue({
 		},
 //Average since your first entry, up to today
 		calcAverageAllTime: function(data){
-			// var this = this
+			console.log(data)
 			var firstday = new Date(data[0].date)
 			var today = new Date()
 			var daysBetween = this.diffDates(firstday, today)
@@ -345,9 +379,21 @@ var vm = new Vue({
 				if(successData === "Failed to log in"){
 					self.toggleForm()
 				} else {
+					var temp = new Date()
+					var currentMonth = temp.getMonth()
+					console.log("success!!=", successData)
+
+
+					self.userCounts = successData.counts
+					// for(var i=0; i<successData.counts.length; i++){
+					// 	self.userCounts.push(successData[i])
+					// }
+					// console.log("new Counts = ", this.userCounts)
+
+
 					self.userPhoto = successData.photo
 					self.youMayKnow = []
-					self.runCalcs(successData.counts)
+					self.runCalcs(self.userCounts, currentMonth)
 					self.renderUser(successData)
 					self.renderPhoto(successData)
 					self.showProfile = true

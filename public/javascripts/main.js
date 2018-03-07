@@ -118,6 +118,7 @@ var vm = new Vue({
 			this.runCalcs(this.userCounts, this.selectedMonth)
 		},
 		runCalcs: function(data, month){
+			console.log(data)
 			if(data === "please log in") {
 				this.allTimeTotal = "please log in"
 			} else  {
@@ -271,9 +272,10 @@ var vm = new Vue({
 				data: formData,
 				success: (data)=>{
 					console.log(data)
-					console.log(this.calcWpdToGoal(data))
+					console.log(this.calcWpdToGoal(data.goal))
 					//render
-					this.stats.goalWordsPerDay = this.calcWpdToGoal(data)
+					this.stats.goalWordsPerDay = this.calcWpdToGoal(data.goal)
+					this.renderBadges(data)
 					//end render
 					this.goal.words = ""
 					this.goal.date = ""
@@ -383,18 +385,12 @@ var vm = new Vue({
 					var temp = new Date()
 					var currentMonth = temp.getMonth()
 					console.log("success!!=", successData)
-
-
 					self.userCounts = successData.counts
-					// for(var i=0; i<successData.counts.length; i++){
-					// 	self.userCounts.push(successData[i])
-					// }
-					// console.log("new Counts = ", this.userCounts)
-
-
 					self.userPhoto = successData.photo
 					self.youMayKnow = []
-					self.runCalcs(self.userCounts, currentMonth)
+					if(self.userCounts.length){
+						self.runCalcs(self.userCounts, currentMonth)	
+					}
 					self.renderUser(successData)
 					self.renderPhoto(successData)
 					self.showProfile = true

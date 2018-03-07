@@ -40,7 +40,7 @@ mongoose.connect("mongodb://localhost/burndb", function(err){
 //Badges Go Here?: Firsts, milestones, social, productivity
 //Aspiring Author (for signing up) DONE
 //First Entry (for submitting first count) DONE
-//Social (for following first person) -requires some coding
+//Social (for following first person) DONE
 //Goal Oriented (for submitting goal)
 //Hemingway (for submitting word count above 500)
     //(but not first time submit)
@@ -284,12 +284,25 @@ app.post("/setgoal", function(req,res){
     console.log(req.body)
     UltimateModel.findOne({_id:req.session._id}, function(err,user){
         if (user) {
+            console.log("GOAL= ", user.goal)
+            if (!user.goal.length){
+                console.log("NO GOAL!!")
+                var goalBadge = new BadgeModel({
+                    title: "Goal Oriented",
+                    summary: "You set a goal",
+                    img: "/public/images/penbadge.png"
+                })
+                goalBadge.save()
+                user.badges.push(goalBadge)
+            }
+
             user.goal = {
                 date: req.body.date,
                 words: req.body.words
             }
             user.save()
-            res.send(user.goal)
+            console.log("GOAL 2 = ", user)
+            res.send(user)
         }
     })
 })

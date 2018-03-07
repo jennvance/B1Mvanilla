@@ -53,7 +53,7 @@
 
 <!-- Container-left technically goes here -->
 
-<div class="right">
+
 <div class="container-center">
 	<h1 v-model="logo" class="logo fire">{{logo}}</h1>
 
@@ -175,6 +175,7 @@
 				</form>
 			</div>
 		</div>
+
 <!-- submittedProfile var can prob be changed to loggedIn?? -->
 		<div class="profile-view" v-if="submittedProfile">
 
@@ -184,25 +185,22 @@
 			<button v-if="loggedIn" id="editProfile" class="button" v-on:click="editProfile($event)">Edit Profile</button>
 
 		</div>
-
-
-
-<!-- 		<div class="badge-bucket" v-if="loggedIn">
-			<div class="badge-single">
-				<h3 class="badge-title"></h3>
-				<p class="badge-summary"></p>
-				<img src="#" class="badge-img">
-			</div>
-		</div> -->
 	</div>
+
+	<ul v-for="badge in badges" v-if="loggedIn" class="badge-bucket">
+		<li class="badge-single">
+			<h3 class="badge-title">{{badge.title}}</h3>
+			<p class="badge-summary">{{badge.summary}}</p>
+			<img v-bind:src="badge.img" class="badge-img">
+		</li>
+	</ul>
 
 <!-- Close container-right -->
 </div>
-<!-- Close class="right" -->
-</div>
 
 
-<div class="container-left left">
+
+<div class="container-left">
 	
 	<h3 class="top">You May Know</h3>
 	<ul class="follow-bucket">

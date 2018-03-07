@@ -263,6 +263,7 @@ a {
 	top: 0;
 	left: 0;
 	background: rgba(0, 0, 0, 0.5);
+	z-index: 1;
 }
 .su-panel {
 	background-color: white;
@@ -426,10 +427,6 @@ select#selectmonth {
 	.famousFeed {
 		height: inherit;
 	}
-	.right, .left {
-		float: none;
-		width: inherit;
-	}
 }
 
 @media screen and (max-width: 600px){
@@ -451,34 +448,29 @@ select#selectmonth {
 }
 
 @media screen and (min-width:1040px) {
-/*	.container-center,.container-left,.container-right{
-		float: left;
+	.container {
+		position: relative;
+	}
+	.container-center,.container-left,.container-right{
+		position: absolute;
+	}
+	.container-left {
+		width: 22%;
+		left: 0;
+		top: 0;
 	}
 	.container-center {
-		width: 60%;
-	}
-	.container-left,.container-right {
-		width: 20%;
-	}*/
-	.container-center,.container-right{
-		float: left;
-	}
-	,.container-left {
-		float: left;
-	}
-	.container-center {
-		width: 75%;
+		width: 56%;
+		top: 0;
+		left: 0;
+		right: 0;
+		margin-right: auto;
+		margin-left: auto;
 	}
 	.container-right {
-		width: 25%;
-	}
-	.left {
-		float: left;
-		width:20%;
-	}
-	.right {
-		float: right;
-		width: 80%;
+		width: 22%;
+		right: 0;
+		top: 0;
 	}
 
 }

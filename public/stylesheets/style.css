@@ -65,7 +65,7 @@ a {
 
 .center-form {
 	height: 55px;
-	width: 450px;
+	/*width: 450px;*/
 	background-color: white;
 	border-radius: 0px;
 	/*border: 1px solid #E29822;*/
@@ -103,9 +103,9 @@ a {
 /*END ORIGINAL STYLE FILE*/
 
 
-.container-center,.container-left,.container-right {
+/*.container-center,.container-left,.container-right {
 	width: 100%;
-}
+}*/
 
 .container-center {
 	/*background-color: pink;*/
@@ -397,9 +397,9 @@ ul.feed {
 
 .copy p {
 	margin: 10px auto;
-	/*font-family: 'Raleway', sans-serif;*/
 	font-family: 'Crimson Text', serif;
 }
+
 
 select#selectmonth {
 	background-color: white;
@@ -411,10 +411,50 @@ select#selectmonth {
 	font: 400 14px "Raleway";
 }
 
+.month-form {
+	padding: 3%;
+}
 
-@media screen and (min-width:600px) {
-	.container-center,.container-left,.container-right{
-		/*width: 33.33%;	*/
+@media screen and (max-width:1039px){
+	.stats {
+		padding: 0;
+	}
+	.container-center,.container-left,.container-right {
+		max-width: 65%;
+		float: none;
+	}
+	.container-right {
+		margin-top: -50px;
+	}
+	.famousFeed {
+		height: inherit;
+	}
+	.right, .left {
+		float: none;
+		width: inherit;
+	}
+}
+
+@media screen and (max-width: 600px){
+	.container-right {
+		margin-top: -25px;
+	}
+	.stats {
+		width: 400px;
+	}
+	.center-form input {
+		width: 115px;
+		padding: 0;
+	}
+	h1.logo {
+		-webkit-margin-before: 0em;
+		-webkit-margin-after: 0em;
+		font-size: 24px;
+	}
+}
+
+@media screen and (min-width:1040px) {
+/*	.container-center,.container-left,.container-right{
 		float: left;
 	}
 	.container-center {
@@ -422,9 +462,33 @@ select#selectmonth {
 	}
 	.container-left,.container-right {
 		width: 20%;
+	}*/
+	.container-center,.container-right{
+		float: left;
+	}
+	,.container-left {
+		float: left;
+	}
+	.container-center {
+		width: 75%;
+	}
+	.container-right {
+		width: 25%;
+	}
+	.left {
+		float: left;
+		width:20%;
+	}
+	.right {
+		float: right;
+		width: 80%;
 	}
 
 }
+
+
+
+
 
 
 

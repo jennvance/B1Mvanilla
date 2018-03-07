@@ -325,20 +325,16 @@ app.post("/addfriend", function(req, res){
         if(newFriend){
             UltimateModel.findOne({_id:req.session._id}, function(err, user){
                 if(user){
-                    console.log("USER: ", user.friends.length)
-                    //check to see if friend already in user's friends
-                    //avoid including by
-                    //removing friends and self from "getAllUsers"
-                    // if(user.friends.length > 0) {
-                    //     for(var i = 0; i<user.friends.length; i++){
-                    //         // console.log(typeof user.friends[i], " ", typeof newFriend._id)
-                    //         if ( user.friends[i]._id.equals(newFriend._id) ) {
-                    //             console.log(user.friends[i], " ",newFriend._id)
-                    //             return res.send("friends already")
-                    //         }
-                    //     }                        
-                    // }
-
+                    if(!user.friends.length) {
+                        var socialBadge = new BadgeModel({
+                            title: "Social",
+                            summary: "You made a friend",
+                            img: "/public/images/penbadge.png"
+                        })
+                        socialBadge.save()
+                        user.badges.push(socialBadge)
+                    }
+                    console.log("BADGES = ",user.badges)
                     console.log("newFriend=", newFriend)
                     user.friends.push({
                         id: newFriend._id,

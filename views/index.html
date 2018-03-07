@@ -187,8 +187,8 @@
 		</div>
 	</div>
 
-	<ul v-for="badge in badges" v-if="loggedIn" class="badge-bucket">
-		<li class="badge-single">
+	<ul v-if="loggedIn" class="badge-bucket">
+		<li v-for="badge in badges" class="badge-single">
 			<h3 class="badge-title">{{badge.title}}</h3>
 			<p class="badge-summary">{{badge.summary}}</p>
 			<img v-bind:src="badge.img" class="badge-img">

@@ -201,13 +201,16 @@ a {
 	width: 67%;
 }
 
-/*.badge-bucket {
-	need to write styles
+ul.badge-bucket {
+	list-style: none;
 }
 
-.badge-single {
-	need to write styles
-}*/
+.badge-single img {
+	height: 50px;
+	width: 50px;
+	border-radius: 5px;
+}
+
 
 
 

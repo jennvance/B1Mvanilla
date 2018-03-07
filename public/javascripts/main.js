@@ -36,6 +36,7 @@ var vm = new Vue({
 			photo: ""
 		},
 		userCounts: [],
+		badges: [],
 		userPhoto: "",
 		stats: {
 			allTimeTotal: 0,
@@ -46,7 +47,6 @@ var vm = new Vue({
 			mostProductiveDate: {},
 			mostProductiveDay: "First, Write!"
 		},
-		badges: [],
 		timeoutId: 0,
 		famousPhoto: "",
 		famousFeedStaging: [],
@@ -61,7 +61,7 @@ var vm = new Vue({
 			for (var i=0;i<personData.badges.length; i++){
 				this.badges.push(personData.badges[i])
 			}
-			var announcement = personData.name + " just earned the " + personData.badges[personData.badges.length-1].title + " badge."
+			var announcement = personData.name + " earned the " + personData.badges[personData.badges.length-1].title + " badge."
 			var identification = this.announcements.length
 			this.announcements.unshift({
 				text: announcement,
@@ -91,14 +91,14 @@ var vm = new Vue({
 						//and add to counts upon login
 					} else {
 						console.log("success DATA", data)
-						this.userCounts = data
+						this.userCounts = data.counts
 						console.log("counts=", this.userCounts)
 						var temp = new Date()
 						var currentMonth = temp.getMonth()
 						console.log(currentMonth)
 						this.runCalcs(this.userCounts, currentMonth)
 						//announce new entry in feed
-						var announcement = this.profile.name + " just wrote " + formData.words + " words."
+						var announcement = this.profile.name + " wrote " + formData.words + " words."
 						var identification = this.announcements.length
 						this.announcements.unshift({
 							text: announcement,
@@ -107,7 +107,8 @@ var vm = new Vue({
 						this.count.words = ""
 						this.count.date = ""
 						this.submittedCount = true
-						this.submittedGoal = false						
+						this.submittedGoal = false	
+						this.renderBadges(data)					
 					}
 
 				}
@@ -399,7 +400,7 @@ var vm = new Vue({
 					self.showProfile = true
 					self.getStrangersOnly()	
 					self.overlay = false
-									
+					self.renderBadges(successData)			
 				}
 			})
 			this.signIn = {
@@ -548,14 +549,13 @@ var vm = new Vue({
 			// this.renderPhoto(random)
 		},
 		randomizeFamousFeed: function(){
-			//lots of bugs
+			//some bugs
 			//need to prevent "...wrote 0 words"
 			//need to remove item from staging array after adding to render array
-			//to prevent repeats
-			//need to shorten text so feed isn't multi-line
+			//to prevent repeats (no, bc then feed isn't infinite)
 
 			var famousArray = ["Henry Miller", "Anais Nin", "Truman Capote", "F. Scott Fitzgerald", "Sylvia Plath", "Earnest Hemingway", "Mary Shelley", "Virginia Woolf", "Gertrude Stein", "Jack Kerouac"]
-			var badgesArray = ["Hemingway", "Very Productive", "Streak", "Completed Manuscript"]
+			var badgesArray = ["Hemingway", "Very Productive", "Published Manuscript", "Completed Manuscript", "Conquered Goal", "10 day Streak", "30 day streak", "Social", "Aspiring Author", "Goal Oriented", "NaNoWriMo"]
 			for(var i=0;i<20;i++){
 				var person = famousArray[Math.floor(Math.random() * famousArray.length)]
 				var count = Math.floor(Math.random() * 1000)

@@ -37,17 +37,15 @@ mongoose.connect("mongodb://localhost/burndb", function(err){
 })
 
 
-//All Badges Go Here?: Firsts, milestones, social, productivity
+//Badges Go Here?: Firsts, milestones, social, productivity
+//Aspiring Author (for signing up) DONE
+//First Entry (for submitting first count) DONE
+//Social (for following first person) -requires some coding
+//Goal Oriented (for submitting goal)
+//Hemingway (for submitting word count above 500)
+    //(but not first time submit)
+//Word count milestones (require some coding; do later)
 
-function badgeFirstCount(user){
-    var firstEntry = new BadgeModel({
-        title: "First Entry",
-        summary: "You wrote a thing!",
-        img: "/public/images/penbadge.png"
-    })
-    firstEntry.save()
-    user.badges.push(firstEntry)
-}
 
 
 var checkIfLoggedIn = function(req, res, next){
@@ -256,13 +254,24 @@ app.post("/addcount", function(req,res){
     console.log("request body", req.body)
     UltimateModel.findOne({_id:req.session._id}, function(err, user){
         if(user){
+            console.log(user.counts)
+            if (!user.counts.length) {
+                var firstEntry = new BadgeModel({
+                    title: "First Entry",
+                    summary: "You wrote a thing!",
+                    img: "/public/images/penbadge.png"
+                })
+                firstEntry.save()
+                user.badges.push(firstEntry)
+            }
+            console.log(user.badges)
             count = {
                 date: req.body.date,
                 words: req.body.words
             }
             user.counts.push(count)
             user.save()
-            res.send(user.counts)
+            res.send(user)
         }
         else {
             //show overlay containing login

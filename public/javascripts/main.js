@@ -57,18 +57,42 @@ var vm = new Vue({
 	methods: {
 		//BEGIN Badge Functions
 		renderBadges: function(personData){
-			console.log(personData)
+			console.log(personData.badges)
+			console.log(this.badges)
+
+
+			this.badges = []
 			for (var i=0;i<personData.badges.length; i++){
 				this.badges.push(personData.badges[i])
 			}
+			//Need to NOT announce if call function but no new badges added
+			//Bc repeats announcements
 			var announcement = personData.name + " earned the " + personData.badges[personData.badges.length-1].title + " badge."
-			var identification = this.announcements.length
-			this.announcements.unshift({
-				text: announcement,
-				id: identification
-			})
+			return announcement
+		},
+		announceBadge: function(announcement){
+			var exists = false
+			for(var i=0; i<this.announcements.length; i++){
+				if (this.announcements[i].text === announcement) {
+					exists = true
+				}
+			}
+			console.log(exists)
+			//as written, exists will always be false
+			//bc announcements array starts empty every refresh
+			if (exists){
+				return false
+			} else {
+				var identification = this.announcements.length
+				this.announcements.unshift({
+					text: announcement,
+					id: identification
+				})	
+			}
+
 			console.log(this.announcements)
 			console.log(this.badges)
+
 		},
 		//END Badge Functions
 		//BEGIN Count Functions
@@ -107,8 +131,11 @@ var vm = new Vue({
 						this.count.words = ""
 						this.count.date = ""
 						this.submittedCount = true
-						this.submittedGoal = false	
-						this.renderBadges(data)					
+						this.submittedGoal = false
+						if(data.badges !== this.badges){
+							this.announceBadge(this.renderBadges(data))
+						}
+											
 					}
 
 				}
@@ -275,12 +302,15 @@ var vm = new Vue({
 					console.log(this.calcWpdToGoal(data.goal))
 					//render
 					this.stats.goalWordsPerDay = this.calcWpdToGoal(data.goal)
-					this.renderBadges(data)
+					
 					//end render
 					this.goal.words = ""
 					this.goal.date = ""
 					this.submittedGoal = true
 					this.submittedCount = false
+					if(data.badges !== this.badges){
+						this.announceBadge(this.renderBadges(data))
+					}
 				}
 			})
 		},
@@ -364,12 +394,12 @@ var vm = new Vue({
 						password: ""
 					}
 					self.overlay = false
-					self.renderBadges(successData)
+					self.announceBadge(self.renderBadges(successData))
+						
 				}
 				
 				self.youMayKnow = []
 				self.getStrangersOnly()
-				// renderBadge(sucessData)
 				
 			})
 		},
@@ -483,27 +513,24 @@ var vm = new Vue({
 				data: id,
 				success: (data)=>{
 					console.log(data)
-					if(data === "friends already"){
-						console.log("You're already friends!")
-					} else {
-						console.log("you two are friends now:", data)
-						var announcement = data.friend1 + " is following " + data.friend2 + "."
-						var identification = this.announcements.length
-						this.announcements.unshift({
-							text: announcement,
-							id: identification
-						})
-						for(var i=0; i<this.youMayKnow.length; i++) {
-							if(this.youMayKnow[i].name === data.friend2){
-								this.youMayKnow.splice(i, 1)
-								console.log(this.youMayKnow)
-							}
+					var announcement = data.user.name + " is following " + data.newFriend + "."
+					var identification = this.announcements.length
+					this.announcements.unshift({
+						text: announcement,
+						id: identification
+					})
+					for(var i=0; i<this.youMayKnow.length; i++) {
+						if(this.youMayKnow[i].name === data.newFriend){
+							this.youMayKnow.splice(i, 1)
+							console.log(this.youMayKnow)
 						}
-
-						this.friends = data.fullList
-						for(var i=0;i<this.friends.length;i++){
-							this.friends[i].hovered = false
-						}				
+					}
+					this.friends = data.user.friends
+					for(var i=0;i<this.friends.length;i++){
+						this.friends[i].hovered = false
+					}				
+					if(data.user.badges !== this.badges){
+						this.announceBadge(this.renderBadges(data.user))
 					}
 					
 				}

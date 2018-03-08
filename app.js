@@ -38,10 +38,7 @@ mongoose.connect("mongodb://localhost/burndb", function(err){
 
 
 //Badges Go Here?: Firsts, milestones, social, productivity
-//Aspiring Author (for signing up) DONE
-//First Entry (for submitting first count) DONE
-//Social (for following first person) DONE
-//Goal Oriented (for submitting goal)
+// TO DO:
 //Hemingway (for submitting word count above 500)
     //(but not first time submit)
 //Word count milestones (require some coding; do later)
@@ -280,13 +277,19 @@ app.post("/addcount", function(req,res){
     })
 })
 
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return JSON.stringify(obj) === JSON.stringify({});
+}
+
 app.post("/setgoal", function(req,res){
-    console.log(req.body)
     UltimateModel.findOne({_id:req.session._id}, function(err,user){
         if (user) {
-            console.log("GOAL= ", user.goal)
-            if (!user.goal.length){
-                console.log("NO GOAL!!")
+            if (!user.goal.words){
                 var goalBadge = new BadgeModel({
                     title: "Goal Oriented",
                     summary: "You set a goal",
@@ -295,13 +298,11 @@ app.post("/setgoal", function(req,res){
                 goalBadge.save()
                 user.badges.push(goalBadge)
             }
-
             user.goal = {
                 date: req.body.date,
                 words: req.body.words
             }
             user.save()
-            console.log("GOAL 2 = ", user)
             res.send(user)
         }
     })
@@ -364,12 +365,16 @@ app.post("/addfriend", function(req, res){
                     var list = user.friends
                     var friend1 = user.name
                     var friend2 = newFriend.name
-                    var friendlist = {
-                        friend1: friend1,
-                        friend2: friend2,
-                        fullList: list
+                    // var userInfo = {
+                    //     friend1: friend1,
+                    //     friend2: friend2,
+                    //     fullList: list
+                    // }
+                    var userInfo = {
+                        user: user,
+                        newFriend: newFriend.name
                     }
-                    res.send(friendlist)
+                    res.send(userInfo)
                 }
                 else {
                     res.send("please log in")

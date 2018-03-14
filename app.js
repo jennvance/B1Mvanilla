@@ -120,7 +120,7 @@ app.all('/signup', function(req, res){
             var newUser = new UltimateModel(req.body)
             var aspiringAuthor = new BadgeModel({
                 title: "Aspiring Author",
-                summary: "You have joined but not written anything.",
+                summary: "You joined Burn 1 Million",
                 img: "/public/images/penbadge.png"
             })
             aspiringAuthor.save()
@@ -255,7 +255,7 @@ app.post("/addcount", function(req,res){
             if (!user.counts.length) {
                 var firstEntry = new BadgeModel({
                     title: "First Entry",
-                    summary: "You wrote a thing!",
+                    summary: "You wrote a thing",
                     img: "/public/images/penbadge.png"
                 })
                 firstEntry.save()

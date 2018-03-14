@@ -55,8 +55,27 @@
 
 
 <div class="container-center">
-	<h1 v-model="logo" class="logo fire">{{logo}}</h1>
-
+	<div class="logo-container">
+		<h1 v-model="logo" class="logo fire">{{logo}}</h1>
+		<div class="ash ash-1"></div>
+		<div class="ash ash-2"></div>
+		<div class="ash ash-3"></div>
+		<div class="ash ash-4"></div>
+		<div class="ash ash-5"></div>
+		<div class="ash ash-6"></div>
+		<div class="ash ash-7"></div>
+		<div class="ash ash-8"></div>
+		<div class="ash ash-9"></div>
+		<div class="ash ash-10"></div>
+		<div class="ash ash-11"></div>
+		<div class="ash ash-12"></div>
+		<div class="ash ash-13"></div>
+		<div class="ash ash-14"></div>
+		<div class="ash ash-15"></div>
+		<div class="ash ash-16"></div>
+		<div class="ash ash-17"></div>
+		<div class="ash ash-18"></div>
+	</div>
 <!-- 	<canvas id="myChart" width="200" height="200"></canvas> -->
 
 	<div v-if="!loggedIn" class="copy">
@@ -186,7 +205,7 @@
 
 		</div>
 	</div>
-
+	<h3 class="badges-label" v-if="loggedIn">Badges</h3>
 	<ul v-if="loggedIn" class="badge-bucket">
 		<li v-for="badge in badges" class="badge-single">
 			<h3 class="badge-title">{{badge.title}}</h3>

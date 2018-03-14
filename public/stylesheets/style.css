@@ -44,11 +44,85 @@ a {
 	color: #22ACE2;
 }*/
 
+.logo-container {
+	position: relative;
+}
+
+.ash {
+	position: absolute;
+	height: 2px;
+	width: 2px;
+	/*background-color: gray;*/
+	/*-webkit-transform: skew(20deg);*/
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+	animation: float 5s linear 5s forwards, spin 5s linear 5s forwards;
+	/*animation-play-state:paused;*/
+}
+
+@keyframes spin {
+	100% {
+		-webkit-transform: rotate(135deg);
+	}
+}
+
+.ash-1 {
+	left: 35%;
+}
+
+.ash-2 {
+	left: 37%;
+	animation-delay: 3s;
+	animation-duration: 6s;
+}
+
+.ash-3 {
+	left: 38%;
+	animation-delay:4s;
+	animation-duration: 3s;
+}
+
+.ash-4 {
+	left: 40%;
+}
+
+.ash-5 {
+	left: 43%;
+}
+
+.ash-6 {
+	left: 44%;
+	animation-delay: 6s;
+	animation-duration: 5s;
+}
+
+.ash-7 {
+	left: 46%;
+	animation-delay:3.5s;
+	animation-duration: 7s;
+}
+
+.ash-8 {
+	left: 50%;
+}
+
+@keyframes float {
+	from {
+		bottom: 0;
+		background-color: white;
+	}
+
+	to {
+		bottom: 100%;
+		background-color: gray;
+	}
+}
 
 .logo {
 	font-size: 52px;
 	text-align: center;	
-	padding: 3%;
+	padding-top: 10%;
 	white-space: nowrap;
 	color: black; 
 	text-decoration: none;	        	  	  
@@ -201,13 +275,35 @@ a {
 	width: 67%;
 }
 
+.badges-label {
+	margin-top: 10%;
+}
+
 ul.badge-bucket {
 	list-style: none;
+	border: 5px solid #E25822;
+	margin: 0 5% 5%;
+	padding: 3%;
+}
+
+.badge-single {
+	border: 1px solid black;
+	padding: 3%;
+	margin: 1% auto;
+	width: 180px;
+}
+
+.badge-single h3 {
+	font-size: .75em;
+}
+
+.badge-single p {
+	font-size: .6em;
 }
 
 .badge-single img {
-	height: 50px;
-	width: 50px;
+	height: 30px;
+	width: 30px;
 	border-radius: 5px;
 }
 

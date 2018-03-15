@@ -6,8 +6,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Cutive+Mono" rel="stylesheet">
 	<link link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+
 	<link rel='stylesheet', href='/stylesheets/fire.css'>
 	<link rel='stylesheet', href='/stylesheets/style.css'>
+	<!-- <link rel='stylesheet' href='https://unpkg.com/v-calendar/lib/v-calendar.min.css'> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <!-- 	// <script src="node_modules/chart.js/dist/Chart.bundle.js"></script> -->
 
@@ -89,7 +91,7 @@
 
 	<h2 class="count-form-label">{{addingMessage}}</h2>
 	<div class="center-form" v-if="!addingGoal">
-		<form v-on:submit="submitCount(count, $event)">
+		<form id="countForm" v-on:submit="submitCount(count, $event)">
 			<input type="number" name="numwds" required v-model="count.words" placeholder="Enter Count">
 			<input type="date" name="date" required v-model="count.date">
 			<button type="submit" class="button">Submit</button>
@@ -98,7 +100,7 @@
 
 	<div class="center-form" v-if="addingGoal">
 		
-		<form v-on:submit="submitGoal(goal, $event)">
+		<form v-on:submit="submitGoal(goal, $event)" id="goalForm">
 			<input type="number" name="goalWds" required placeholder="Enter Goal" v-model="goal.words">
 			<input type="date" name="goalDate" required v-model="goal.date">
 			<button type="submit" class="button">Submit</button>
@@ -139,7 +141,7 @@
 			<div class="cell b">{{stats.monthAverage}}</div>
 
 			<div class="cell a">Most productive day of month: </div>
-			<div class="cell b">{{stats.mostProductiveDate.date}}<span>{{stats.mostProductiveDate.words}}</span> words</div>
+			<div class="cell b">{{stats.mostProductiveDate.date}} - <span>{{stats.mostProductiveDate.words}}</span> words</div>
 
 			<div class="cell a">Most productive day of week:</div>
 			<div class="cell b">{{stats.mostProductiveDay}}</div>
@@ -151,9 +153,6 @@
 			<div class="cell b">0</div> -->
 		</div>
 	</div>
-
-
-
 
 
 
@@ -213,6 +212,8 @@
 			<img v-bind:src="badge.img" class="badge-img">
 		</li>
 	</ul>
+
+
 
 <!-- Close container-right -->
 </div>
@@ -274,7 +275,10 @@
 </div>
 <!-- End id="burn" -->
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!-- <script src='https://unpkg.com/vue/dist/vue.js'></script> -->
+<!-- <script src='https://unpkg.com/v-calendar'></script> -->
 <script type="text/javascript" src="javascripts/main.js"></script>
 
 </body>

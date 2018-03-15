@@ -1,7 +1,13 @@
+// import Vue from 'vue';
+// import VCalendar from 'v-calendar';
+// import 'v-calendar/lib/v-calendar.min.css';
+// Vue.use(VCalendar)
 
 var vm = new Vue({
 	el: "#burn",
 	data: {
+		mode: 'single',
+		selectedDate: null,
 		loggedIn: false,
 		addingGoal: false,
 		addingMessage: "How many words did you write today?",
@@ -52,7 +58,8 @@ var vm = new Vue({
 		famousFeedStaging: [],
 		youMayKnow: [],
 		friends: [],
-		announcements: []
+		announcements: [],
+		today: ""
 	},
 	methods: {
 		//BEGIN Badge Functions
@@ -438,7 +445,8 @@ var vm = new Vue({
 					self.showProfile = true
 					self.getStrangersOnly()	
 					self.overlay = false
-					self.renderBadges(successData)			
+					self.renderBadges(successData)	
+					self.restrictFormDates()		
 				}
 			})
 			this.signIn = {
@@ -626,10 +634,25 @@ var vm = new Vue({
 			})
 
 			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 13 ) + 7 ) * 2000)
+		},
+		restrictFormDates: function(){
+			var today = new Date()
+			var dd = today.getDate()
+			var mm = today.getMonth()+1
+			var yyyy = today.getFullYear()
+			if(dd < 10) {
+				dd="0"+dd
+			}
+			if(mm < 10) {
+				mm="0"+mm
+			}
+			today = yyyy + '-' + mm + '-' + dd
+			document.getElementById("countForm").setAttribute("max", today)
+			// document.getElementById("goalForm").setAttribute("min", today)
 		}
 	},
 	created: function(){
-		console.log("Hi Jenn <3 !", this.logo)
+		
 		this.renderLogo()
 		this.getFamous()
 		//puts feed items into array

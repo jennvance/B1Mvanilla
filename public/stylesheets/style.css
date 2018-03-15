@@ -50,8 +50,8 @@ a {
 
 .ash {
 	position: absolute;
-	height: 2px;
-	width: 2px;
+	height: 1.5px;
+	width: 1.5px;
 	/*background-color: gray;*/
 	/*-webkit-transform: skew(20deg);*/
 	bottom: 10%;
@@ -160,14 +160,19 @@ a {
 }
 
 @keyframes float {
-	from {
+	0% {
 		bottom: 10%;
 		background-color: white;
 	}
-
-	to {
+	24% {
+		background-color: white;
+	}
+	25% {
+		background-color: darkgray;
+	}
+	100% {
 		bottom: 100%;
-		background-color: gray;
+		background-color: white;
 	}
 }
 
@@ -340,7 +345,7 @@ a {
 
 ul.badge-bucket {
 	list-style: none;
-	border: 5px solid #E25822;
+	border: 5px solid white;
 	margin: 0 5% 5%;
 	padding: 3%;
 }

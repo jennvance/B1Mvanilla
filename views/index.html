@@ -38,7 +38,6 @@
 				<input class="username" v-model="signIn.username" placeholder="username" required>
 				<input class="password" v-model="signIn.password" placeholder="password" required>
 				<input type="submit" class="button" value="submit">
-
 			</form>
 			<form class="su-form li-form" v-on:submit="logIn(signIn, $event)" v-show="!showSignup">
 				<h2>Log In</h2>

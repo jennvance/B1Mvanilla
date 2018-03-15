@@ -44,7 +44,7 @@ var vm = new Vue({
 			monthTotal: 0,
 			monthAverage: 0,
 			goalWordsPerDay: 0,
-			mostProductiveDate: {},
+			mostProductiveDate: "",
 			mostProductiveDay: "First, Write!"
 		},
 		timeoutId: 0,
@@ -169,10 +169,22 @@ var vm = new Vue({
 				//Also, only finds Productive day for all time, not month
 				//could write month into it
 				console.log(this.findProductiveDay(data))
-				//returns date string with timestamp included but set to 00:00:00:000z
-				//figure out why format is weird and where to correct
-				this.stats.mostProductiveDate = this.findProductiveDate(this.selectByMonth(data, month))
 				this.stats.mostProductiveDay = this.findProductiveDay(data)
+
+				//DB returns date string with timestamp included but set to 00:00:00:000z
+				var productive = this.findProductiveDate(this.selectByMonth(data, month))
+				var prodDate = new Date(productive.date)
+				//correct date, finally
+				var tempDate = prodDate.getUTCDate()
+				var tempMonth = prodDate.getUTCMonth()
+				var tempYear = prodDate.getUTCFullYear()
+				var newDate = new Date(tempYear, tempMonth, tempDate)
+				console.log(newDate)
+				this.stats.mostProductiveDate = {
+					date: newDate.toLocaleDateString(),
+					words: productive.words
+				}
+				
 			}
 		},
 		//if submit count before login, error message:

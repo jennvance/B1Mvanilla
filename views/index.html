@@ -226,14 +226,16 @@
 		<li class="follow-single" v-for="person in youMayKnow">
 			<div class="float-left">
 				<img v-bind:src="person.photo" class="follow-single-photo">
+				<button v-if="loggedIn" v-on:click="addFriend(person, $event)" class="button followButton">Follow</button>
 			</div>
 			<div class="float-right">
 				<h4 class="follow-single-name">{{person.name}}</h4>
 				<h5>{{person.genre}}</h5>
 				<h6>{{person.bio}}</h6>
+
 			</div>
 
-			<button v-if="loggedIn" v-on:click="addFriend(person, $event)" class="button followButton">Follow</button>
+			
 		</li>
 
 	</ul>	
@@ -251,12 +253,12 @@
 			<div class="float-right">
 				<h4 class="follow-single-name">{{friend.name}}</h4>
 				<h5>{{friend.genre}}</h5>
-				<!-- <h6>{{friend.bio}}</h6> -->
+				<h6>{{friend.bio}}</h6>
 			</div>
-			<div class="genre-panel">
-				<!-- <h5>{{friend.genre}}</h5> -->
+<!-- 			<div class="genre-panel">
+				<h5>{{friend.genre}}</h5>
 				<p>{{friend.bio}}</p>
-			</div>
+			</div> -->
 		</li>
 	</ul>
 

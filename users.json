@@ -43,7 +43,7 @@
 	"password": "maryshelley",
 	"name": "Mary Shelley",
 	"genre": "Fiction",
-	"bio": "English writer who is, perhaps, equally-famously remembered as the wife of Romantic poet Percy Bysshe Shelley and as the author of Frankenstein, or The Modern Prometheus.",
+	"bio": "English writer who is the author of Frankenstein, or The Modern Prometheus.",
 	"photo": "uploads/MaryShelley.jpg",
 	"friends": [],
 	"famous": true
@@ -53,7 +53,7 @@
 	"password": "virginiawoolf",
 	"name": "Virginia Woolf",
 	"genre": "Nonfiction",
-	"bio": "English writer, who is considered one of the foremost modernist authors of the 20th century and a pioneer in the use of stream of consciousness as a narrative device.",
+	"bio": "English writer, who is considered one of the foremost modernist authors of the 20th century.",
 	"photo": "uploads/VirginiaWoolf.jpg",
 	"friends": [],
 	"famous": true
@@ -73,7 +73,7 @@
 	"password": "jackkerouac",
 	"name": "Jack Kerouac",
 	"genre": "Nonfiction",
-	"bio": "American novelist and poet of French-Canadian descent.",
+	"bio": "American novelist and poet. Wrote On the Road.",
 	"photo": "uploads/JackKerouac.png",
 	"friends": [],
 	"famous": true

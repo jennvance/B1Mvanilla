@@ -1,13 +1,7 @@
-// import Vue from 'vue';
-// import VCalendar from 'v-calendar';
-// import 'v-calendar/lib/v-calendar.min.css';
-// Vue.use(VCalendar)
 
 var vm = new Vue({
 	el: "#burn",
 	data: {
-		mode: 'single',
-		selectedDate: null,
 		loggedIn: false,
 		addingGoal: false,
 		addingMessage: "How many words did you write today?",
@@ -50,8 +44,10 @@ var vm = new Vue({
 			monthTotal: 0,
 			monthAverage: 0,
 			goalWordsPerDay: 0,
-			mostProductiveDate: "",
-			mostProductiveDay: "First, Write!"
+			allTimeMostProductiveDate: "",
+			allTimeMostProductiveDay: "First, Write!",
+			monthMostProductiveDate: "",
+			monthMostProductiveDay: "First, Write!"
 		},
 		timeoutId: 0,
 		famousPhoto: "",
@@ -156,27 +152,19 @@ var vm = new Vue({
 			if(data === "please log in") {
 				this.allTimeTotal = "please log in"
 			} else  {
-				//run logic functions
+				
 				this.sortByDate(data)
-				console.log(data)
-				console.log(this.userCounts)
-				//render new calculation
-				this.stats.allTimeTotal = this.calcTotal(data)
-				//run other logic functions
-				console.log(this.selectByMonth(data, month))
-				this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, month))
-				//calcAverageMonth calculates entire month, but more pressingly need
-				//month up until today for current month only
-				this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, month))
+				
+				
 				console.log(this.calcAverageMonth(this.selectByMonth(data, month)))
+
 				//returns infinity if run on the first day user signs up, because #days = 0
 				//also returns negative number if user enters count from before signup date
-				this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
+				
 				//Function might be off by 1 day. Thought it was working before but maybe not.
 				//Also, only finds Productive day for all time, not month
 				//could write month into it
-				console.log(this.findProductiveDay(data))
-				this.stats.mostProductiveDay = this.findProductiveDay(data)
+				
 
 				//DB returns date string with timestamp included but set to 00:00:00:000z
 				var productive = this.findProductiveDate(this.selectByMonth(data, month))
@@ -187,12 +175,45 @@ var vm = new Vue({
 				var tempYear = prodDate.getUTCFullYear()
 				var newDate = new Date(tempYear, tempMonth, tempDate)
 				console.log(newDate)
-				this.stats.mostProductiveDate = {
+				this.stats.allTimeMostProductiveDate = {
 					date: newDate.toLocaleDateString(),
 					words: productive.words
 				}
 				
+				this.stats.allTimeTotal = this.calcTotal(data)
+				
+				this.stats.allTimeMostProductiveDay = this.findProductiveDay(data)
+				this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
+				this.runMonthCalcs(data, month)
+				// this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, month))
+				// this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, month))
 			}
+		},
+		runMonthCalcs: function(data, month) {
+			var monthlyData = this.selectByMonth(data, month)
+			this.monthTotal	=	this.calcTotal(monthlyData)
+			this.monthAverage = this.calcAverageMonth(monthlyData)
+			// this.monthMostProductiveDate = ""
+			this.monthMostProductiveDay = this.findProductiveDay(monthlyData)
+			console.log(this.monthTotal)
+			console.log(this.monthAverage)
+			
+			console.log(this.monthMostProductiveDay)
+
+			//DB returns date string with timestamp included but set to 00:00:00:000z
+			var productive = this.findProductiveDate(monthlyData)
+			var prodDate = new Date(productive.date)
+			//correct date, finally
+			var tempDate = prodDate.getUTCDate()
+			var tempMonth = prodDate.getUTCMonth()
+			var tempYear = prodDate.getUTCFullYear()
+			var newDate = new Date(tempYear, tempMonth, tempDate)
+			console.log(newDate)
+			this.stats.monthMostProductiveDate = {
+				date: newDate.toLocaleDateString(),
+				words: productive.words
+			}
+			console.log(this.monthMostProductiveDate)
 		},
 		//if submit count before login, error message:
 		//"reduce of empty array with no initial value"
@@ -212,6 +233,7 @@ var vm = new Vue({
 				return null
 			}
 		},
+		//helper function to sort counts
 		sortByDate: function(data){
 			if(data.length){
 				return data.sort(function(a,b){
@@ -265,6 +287,8 @@ var vm = new Vue({
 		},
 	//Average for given month
 	//could pass month in as argument to identify month immediately if needed
+	//calcAverageMonth calculates entire month, but more pressingly need
+	//month up until today for current month only
 		calcAverageMonth: function(filteredOrUnfilteredArray){
 			console.log(filteredOrUnfilteredArray)
 			if(filteredOrUnfilteredArray.length) {

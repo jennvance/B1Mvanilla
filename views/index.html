@@ -130,23 +130,27 @@
 		<div v-if="submittedGoal">Words Per Day You Must Write to Meet Goal: <span>{{stats.goalWordsPerDay}}</span> </div>
 
 		<div v-if="loggedIn">
-			<!-- allTimeTotal id is already used line 91 -->
-	<!-- 		<div class="cell a">All time total: </div>
-			<div class="cell b" id="allTimeTotal">0</div> -->
+
 			<div class="cell a">Total for month: </div>
 			<div class="cell b">{{stats.monthTotal}}</div>
 
 			<div class="cell a">Daily average for month: </div>
 			<div class="cell b">{{stats.monthAverage}}</div>
 
-			<div class="cell a">Most productive day of month: </div>
-			<div class="cell b">{{stats.mostProductiveDate.date}} - <span>{{stats.mostProductiveDate.words}}</span> words</div>
+			<div class="cell a">Most productive date (alltime): </div>
+			<div class="cell b">{{stats.allTimeMostProductiveDate.date}} - <span>{{stats.allTimeMostProductiveDate.words}}</span> words</div>
 
-			<div class="cell a">Most productive day of week:</div>
-			<div class="cell b">{{stats.mostProductiveDay}}</div>
+			<div class="cell a">Most productive day of week(alltime):</div>
+			<div class="cell b">{{stats.allTimeMostProductiveDay}}</div>
 
 			<div class="cell a">Daily Average since you started: </div>
 			<div class="cell b">{{stats.allTimeAverage}}</div>
+
+			<div class="cell a">Most productive date (month): </div>
+			<div class="cell b">{{stats.monthMostProductiveDate.date}} - <span>{{stats.monthMostProductiveDate.words}}</span> words</div>
+
+			<div class="cell a">Most productive day of week(month):</div>
+			<div class="cell b">{{stats.monthMostProductiveDay}}</div>
 
 	<!-- 		<div class="cell a">Average excluding zero days: </div>
 			<div class="cell b">0</div> -->

@@ -166,7 +166,7 @@ app.post('/login', function(req, res){
             res.send('Failed to log in')
         }
         else {
-            // at this point, we know they're trying to log in as someone who DOES exist in our database, but do they have the right password?
+            //user exists; does password match?
             bcrypt.compare(req.body.password, user.password, function(bcryptErr, matched){
                 if ( bcryptErr ) { console.log(bcryptErr)}
                 //matched will be either true or false

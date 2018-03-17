@@ -60,10 +60,6 @@ var vm = new Vue({
 	methods: {
 		//BEGIN Badge Functions
 		renderBadges: function(personData){
-			console.log(personData.badges)
-			console.log(this.badges)
-
-
 			this.badges = []
 			for (var i=0;i<personData.badges.length; i++){
 				this.badges.push(personData.badges[i])
@@ -92,10 +88,6 @@ var vm = new Vue({
 					id: identification
 				})	
 			}
-
-			console.log(this.announcements)
-			console.log(this.badges)
-
 		},
 		//END Badge Functions
 		//BEGIN Count Functions
@@ -123,7 +115,8 @@ var vm = new Vue({
 						var temp = new Date()
 						var currentMonth = temp.getMonth()
 						console.log(currentMonth)
-						this.runCalcs(this.userCounts, currentMonth)
+						this.runAllTimeCalcs(this.userCounts)
+						this.runMonthCalcs(this.userCounts, currentMonth)
 						//announce new entry in feed
 						var announcement = this.profile.name + " wrote " + formData.words + " words."
 						var identification = this.announcements.length
@@ -145,9 +138,9 @@ var vm = new Vue({
 			})
 		},
 		selectMonth: function(){
-			this.runCalcs(this.userCounts, this.selectedMonth)
+			this.runMonthCalcs(this.userCounts, this.selectedMonth)
 		},
-		runCalcs: function(data, month){
+		runAllTimeCalcs: function(data){
 			console.log(data)
 			if(data === "please log in") {
 				this.allTimeTotal = "please log in"
@@ -155,19 +148,9 @@ var vm = new Vue({
 				
 				this.sortByDate(data)
 				
-				
-				console.log(this.calcAverageMonth(this.selectByMonth(data, month)))
-
-				//returns infinity if run on the first day user signs up, because #days = 0
-				//also returns negative number if user enters count from before signup date
-				
-				//Function might be off by 1 day. Thought it was working before but maybe not.
-				//Also, only finds Productive day for all time, not month
-				//could write month into it
-				
-
 				//DB returns date string with timestamp included but set to 00:00:00:000z
-				var productive = this.findProductiveDate(this.selectByMonth(data, month))
+				var productive = this.findProductiveDate(data)
+				console.log(productive)
 				var prodDate = new Date(productive.date)
 				//correct date, finally
 				var tempDate = prodDate.getUTCDate()
@@ -183,27 +166,20 @@ var vm = new Vue({
 				this.stats.allTimeTotal = this.calcTotal(data)
 				
 				this.stats.allTimeMostProductiveDay = this.findProductiveDay(data)
-				this.stats.allTimeAverage = this.calcAverageAllTime(this.sortByDate(data))
-				this.runMonthCalcs(data, month)
+				this.stats.allTimeAverage = this.calcAverageAllTime(data)
+				// this.runMonthCalcs(data, month)
 				// this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, month))
 				// this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, month))
 			}
 		},
 		runMonthCalcs: function(data, month) {
 			var monthlyData = this.selectByMonth(data, month)
-			this.monthTotal	=	this.calcTotal(monthlyData)
-			this.monthAverage = this.calcAverageMonth(monthlyData)
-			// this.monthMostProductiveDate = ""
-			this.monthMostProductiveDay = this.findProductiveDay(monthlyData)
-			console.log(this.monthTotal)
-			console.log(this.monthAverage)
-			
-			console.log(this.monthMostProductiveDay)
-
-			//DB returns date string with timestamp included but set to 00:00:00:000z
+			this.stats.monthTotal	=	this.calcTotal(monthlyData)
+			this.stats.monthAverage = this.calcAverageMonth(monthlyData)
+			this.stats.monthMostProductiveDay = this.findProductiveDay(monthlyData)
 			var productive = this.findProductiveDate(monthlyData)
 			var prodDate = new Date(productive.date)
-			//correct date, finally
+			//corrected date
 			var tempDate = prodDate.getUTCDate()
 			var tempMonth = prodDate.getUTCMonth()
 			var tempYear = prodDate.getUTCFullYear()
@@ -213,7 +189,6 @@ var vm = new Vue({
 				date: newDate.toLocaleDateString(),
 				words: productive.words
 			}
-			console.log(this.monthMostProductiveDate)
 		},
 		//if submit count before login, error message:
 		//"reduce of empty array with no initial value"
@@ -270,6 +245,7 @@ var vm = new Vue({
 			var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 			for(var i=0; i<data.length;i++){
 				//find day of week for each date in allCounts
+				//this returns one day off from correct
 				var dayOfWeek = new Date(data[i].date).getDay()
 				//sort by day of week and keep running total for each day of week
 				days[dayOfWeek] += data[i].words
@@ -452,9 +428,11 @@ var vm = new Vue({
 			this.loggedIn = true
 			var self = this
 			$.post('/login', data, function(successData){
+				
 				if(successData === "Failed to log in"){
 					self.toggleForm()
 				} else {
+					
 					var temp = new Date()
 					var currentMonth = temp.getMonth()
 					console.log("success!!=", successData)
@@ -462,7 +440,8 @@ var vm = new Vue({
 					self.userPhoto = successData.photo
 					self.youMayKnow = []
 					if(self.userCounts.length){
-						self.runCalcs(self.userCounts, currentMonth)	
+						self.runAllTimeCalcs(self.userCounts)
+						self.runMonthCalcs(self.userCounts, currentMonth)	
 					}
 					self.renderUser(successData)
 					self.renderPhoto(successData)

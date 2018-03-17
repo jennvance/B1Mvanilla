@@ -484,11 +484,13 @@ ul.badge-bucket {
 	float: left;
 	text-align: left;
 	width: 50%;
+	height: 50px;
 }
 
 .stats .b {
 	float: right;
 	width: 50%;
+	height: 50px;
 }
 
 .fade-in {

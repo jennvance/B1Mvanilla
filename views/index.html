@@ -34,15 +34,15 @@
 			<a href="#" class="x" v-on:click="hideOverlay($event)">X</a>
 			<form class="su-form" v-on:submit="signUp(signIn, $event)" v-show="showSignup">
 				<h2>Sign Up</h2>
-				<input class="name" v-model="signIn.name" placeholder="Your Name"required>
-				<input class="username" v-model="signIn.username" placeholder="username" required>
-				<input class="password" v-model="signIn.password" placeholder="password" required>
+				<input class="name" v-model="signIn.name" placeholder="Your Name"required type="text">
+				<input class="username" v-model="signIn.username" placeholder="username" required type="text">
+				<input class="password" v-model="signIn.password" placeholder="password" required type="password">
 				<input type="submit" class="button" value="submit">
 			</form>
 			<form class="su-form li-form" v-on:submit="logIn(signIn, $event)" v-show="!showSignup">
 				<h2>Log In</h2>
-				<input class="username" placeholder="username" v-model="signIn.username" required>
-				<input class="password" placeholder="password" v-model="signIn.password" required>
+				<input class="username" placeholder="username" v-model="signIn.username" required type="text">
+				<input class="password" placeholder="password" v-model="signIn.password" required type="password">
 				<input type="submit" class="button" value="submit">
 
 			</form>
@@ -92,7 +92,7 @@
 	<div class="center-form" v-if="!addingGoal">
 		<form id="countForm" v-on:submit="submitCount(count, $event)">
 			<input type="number" name="numwds" required v-model="count.words" placeholder="Enter Count">
-			<input type="date" name="date" required v-model="count.date">
+			<input type="date" name="date" required v-model="count.date" id="countDate">
 			<button type="submit" class="button">Submit</button>
 		</form>
 	</div>
@@ -101,12 +101,12 @@
 		
 		<form v-on:submit="submitGoal(goal, $event)" id="goalForm">
 			<input type="number" name="goalWds" required placeholder="Enter Goal" v-model="goal.words">
-			<input type="date" name="goalDate" required v-model="goal.date">
+			<input type="date" name="goalDate" required v-model="goal.date" id="goalDate">
 			<button type="submit" class="button">Submit</button>
 		</form>
 	</div>
 
-	<a href="#" v-on:click="toggleGoalForm($event)"><h3>{{addingLinkText}}</h3></a>
+	<a v-if="loggedIn" href="#" v-on:click="toggleGoalForm($event)"><h3>{{addingLinkText}}</h3></a>
 	<form name="monthform" class="month-form" v-if="loggedIn">
 		<label for="selectmonth">Choose Month to View Stats:</label>
 		<select name="month" id="selectmonth" v-model.number="selectedMonth" v-on:change="selectMonth()">

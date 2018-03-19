@@ -138,6 +138,7 @@ var vm = new Vue({
 			})
 		},
 		selectMonth: function(){
+			console.log(this.userCounts)
 			this.runMonthCalcs(this.userCounts, this.selectedMonth)
 		},
 		runAllTimeCalcs: function(data){
@@ -173,22 +174,34 @@ var vm = new Vue({
 			}
 		},
 		runMonthCalcs: function(data, month) {
+			console.log(month)
 			var monthlyData = this.selectByMonth(data, month)
-			this.stats.monthTotal	=	this.calcTotal(monthlyData)
-			this.stats.monthAverage = this.calcAverageMonth(monthlyData)
-			this.stats.monthMostProductiveDay = this.findProductiveDay(monthlyData)
-			var productive = this.findProductiveDate(monthlyData)
-			var prodDate = new Date(productive.date)
-			//corrected date
-			var tempDate = prodDate.getUTCDate()
-			var tempMonth = prodDate.getUTCMonth()
-			var tempYear = prodDate.getUTCFullYear()
-			var newDate = new Date(tempYear, tempMonth, tempDate)
-			console.log(newDate)
-			this.stats.monthMostProductiveDate = {
-				date: newDate.toLocaleDateString(),
-				words: productive.words
+			console.log(monthlyData)
+			if (monthlyData.length){
+				this.stats.monthTotal	=	this.calcTotal(monthlyData)
+				this.stats.monthAverage = this.calcAverageMonth(monthlyData)
+				this.stats.monthMostProductiveDay = this.findProductiveDay(monthlyData)
+				var productive = this.findProductiveDate(monthlyData)
+				var prodDate = new Date(productive.date)
+				//corrected date
+				var tempDate = prodDate.getUTCDate()
+				var tempMonth = prodDate.getUTCMonth()
+				var tempYear = prodDate.getUTCFullYear()
+				var newDate = new Date(tempYear, tempMonth, tempDate)
+				console.log(newDate)
+				this.stats.monthMostProductiveDate = {
+					date: newDate.toLocaleDateString(),
+					words: productive.words
+				}				
 			}
+			else {
+				this.stats.monthTotal	=	"No Data"
+				this.stats.monthAverage = "No Data"
+				this.stats.monthMostProductiveDay = "No Data"
+				this.stats.monthMostProductiveDate.date = "No Data"
+				this.stats.monthMostProductiveDate.words = ""
+			}
+
 		},
 		//if submit count before login, error message:
 		//"reduce of empty array with no initial value"
@@ -224,7 +237,7 @@ var vm = new Vue({
 			console.log(month, " ", data)
 			
 			return data.filter(function(item){
-				console.log(new Date(item.date).getMonth() === month)
+				// console.log(new Date(item.date).getMonth() === month)
 				return new Date(item.date).getMonth() === month
 			})
 		},
@@ -636,26 +649,22 @@ var vm = new Vue({
 				id: this.announcements.length
 			})
 
-			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 13 ) + 7 ) * 2000)
+			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 14 ) + 6 ) * 2000)
 		},
 		restrictFormDates: function(){
 			var today = new Date()
-			var dd = today.getDate()
-			var mm = today.getMonth()+1
+			var dd = ("0" + today.getDate()).slice(-2)
+			var ddTom = ("0" + (today.getDate()+1)).slice(-2)
+			var mm = ("0" + (today.getMonth()+1)).slice(-2)
 			var yyyy = today.getFullYear()
-			if(dd < 10) {
-				dd="0"+dd
-			}
-			if(mm < 10) {
-				mm="0"+mm
-			}
-			today = yyyy + '-' + mm + '-' + dd
-			document.getElementById("countForm").setAttribute("max", today)
-			// document.getElementById("goalForm").setAttribute("min", today)
+			var limitToday = yyyy + '-' + mm + '-' + dd
+			var limitTomorrow = yyyy + '-' + mm + '-' + ddTom
+			document.getElementById("countDate").setAttribute("max", limitToday)
+			document.getElementById("goalDate").setAttribute("min", limitTomorrow)
 		}
 	},
 	created: function(){
-		
+		this.restrictFormDates()
 		this.renderLogo()
 		this.getFamous()
 		//puts feed items into array
@@ -666,6 +675,11 @@ var vm = new Vue({
 		this.timeoutId = setTimeout(this.appendToDOM, 10000)
 	}
 })
+
+window.unload = function(){
+	window.location.href="/logout"
+}
+		// 	event.preventDefault()
 
 
 	//to stop setTimeout; might not actually be what I need

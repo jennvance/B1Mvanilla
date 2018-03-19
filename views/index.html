@@ -128,20 +128,32 @@
 
 		<div v-if="loggedIn">
 
+			<h3>All Time Data</h3>
+
+			<div class="bubble">
+				<h5>Most productive date:</h5>
+				<h3>{{stats.allTimeMostProductiveDate.date}}</h3>
+				<h3>{{stats.allTimeMostProductiveDate.words}} words</h3>
+			</div>
+
+			<div class="bubble">
+				<h5>Most productive day of week:</h5>
+				<h3>{{stats.allTimeMostProductiveDay}}</h3>
+			</div>
+
+			<div class="bubble">
+				<h5>Daily Average since you started:</h5>
+				<h3>{{stats.allTimeAverage}}</h3>
+			</div>
+	
+
+			<h3>[Month] Data</h3>
+
 			<div class="cell a">Total for month: </div>
 			<div class="cell b">{{stats.monthTotal}}</div>
 
 			<div class="cell a">Daily average for month: </div>
 			<div class="cell b">{{stats.monthAverage}}</div>
-
-			<div class="cell a">Most productive date (alltime): </div>
-			<div class="cell b">{{stats.allTimeMostProductiveDate.date}} - <span>{{stats.allTimeMostProductiveDate.words}}</span> words</div>
-
-			<div class="cell a">Most productive day of week(alltime):</div>
-			<div class="cell b">{{stats.allTimeMostProductiveDay}}</div>
-
-			<div class="cell a">Daily Average since you started: </div>
-			<div class="cell b">{{stats.allTimeAverage}}</div>
 
 			<div class="cell a">Most productive date (month): </div>
 			<div class="cell b">{{stats.monthMostProductiveDate.date}} - <span>{{stats.monthMostProductiveDate.words}}</span> words</div>

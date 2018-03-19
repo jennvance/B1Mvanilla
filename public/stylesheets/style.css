@@ -486,6 +486,17 @@ ul.badge-bucket {
 	padding: 5%;
 }
 
+.bubble {
+	background-color: #E29822;
+	height: 150px;
+	width: 150px;
+	border-radius: 75px;
+}
+
+.bubble h5 {
+	padding-top:25%;
+}
+
 .stats .a {
 	float: left;
 	text-align: left;

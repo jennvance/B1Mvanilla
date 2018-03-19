@@ -9,9 +9,7 @@
 
 	<link rel='stylesheet', href='/stylesheets/fire.css'>
 	<link rel='stylesheet', href='/stylesheets/style.css'>
-	<!-- <link rel='stylesheet' href='https://unpkg.com/v-calendar/lib/v-calendar.min.css'> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<!-- 	// <script src="node_modules/chart.js/dist/Chart.bundle.js"></script> -->
 
 </head>
 <body>
@@ -77,7 +75,6 @@
 		<div class="ash ash-17"></div>
 		<div class="ash ash-18"></div>
 	</div>
-<!-- 	<canvas id="myChart" width="200" height="200"></canvas> -->
 
 	<div v-if="!loggedIn" class="copy">
 		<p>Your first million words don't count.</p>
@@ -152,8 +149,6 @@
 			<div class="cell a">Most productive day of week(month):</div>
 			<div class="cell b">{{stats.monthMostProductiveDay}}</div>
 
-	<!-- 		<div class="cell a">Average excluding zero days: </div>
-			<div class="cell b">0</div> -->
 		</div>
 	</div>
 
@@ -253,16 +248,14 @@
 		<li class="background follow-single" v-for="friend in friends">
 			<div class="float-left">
 				<img v-bind:src="friend.photo" class="follow-single-photo">
+				<h6>Total:</h6>
+				<h5>{{friend.total}}</h5>
 			</div>
 			<div class="float-right">
 				<h4 class="follow-single-name">{{friend.name}}</h4>
 				<h5>{{friend.genre}}</h5>
 				<h6>{{friend.bio}}</h6>
 			</div>
-<!-- 			<div class="genre-panel">
-				<h5>{{friend.genre}}</h5>
-				<p>{{friend.bio}}</p>
-			</div> -->
 		</li>
 	</ul>
 
@@ -280,8 +273,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<!-- <script src='https://unpkg.com/vue/dist/vue.js'></script> -->
-<!-- <script src='https://unpkg.com/v-calendar'></script> -->
 <script type="text/javascript" src="javascripts/main.js"></script>
 
 </body>

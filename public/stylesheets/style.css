@@ -329,6 +329,12 @@ a {
 	background-color: gray;
 }
 
+.follow-single .float-left h5, .follow-single .float-left h6 {
+	width: 50px;
+	margin-bottom: 0;
+	margin-top: 2px;
+}
+
 .float-left {
 	float: left;
 	width: 33%;

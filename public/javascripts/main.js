@@ -163,14 +163,17 @@ var vm = new Vue({
 					date: newDate.toLocaleDateString(),
 					words: productive.words
 				}
-				
-				this.stats.allTimeTotal = this.calcTotal(data)
-				
+				this.stats.allTimeTotal = this.calcTotal(data)		
 				this.stats.allTimeMostProductiveDay = this.findProductiveDay(data)
 				this.stats.allTimeAverage = this.calcAverageAllTime(data)
-				// this.runMonthCalcs(data, month)
-				// this.stats.monthAverage = this.calcAverageMonth(this.selectByMonth(data, month))
-				// this.stats.monthTotal = this.calcTotal(this.selectByMonth(data, month))
+				$.ajax({
+					url: "/recordtotal",
+					type: "POST",
+					data: this.stats,
+					success: (data)=>{
+						console.log(data, data.total)
+					}
+				})
 			}
 		},
 		runMonthCalcs: function(data, month) {
@@ -347,7 +350,6 @@ var vm = new Vue({
 			})
 		},
 		calcWpdToGoal: function(data){
-			// var this = this
 			var today = new Date()
 			var goalDate = new Date(data.date)
 			//date selector selects for local instead of UTC time and it messes up diffDates() calc.
@@ -372,7 +374,6 @@ var vm = new Vue({
 		//BEGIN Profile Functions
 		submitProfile: function(profile, event){
 			event.preventDefault()
-			// console.log(profile)
 			$.ajax({
 				url: "/createprofile",
 				type: "POST",
@@ -390,7 +391,6 @@ var vm = new Vue({
 		},
 		renderPhoto: function(data){
 			if(data.photo){
-				console.log(data.photo)
 				this.userPhoto = data.photo
 			}
 		},
@@ -406,13 +406,12 @@ var vm = new Vue({
 			this.loggedIn = true
 			var self = this
 			$.post('/signup', data, function(successData){
-				
 				//if user already exists, need to redirect to login
 				if(successData === "<h1>User already exists; please log in.</h1>"){
 					self.toggleForm()
 					self.signIn.password = ""
 				} else {
-					console.log("success!=", successData)
+					// console.log("success!=", successData)
 					self.profile = {
 						name: self.signIn.name,
 						genre: "",
@@ -437,7 +436,7 @@ var vm = new Vue({
 		},
 		logIn: function(data, event){
 			event.preventDefault()
-			console.log(data)
+			// console.log(data)
 			this.loggedIn = true
 			var self = this
 			$.post('/login', data, function(successData){
@@ -448,7 +447,7 @@ var vm = new Vue({
 					
 					var temp = new Date()
 					var currentMonth = temp.getMonth()
-					console.log("success!!=", successData)
+					// console.log("success!!=", successData)
 					self.userCounts = successData.counts
 					self.userPhoto = successData.photo
 					self.youMayKnow = []

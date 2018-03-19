@@ -128,6 +128,7 @@ app.all('/signup', function(req, res){
             // newUser.famous = false;
             newUser.photo = "/public/images/nobody.png"
             // newUser.save()
+            newUser.total = 0
 
 
             console.log("user: " + newUser)
@@ -277,14 +278,16 @@ app.post("/addcount", function(req,res){
     })
 })
 
-function isEmpty(obj) {
-    for(var prop in obj) {
-        if(obj.hasOwnProperty(prop))
-            return false;
-    }
-
-    return JSON.stringify(obj) === JSON.stringify({});
-}
+app.post("/recordtotal", function(req,res){
+    // console.log(req.body)
+    UltimateModel.findOne({_id:req.session._id}, function(err,user){
+        if(user){
+            user.total = req.body.allTimeTotal
+            user.save()
+            res.send(user)
+        }
+    })
+})
 
 app.post("/setgoal", function(req,res){
     UltimateModel.findOne({_id:req.session._id}, function(err,user){
@@ -355,7 +358,8 @@ app.post("/addfriend", function(req, res){
                         name: newFriend.name,
                         genre: newFriend.genre,
                         bio: newFriend.bio,
-                        photo: newFriend.photo
+                        photo: newFriend.photo,
+                        total: newFriend.total
                     })
                     user.save()
                     //Should also add logged in user to newFriend's friend or follower list

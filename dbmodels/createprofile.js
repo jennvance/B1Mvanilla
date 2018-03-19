@@ -22,7 +22,8 @@ var UltimateSchema = new mongoose.Schema({
 	},
 	friends: Array,
 	badges: Array,
-	famous: Boolean
+	famous: Boolean,
+	total: Number
 })
 
 var UltimateModel = mongoose.model('Ultimate', UltimateSchema)

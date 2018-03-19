@@ -6,7 +6,8 @@
 	"bio": "American writer, expatriated in Paris at his flourishing.",
 	"photo": "uploads/HenryMiller.jpg",
 	"friends":[],
-	"famous": true
+	"famous": true,
+	"total": 423589
 },
 {
 	"username": "anaisnin",
@@ -16,7 +17,8 @@
 	"bio": "American diarist, essayist, novelist, and writer of short stories and erotica.",
 	"photo": "uploads/AnaisNin.jpg",
 	"friends": [],
-	"famous": true
+	"famous": true,
+	"total": 789472
 },
 {
 	"username": "sylviaplath",
@@ -26,7 +28,8 @@
 	"bio": "American poet, novelist, and short-story writer.",
 	"photo": "uploads/SylviaPlath.jpg",
 	"friends": [],
-	"famous": true
+	"famous": true,
+	"total": 334890
 },
 {
 	"username": "earnesthemingway",
@@ -36,7 +39,8 @@
 	"bio": "American novelist, short story writer, and journalist.",
 	"photo": "uploads/ErnestHemingway.jpg",
 	"friends": [],
-	"famous": true
+	"famous": true,
+	"total": 154697
 },
 {
 	"username": "maryshelley",
@@ -46,7 +50,8 @@
 	"bio": "English writer who is the author of Frankenstein, or The Modern Prometheus.",
 	"photo": "uploads/MaryShelley.jpg",
 	"friends": [],
-	"famous": true
+	"famous": true,
+	"total": 314876
 },
 {
 	"username": "virginiawoolf",
@@ -56,7 +61,8 @@
 	"bio": "English writer, who is considered one of the foremost modernist authors of the 20th century.",
 	"photo": "uploads/VirginiaWoolf.jpg",
 	"friends": [],
-	"famous": true
+	"famous": true,
+	"total": 898743
 },
 {
 	"username": "gertrudestein",
@@ -66,7 +72,8 @@
 	"bio": "American novelist, poet, playwright, and art collector.",
 	"photo": "uploads/GertrudeStein.jpg",
 	"friends": [],
-	"famous": true
+	"famous": true,
+	"total": 997321
 },
 {
 	"username": "jackkerouac",
@@ -76,17 +83,30 @@
 	"bio": "American novelist and poet. Wrote On the Road.",
 	"photo": "uploads/JackKerouac.png",
 	"friends": [],
-	"famous": true
+	"famous": true,
+	"total": 423591
 },
 {
 	"username": "fscottfitzgerald",
 	"password": "fscottfitzgerald",
 	"name": "F. Scott Fitzgerald",
 	"genre": "Fiction",
-	"bio": "American writer whose works illustrate the Jazz Age. Wrote The Great Gatsby",
+	"bio": "American writer whose works illustrate the Jazz Age.",
 	"photo": "uploads/FScottFitzgerald.jpg",
 	"friends": [],
-	"famous": true
+	"famous": true,
+	"total": 385218
+},
+{
+	"username": "trumancapote",
+	"password": "trumancapote",
+	"name": "Truman Capote",
+	"genre": "Fiction",
+	"bio": "American novelist, screenwriter, playwright, and actor.",
+	"photo": "uploads/TrumanCapote.jpg",
+	"friends": [],
+	"famous": true,
+	"total": 774143
 }
 
 

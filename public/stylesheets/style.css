@@ -50,15 +50,13 @@ a {
 
 .ash {
 	position: absolute;
-	height: 1.5px;
-	width: 1.5px;
-	/*background-color: gray;*/
-	/*-webkit-transform: skew(20deg);*/
+	height: 1px;
+	width: 1px;
+	-webkit-transform: skew(20deg);
 	bottom: 10%;
 	left: 0;
 	z-index: -1;
 	animation: float 11.5s linear 6s forwards, spin 11.5s linear 6s forwards;
-	/*animation-play-state:paused;*/
 }
 
 @keyframes spin {
@@ -168,10 +166,10 @@ a {
 		background-color: white;
 	}
 	25% {
-		background-color: darkgray;
+		background-color: gray;
 	}
 	100% {
-		bottom: 100%;
+		bottom: 80%;
 		background-color: white;
 	}
 }

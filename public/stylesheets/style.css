@@ -265,6 +265,11 @@ a {
 	text-align: left;
 	position: relative;
 	z-index: -1;
+	padding-top: 7%;
+}
+
+.wpd {
+	padding-top: 3%;
 }
 
 .small {
@@ -483,31 +488,29 @@ ul.badge-bucket {
 
 .stats {
 	max-width: 500px;
-	padding: 5%;
+	/*padding: 5%;*/
 }
 
 .bubble {
 	background-color: #E29822;
-	height: 150px;
-	width: 150px;
-	border-radius: 75px;
+	padding: 7%;
+	border-radius: 50%;
+	max-width: min-content;
+	margin: 3% auto;
 }
 
-.bubble h5 {
-	padding-top:25%;
+.bubble h4 {
+	max-width: 100px;
 }
 
 .stats .a {
 	float: left;
-	text-align: left;
 	width: 50%;
-	height: 50px;
 }
 
 .stats .b {
 	float: right;
 	width: 50%;
-	height: 50px;
 }
 
 .fade-in {
@@ -596,7 +599,7 @@ select#selectmonth {
 }
 
 .month-form {
-	padding: 3%;
+	padding: 7% 0 3%;
 }
 
 @media screen and (max-width:1039px){

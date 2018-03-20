@@ -104,6 +104,9 @@
 	</div>
 
 	<a v-if="loggedIn" href="#" v-on:click="toggleGoalForm($event)"><h3>{{addingLinkText}}</h3></a>
+
+	<div v-if="submittedGoal" class="wpd">Words Per Day You Must Write to Meet Goal: <span>{{stats.goalWordsPerDay}}</span> </div>
+
 	<form name="monthform" class="month-form" v-if="loggedIn">
 		<label for="selectmonth">Choose Month to View Stats:</label>
 		<select name="month" id="selectmonth" v-model.number="selectedMonth" v-on:change="selectMonth()">
@@ -124,42 +127,58 @@
 	</form>
 
 	<div class="stats">
-		<div v-if="submittedGoal">Words Per Day You Must Write to Meet Goal: <span>{{stats.goalWordsPerDay}}</span> </div>
 
 		<div v-if="loggedIn">
 
-			<h3>All Time Data</h3>
+			<div class="a">
+				<h2>All Time Data</h2>
+				<div class="bubble">
+					<h4>Total:</h4>
+					<h3>{{stats.allTimeTotal}}</h3>
+				</div>
 
-			<div class="bubble">
-				<h5>Most productive date:</h5>
-				<h3>{{stats.allTimeMostProductiveDate.date}}</h3>
-				<h3>{{stats.allTimeMostProductiveDate.words}} words</h3>
+
+				<div class="bubble">
+					<h4>Daily Average:</h4>
+					<h3>{{stats.allTimeAverage}}</h3>
+				</div>
+
+				<div class="bubble">
+					<h4>Most productive date:</h4>
+					<h3>{{stats.allTimeMostProductiveDate.date}}</h3>
+					<h3>{{stats.allTimeMostProductiveDate.words}} words</h3>
+				</div>
+
+				<div class="bubble">
+					<h4>Most productive day of week:</h4>
+					<h3>{{stats.allTimeMostProductiveDay}}</h3>
+				</div>
 			</div>
+			<div class="b">
+				<h2>Month Data</h2>
 
-			<div class="bubble">
-				<h5>Most productive day of week:</h5>
-				<h3>{{stats.allTimeMostProductiveDay}}</h3>
+				<div class="bubble">
+					<h4>Total:</h4>
+					<h3>{{stats.monthTotal}}</h3>
+				</div>
+
+				<div class="bubble">
+					<h4>Daily average:</h4>
+					<h3>{{stats.monthAverage}}</h3>
+				</div>
+
+
+				<div class="bubble">
+					<h4>Most productive date:</h4>
+					<h3>{{stats.monthMostProductiveDate.date}}</h3>
+					<h3>{{stats.monthMostProductiveDate.words}} words</h3>
+				</div>
+
+				<div class="bubble">
+					<h4>Most productive day of week:</h4>
+					<h3>{{stats.monthMostProductiveDay}}</h3>
+				</div>
 			</div>
-
-			<div class="bubble">
-				<h5>Daily Average since you started:</h5>
-				<h3>{{stats.allTimeAverage}}</h3>
-			</div>
-	
-
-			<h3>[Month] Data</h3>
-
-			<div class="cell a">Total for month: </div>
-			<div class="cell b">{{stats.monthTotal}}</div>
-
-			<div class="cell a">Daily average for month: </div>
-			<div class="cell b">{{stats.monthAverage}}</div>
-
-			<div class="cell a">Most productive date (month): </div>
-			<div class="cell b">{{stats.monthMostProductiveDate.date}} - <span>{{stats.monthMostProductiveDate.words}}</span> words</div>
-
-			<div class="cell a">Most productive day of week(month):</div>
-			<div class="cell b">{{stats.monthMostProductiveDay}}</div>
 
 		</div>
 	</div>

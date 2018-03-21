@@ -84,7 +84,7 @@
 	</div>
 
 	<div v-if="loggedIn" class="totalDisplay" id="allTimeTotal"><span class="small">Total:</span><span class="center">{{stats.allTimeTotal}}</span></div>
-
+<!-- <div class="count-container"> -->
 	<h2 class="count-form-label">{{addingMessage}}</h2>
 	<div class="center-form" v-if="!addingGoal">
 		<form id="countForm" v-on:submit="submitCount(count, $event)">
@@ -92,6 +92,9 @@
 			<input type="date" name="date" required v-model="count.date" id="countDate">
 			<button type="submit" class="button">Submit</button>
 		</form>
+		<div class="count-form-overlay" v-if="!loggedIn">
+			<a href="#" v-on:click="showOverlay($event)">Log in to add count</a>
+		</div>
 	</div>
 
 	<div class="center-form" v-if="addingGoal">

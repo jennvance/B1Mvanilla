@@ -193,6 +193,7 @@ a {
 }
 
 .center-form {
+	position: relative;
 	height: 55px;
 	/*width: 450px;*/
 	background-color: white;
@@ -599,6 +600,27 @@ select#selectmonth {
 .month-form {
 	padding: 7% 0 3%;
 }
+
+.count-form-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	opacity: .7;
+	background-color: #E25822;
+	padding: 4% 0 2%;
+	font-size: 36px;
+	max-width: 75%;
+}
+
+.count-form-overlay a {
+	color: black;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
 
 @media screen and (max-width:1039px){
 	.stats {

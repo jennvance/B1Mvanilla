@@ -35,19 +35,27 @@ var vm = new Vue({
 			bio: "",
 			photo: ""
 		},
+		userSince: "",
 		userCounts: [],
 		badges: [],
 		userPhoto: "",
+		// tempCount: 0,
 		stats: {
 			allTimeTotal: 0,
 			allTimeAverage: 0,
 			monthTotal: 0,
 			monthAverage: 0,
 			goalWordsPerDay: 0,
-			allTimeMostProductiveDate: "",
-			allTimeMostProductiveDay: "First, Write!",
-			monthMostProductiveDate: "",
-			monthMostProductiveDay: "First, Write!"
+			allTimeMostProductiveDate: {
+				date: "No Data",
+				words: 0
+			},
+			allTimeMostProductiveDay: "No Data",
+			monthMostProductiveDate: {
+				date: "No Data",
+				words: 0
+			},
+			monthMostProductiveDay: "No Data"
 		},
 		timeoutId: 0,
 		famousPhoto: "",
@@ -107,6 +115,7 @@ var vm = new Vue({
 					if(data==="Please log in"){
 						this.overlay = true
 						//except also need to save count
+						// this.tempCount = formData.words
 						//and add to counts upon login
 					} else {
 						console.log("success DATA", data)
@@ -145,7 +154,7 @@ var vm = new Vue({
 			console.log(data)
 			if(data === "please log in") {
 				this.allTimeTotal = "please log in"
-			} else  {
+			} else if(data.length)  {
 				
 				this.sortByDate(data)
 				
@@ -175,6 +184,13 @@ var vm = new Vue({
 					}
 				})
 			}
+			else {
+				// this.stats.allTimeTotal	=	"No Data"
+				// this.stats.allTimeAverage = "No Data"
+				// this.stats.allTimeMostProductiveDay = "No Data"
+				// this.stats.allTimeMostProductiveDate.date = "No Data"
+				// this.stats.allTimeMostProductiveDate.words = ""			
+			}
 		},
 		runMonthCalcs: function(data, month) {
 			console.log(month)
@@ -198,11 +214,11 @@ var vm = new Vue({
 				}				
 			}
 			else {
-				this.stats.monthTotal	=	"No Data"
-				this.stats.monthAverage = "No Data"
+				this.stats.monthTotal	=	0
+				this.stats.monthAverage = 0
 				this.stats.monthMostProductiveDay = "No Data"
 				this.stats.monthMostProductiveDate.date = "No Data"
-				this.stats.monthMostProductiveDate.words = ""
+				this.stats.monthMostProductiveDate.words = 0
 			}
 
 		},
@@ -280,26 +296,43 @@ var vm = new Vue({
 		daysInMonth: function(month, year){
 			return new Date(year, month, 0).getDate()
 		},
-	//Average for given month
-	//could pass month in as argument to identify month immediately if needed
 	//calcAverageMonth calculates entire month, but more pressingly need
 	//month up until today for current month only
 		calcAverageMonth: function(filteredOrUnfilteredArray){
-			console.log(filteredOrUnfilteredArray)
 			if(filteredOrUnfilteredArray.length) {
+				var total = this.calcTotal(filteredOrUnfilteredArray)
+				//figure out which month the array is for
 				var tempdate = filteredOrUnfilteredArray[0].date
 				var date = new Date(tempdate)
 				var year = date.getFullYear()
-				var month = date.getMonth() + 1
-				var total = this.calcTotal(filteredOrUnfilteredArray)
-				var days = this.daysInMonth(month, year)
-				// var averageAsNumber = parseFloat((total/days).toFixed(0)) //returns Number
-				return (total / days).toFixed(0) //returns String				
+				var month = date.getMonth()
+				var today = new Date()
+				var firstOfMonth = new Date(year, month)
+				var signUpDate = new Date(this.userSince)
+				var days;
+				//if calculating current month that isn't finished,
+				//calculate average for month SO FAR
+				if(today.getFullYear() === year && today.getMonth() === month){
+					days = today.getDate()
+				} else {
+					days = this.daysInMonth((month + 1), year)
+				}
+				//if signed up in month we're calculating, only
+				//calculate average since signed up
+				if(signUpDate > firstOfMonth) {
+					days = this.diffDates(signUpDate, today)
+				}
+				console.log(days)
+				if(days === 0) {
+					return total
+				}				
+				else {
+					return (total / days).toFixed(0) //returns String	
+				}
 			}
 			else {
 				return 0
 			}
-
 		},
 		diffDates: function(a,b){
 			var msPerDay = 1000*60*60*24
@@ -422,6 +455,7 @@ var vm = new Vue({
 						photo: ""
 					},
 					self.userPhoto = successData.photo
+					self.userSince = successData.created
 					self.signIn = {
 						name: "",
 						username: "",
@@ -429,7 +463,9 @@ var vm = new Vue({
 					}
 					self.overlay = false
 					self.announceBadge(self.renderBadges(successData))
-						
+					self.runAllTimeCalcs(successData.counts)
+					self.runMonthCalcs(successData.counts, 2)
+					self.restrictFormDates()
 				}
 				
 				self.youMayKnow = []
@@ -439,7 +475,6 @@ var vm = new Vue({
 		},
 		logIn: function(data, event){
 			event.preventDefault()
-			// console.log(data)
 			this.loggedIn = true
 			var self = this
 			$.post('/login', data, function(successData){
@@ -450,14 +485,15 @@ var vm = new Vue({
 					
 					var temp = new Date()
 					var currentMonth = temp.getMonth()
-					// console.log("success!!=", successData)
+					console.log("success!!=", successData)
 					self.userCounts = successData.counts
 					self.userPhoto = successData.photo
+					self.userSince = successData.created
 					self.youMayKnow = []
-					if(self.userCounts.length){
+					// if(self.userCounts.length){
 						self.runAllTimeCalcs(self.userCounts)
 						self.runMonthCalcs(self.userCounts, currentMonth)	
-					}
+					// }
 					self.renderUser(successData)
 					self.renderPhoto(successData)
 					self.showProfile = true
@@ -662,6 +698,15 @@ var vm = new Vue({
 			var limitToday = yyyy + '-' + mm + '-' + dd
 			var limitTomorrow = yyyy + '-' + mm + '-' + ddTom
 			document.getElementById("countDate").setAttribute("max", limitToday)
+			if(this.userSince){
+				var signUpDate = new Date(this.userSince)
+				var ddSu = ("0" + signUpDate.getDate()).slice(-2)
+				var mmSu = ("0" + (signUpDate.getMonth()+1)).slice(-2)
+				var yyyySu = signUpDate.getFullYear()
+				var limitSignUp = yyyySu + '-' + mmSu + '-' + ddSu
+				document.getElementById("countDate").setAttribute("min", limitSignUp)
+			}
+			//triggers console error because element doesn't exist yet on function call
 			document.getElementById("goalDate").setAttribute("min", limitTomorrow)
 		}
 	},

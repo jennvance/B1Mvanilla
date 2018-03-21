@@ -84,7 +84,6 @@
 	</div>
 
 	<div v-if="loggedIn" class="totalDisplay" id="allTimeTotal"><span class="small">Total:</span><span class="center">{{stats.allTimeTotal}}</span></div>
-<!-- <div class="count-container"> -->
 	<h2 class="count-form-label">{{addingMessage}}</h2>
 	<div class="center-form" v-if="!addingGoal">
 		<form id="countForm" v-on:submit="submitCount(count, $event)">

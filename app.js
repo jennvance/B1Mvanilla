@@ -132,6 +132,14 @@ app.all('/signup', function(req, res){
     })
 })
 
+app.get('/isloggedin', function(req,res){
+    UltimateModel.findOne({_id: req.session._id}, function(err, user){
+        if(user) {
+            res.send(user)        
+        }
+    })
+})
+
 app.post('/login', function(req, res){
     UltimateModel.findOne({username: req.body.username}, function(err, user){
         if ( err ) { console.log('Failed to log in')}

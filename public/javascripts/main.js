@@ -708,9 +708,21 @@ var vm = new Vue({
 			}
 			//triggers console error because element doesn't exist yet on function call
 			document.getElementById("goalDate").setAttribute("min", limitTomorrow)
+		},
+		//should do everything login and signup do
+		//move famous renderers to here in "else"
+		checkIfLoggedIn: function(){
+			$.ajax({
+				url: "/isloggedin",
+				type: "GET",
+				success: (data)=>{
+					console.log(data)
+				}
+			})
 		}
 	},
 	created: function(){
+		this.checkIfLoggedIn()
 		this.restrictFormDates()
 		this.renderLogo()
 		this.getFamous()

@@ -626,8 +626,9 @@ var vm = new Vue({
 				url: "/getfamous",
 				type: "GET",
 				success: (data)=>{
-					this.renderRandom(this.generateRandom(data))
-					this.renderYouMayKnow(data)
+					// this.renderRandom(this.generateRandom(data))
+					// this.renderYouMayKnow(data)
+					console.log(data)
 				}
 			})
 		},
@@ -716,29 +717,47 @@ var vm = new Vue({
 				url: "/isloggedin",
 				type: "GET",
 				success: (data)=>{
-					console.log(data)
+					if(data === "no user"){
+						//need to rewrite getFamous not to call other funcs inside it
+						this.getFamous()
+						//puts feed items into array
+						this.randomizeFamousFeed()
+						// adds feed items to array at intervals
+						this.appendToDOM()
+					}
+					else {
+						console.log(data)
+						this.loggedIn = true
+						var temp = new Date()
+						var currentMonth = temp.getMonth()
+						this.userCounts = data.counts
+						this.userPhoto = data.photo
+						this.userSince = data.created
+						this.youMayKnow = []
+						this.runAllTimeCalcs(this.userCounts)
+						this.runMonthCalcs(this.userCounts, currentMonth)	
+						this.renderUser(data)
+						this.renderPhoto(data)
+						this.showProfile = true
+						this.getStrangersOnly()	
+						this.overlay = false
+						this.renderBadges(data)	
+						this.restrictFormDates()						
+					}
 				}
 			})
 		}
 	},
 	created: function(){
-		this.checkIfLoggedIn()
-		this.restrictFormDates()
 		this.renderLogo()
-		this.getFamous()
-		//puts feed items into array
-		this.randomizeFamousFeed()
-		// adds feed items to array at intervals
-		this.appendToDOM()
+		this.checkIfLoggedIn()
+		// this.restrictFormDates()
+		
 		//Raph WTF?
 		this.timeoutId = setTimeout(this.appendToDOM, 10000)
 	}
 })
 
-window.unload = function(){
-	window.location.href="/logout"
-}
-		// 	event.preventDefault()
 
 
 	//to stop setTimeout; might not actually be what I need

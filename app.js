@@ -137,6 +137,9 @@ app.get('/isloggedin', function(req,res){
         if(user) {
             res.send(user)        
         }
+        else {
+            res.send("no user")
+        }
     })
 })
 

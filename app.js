@@ -29,21 +29,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('./uploads'))
 
-
-//Begin login code (rewrite later)
+//Begin login code 
 mongoose.connect("mongodb://localhost/burndb", function(err){
   if(err){console.error(err)}
     else{ console.info('mongoose initialized')}
 })
-
-
-//Badges Go Here?: Firsts, milestones, social, productivity
-// TO DO:
-//Hemingway (for submitting word count above 500)
-    //(but not first time submit)
-//Word count milestones (require some coding; do later)
-
-
 
 var checkIfLoggedIn = function(req, res, next){
     if ( req.session._id ) {
@@ -78,12 +68,11 @@ app.use(sessionsModule({
     requestKey: 'session',    // we can access our sessions at req.session,
     duration: (86400 * 1000) * 7, // one week in milliseconds
     cookie: {
-        ephemeral: false,     // when true, cookie expires when browser is closed
-        httpOnly: true,       // when true, the cookie is not accesbile via front-end JavaScript
+        ephemeral: true,     // when true, cookie expires when browser is closed
+        httpOnly: true,       // when true, the cookie is not accessible via front-end JavaScript
         secure: false         // when true, cookie will only be read when sent over HTTPS
     }
-})) // encrypted cookies!
-
+})) // encrypted cookies
 
 app.use(function(req, res, next){
     console.log('session? ', req.session)
@@ -93,7 +82,6 @@ app.use(function(req, res, next){
 app.get('/', function(req, res){
     res.sendFile('./views/index.html', {root:'./'})
 })
-
 
 app.get('/session-test', function(req, res){
     console.log('session? ', req.session)
@@ -106,17 +94,13 @@ app.get('/session-test', function(req, res){
     res.send('session counter: ' + req.session.counter)
 })
 
-
-
 app.all('/signup', function(req, res){
     UltimateModel.findOne({username: req.body.username}, function(err, user){
         if ( err ) { console.log('there was an error')}
         else if ( user ) { 
-            console.log('User already exists')
             res.send('<h1>User already exists; please log in.</h1>')
         }
         else {
-            console.log('body??', req.body)
             var newUser = new UltimateModel(req.body)
             var aspiringAuthor = new BadgeModel({
                 title: "Aspiring Author",
@@ -125,23 +109,16 @@ app.all('/signup', function(req, res){
             })
             aspiringAuthor.save()
             newUser.badges.push(aspiringAuthor)
-            // newUser.famous = false;
             newUser.photo = "/public/images/nobody.png"
-            // newUser.save()
             newUser.total = 0
-
-
-            console.log("user: " + newUser)
             // this user object has a plain-text password
-            // we must hash the password before we save the user
+            // we hash the password before we save the user
             bcrypt.genSalt(11, function(saltErr, salt){
                 if (saltErr) {console.log(saltErr)}
-                console.log('salt generated: ', salt)
-
+                // console.log('salt generated: ', salt)
                 bcrypt.hash(newUser.password, salt, function(hashErr, hashedPassword){
                     if ( hashErr){ console.log(hashErr) }
                     newUser.password = hashedPassword
-
                     newUser.save(function(saveErr, user){
                         if ( saveErr ) { console.log(saveErr)}
                         else {
@@ -150,13 +127,9 @@ app.all('/signup', function(req, res){
                         }
                     })
                 })
-
             })
-
         }
     })
-
-
 })
 
 app.post('/login', function(req, res){
@@ -180,7 +153,6 @@ app.post('/login', function(req, res){
                     // res.send({success:'success!'})
                     res.send(user)
                 } 
-
             })
         }
     }) 
@@ -191,7 +163,6 @@ app.get('/dashboard', checkIfLoggedIn, function(req, res){
         if ( user ) {
             res.send(`Hello, ${user.username}. Welcome to your dashboard!
                 <a href="/logout">Log Out</a>
-
             `)
         }
         else {
@@ -211,6 +182,12 @@ app.get('/logout', function(req, res){
     res.redirect('/')
 })
 
+//End login code
+
+// TO DO:
+//Hemingway badge
+//Word count milestone badges
+
 app.post('/createprofile', upload.single('photo'), function(req,res){
     console.log(req.body)
     console.log(req.file)
@@ -223,18 +200,11 @@ app.post('/createprofile', upload.single('photo'), function(req,res){
             if(req.file) {
                 user.photo = req.file.filename;
             }
-            user.save(function(){
-                // console.log(UltimateModel)
-            })
-
+            user.save()
         }
         res.send(user)
-        //else (i.e. if no user) direct to signup (and login?)
-
-
-        
+        //else (i.e. if no user) direct to signup (and login?)       
     })
-    
 })
 
 app.get("/getcounts", function(req,res){
@@ -249,10 +219,8 @@ app.get("/getcounts", function(req,res){
 })
 
 app.post("/addcount", function(req,res){
-    console.log("request body", req.body)
     UltimateModel.findOne({_id:req.session._id}, function(err, user){
         if(user){
-            console.log(user.counts)
             if (!user.counts.length) {
                 var firstEntry = new BadgeModel({
                     title: "First Entry",
@@ -262,7 +230,6 @@ app.post("/addcount", function(req,res){
                 firstEntry.save()
                 user.badges.push(firstEntry)
             }
-            console.log(user.badges)
             count = {
                 date: req.body.date,
                 words: req.body.words
@@ -279,7 +246,6 @@ app.post("/addcount", function(req,res){
 })
 
 app.post("/recordtotal", function(req,res){
-    // console.log(req.body)
     UltimateModel.findOne({_id:req.session._id}, function(err,user){
         if(user){
             user.total = req.body.allTimeTotal
@@ -337,7 +303,6 @@ app.get("/getstrangers",function(req,res){
 })
 
 app.post("/addfriend", function(req, res){
-    console.log(req.body.newFriendId)
     UltimateModel.findOne({_id:req.body.newFriendId}, function(err, newFriend){
         if(newFriend){
             UltimateModel.findOne({_id:req.session._id}, function(err, user){
@@ -351,8 +316,6 @@ app.post("/addfriend", function(req, res){
                         socialBadge.save()
                         user.badges.push(socialBadge)
                     }
-                    console.log("BADGES = ",user.badges)
-                    console.log("newFriend=", newFriend)
                     user.friends.push({
                         id: newFriend._id,
                         name: newFriend.name,
@@ -362,18 +325,6 @@ app.post("/addfriend", function(req, res){
                         total: newFriend.total
                     })
                     user.save()
-                    //Should also add logged in user to newFriend's friend or follower list
-                    //Actually, DONT do this. call it following (unmutual) instead of friending (mutual)
-                    // newFriend.friends.push(user)
-                    // newFriend.save()
-                    var list = user.friends
-                    var friend1 = user.name
-                    var friend2 = newFriend.name
-                    // var userInfo = {
-                    //     friend1: friend1,
-                    //     friend2: friend2,
-                    //     fullList: list
-                    // }
                     var userInfo = {
                         user: user,
                         newFriend: newFriend.name
@@ -397,7 +348,6 @@ app.get("/getfamous", function(req,res){
         res.send(users)
     })
 })
-
 
 //resume node boilerplate
 // catch 404 and forward to error handler

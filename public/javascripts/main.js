@@ -260,9 +260,12 @@ var vm = new Vue({
 			var days = [0,0,0,0,0,0,0]
 			var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 			for(var i=0; i<data.length;i++){
-				//find day of week for each date in allCounts
-				//this returns one day off from correct
-				var dayOfWeek = new Date(data[i].date).getDay()
+				var dayOfWeek;
+				if(new Date(data[i].date).getDay() === 6){
+					dayOfWeek = 0
+				} else {
+					dayOfWeek = new Date(data[i].date).getDay()+1
+				}
 				//sort by day of week and keep running total for each day of week
 				days[dayOfWeek] += data[i].words
 			}
@@ -684,58 +687,6 @@ window.unload = function(){
 	//to stop setTimeout; might not actually be what I need
 	// clearTimeout(timeoutId)
 
-
-
-
-	
-
-
-/*
-
-Upon visiting page first time:
-
-LEFT side order:
-1. FRIEND profiles (view 4 at a time, allow user to click through to reveal 4 more in "window")
-2. FEED of all FRIENDS (including famous, which will be friends)
-3. PEOPLE TO FOLLOW (all site users, randomized)
-
-PROFILE reads famous author
-CENTER reads marketing txt; below it is add count form
-LEFT reads "people you may know", famous only, no follow buttons
-BADGES hidden
-FEED reveals famous announcements
-
-Upon signup:
-
-PROFILE reads blank; "please fill out"
-CENTER reads add count form
-LEFT reads: auto-follow famous; add Follow buttons
-(and people you may know)
-BADGES revealed; Aspiring Author awarded
-FEED reveals 
-GOAL button visible; can click for form
-
-
-Upon login:
-
-PROFILE reads current profile
-CENTER stays same
-LEFT reads famous AND following
-(and people you may know)
-BADGES stays same
-GOAL button visible
-
-
-
-Upon submitting profile, following friend, adding count:
-
-following friend:
-move user from "youMayKnow" to friends
-remove "follow" button; replace with profile data
-this will fix bug where if you're already friends, the
-server returns undefined
-
-*/
 
 
 	

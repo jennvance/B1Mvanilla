@@ -476,9 +476,9 @@ ul.badge-bucket {
 .x {
 	float: right;
 	text-decoration: none;
-	margin: 5px;
+	margin: 0px;
 	color: black;
-	font-size: 14px;
+	font-size: 32px;
 }
 
 .x:hover {

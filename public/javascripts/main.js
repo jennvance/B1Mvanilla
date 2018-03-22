@@ -38,6 +38,7 @@ var vm = new Vue({
 		userSince: "",
 		userCounts: [],
 		badges: [],
+		UIBadgeAnnouncements: [],
 		userPhoto: "",
 		// tempCount: 0,
 		stats: {
@@ -72,21 +73,29 @@ var vm = new Vue({
 			for (var i=0;i<personData.badges.length; i++){
 				this.badges.push(personData.badges[i])
 			}
-			//Need to NOT announce if call function but no new badges added
-			//Bc repeats announcements
-			var announcement = personData.name + " earned the " + personData.badges[personData.badges.length-1].title + " badge."
-			return announcement
+			return personData;
 		},
-		announceBadge: function(announcement){
+		announceBadge: function(personData){
+			console.log(personData)
+			var announcement = personData.name + " earned the " + personData.badges[personData.badges.length-1].title + " badge."
 			var exists = false
-			for(var i=0; i<this.announcements.length; i++){
-				if (this.announcements[i].text === announcement) {
+			console.log(announcement)
+			console.log(this.UIBadgeAnnouncements)
+			for(var i=0; i<this.UIBadgeAnnouncements.length; i++){
+				console.log(this.UIBadgeAnnouncements[i])
+				if (this.UIBadgeAnnouncements[i] === announcement) {
+					exists = true
+				}
+				console.log(exists)
+			}
+			for(var j=0;j<this.announcements.length; j++){
+				console.log(this.announcements[j].text)
+				if(this.announcements[j].text === announcement) {
 					exists = true
 				}
 			}
 			console.log(exists)
-			//as written, exists will always be false
-			//bc announcements array starts empty every refresh
+
 			if (exists){
 				return false
 			} else {
@@ -500,6 +509,10 @@ var vm = new Vue({
 					self.getStrangersOnly()	
 					self.overlay = false
 					self.renderBadges(successData)	
+					for(var i=0;i<successData.badgeAnnouncements.length; i++){
+						self.UIBadgeAnnouncements.push(successData.badgeAnnouncements[i])
+					}
+
 					self.restrictFormDates()		
 				}
 			})
@@ -626,9 +639,12 @@ var vm = new Vue({
 				url: "/getfamous",
 				type: "GET",
 				success: (data)=>{
-					// this.renderRandom(this.generateRandom(data))
-					// this.renderYouMayKnow(data)
-					console.log(data)
+					
+					this.renderYouMayKnow(data)
+					if(this.loggedIn === false){
+						this.renderRandom(this.generateRandom(data))
+					}
+					// console.log(data)
 				}
 			})
 		},
@@ -718,12 +734,9 @@ var vm = new Vue({
 				type: "GET",
 				success: (data)=>{
 					if(data === "no user"){
-						//need to rewrite getFamous not to call other funcs inside it
+						
 						this.getFamous()
-						//puts feed items into array
-						this.randomizeFamousFeed()
-						// adds feed items to array at intervals
-						this.appendToDOM()
+
 					}
 					else {
 						console.log(data)
@@ -752,6 +765,10 @@ var vm = new Vue({
 		this.renderLogo()
 		this.checkIfLoggedIn()
 		// this.restrictFormDates()
+		//puts feed items into array
+		this.randomizeFamousFeed()
+		// adds feed items to array at intervals
+		this.appendToDOM()
 		
 		//Raph WTF?
 		this.timeoutId = setTimeout(this.appendToDOM, 10000)

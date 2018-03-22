@@ -22,6 +22,7 @@ var UltimateSchema = new mongoose.Schema({
 	},
 	friends: Array,
 	badges: Array,
+	badgeAnnouncements: Array,
 	famous: Boolean,
 	total: Number
 })

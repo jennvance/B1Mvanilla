@@ -109,6 +109,8 @@ app.all('/signup', function(req, res){
             })
             aspiringAuthor.save()
             newUser.badges.push(aspiringAuthor)
+            var announcement = newUser.name + " earned the Aspiring Author badge."
+            newUser.badgeAnnouncements.push(announcement)
             newUser.photo = "/public/images/nobody.png"
             newUser.total = 0
             // this user object has a plain-text password
@@ -240,6 +242,8 @@ app.post("/addcount", function(req,res){
                 })
                 firstEntry.save()
                 user.badges.push(firstEntry)
+                var announcement = user.name + " earned the First Entry badge."
+                user.badgeAnnouncements.push(announcement)
             }
             count = {
                 date: req.body.date,
@@ -277,6 +281,8 @@ app.post("/setgoal", function(req,res){
                 })
                 goalBadge.save()
                 user.badges.push(goalBadge)
+                var announcement = user.name + " earned the Goal Oriented badge."
+                user.badgeAnnouncements.push(announcement)
             }
             user.goal = {
                 date: req.body.date,
@@ -326,6 +332,8 @@ app.post("/addfriend", function(req, res){
                         })
                         socialBadge.save()
                         user.badges.push(socialBadge)
+                        var announcement = user.name + " earned the Social badge."
+                        user.badgeAnnouncements.push(announcement)
                     }
                     user.friends.push({
                         id: newFriend._id,

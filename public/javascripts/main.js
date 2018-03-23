@@ -40,7 +40,6 @@ var vm = new Vue({
 		badges: [],
 		UIBadgeAnnouncements: [],
 		userPhoto: "",
-		// tempCount: 0,
 		stats: {
 			allTimeTotal: 0,
 			allTimeAverage: 0,
@@ -123,9 +122,6 @@ var vm = new Vue({
 				success: (data)=>{
 					if(data==="Please log in"){
 						this.overlay = true
-						//except also need to save count
-						// this.tempCount = formData.words
-						//and add to counts upon login
 					} else {
 						console.log("success DATA", data)
 						this.userCounts = data.counts
@@ -403,17 +399,43 @@ var vm = new Vue({
 			var goalAmount = data.words
 			return ( goalAmount / daysBetween).toFixed(0)
 		},
-		toggleGoalForm: function(event){
+		showGoalForm: function(event){
 			event.preventDefault()
-			if(this.addingGoal === false){
-				this.addingMessage = "How many words do you wish to write by [enter date]?"
-				this.addingLinkText = "Add Count"
-				this.addingGoal = true
-			} else if (this.addingGoal === true ){
-				this.addingMessage = "How many words did you write today?"
-				this.addingLinkText = "Add Goal"
-				this.addingGoal = false
-			}
+			this.addingGoal = true
+			this.addingLinkText = "Add Count"
+			this.addingMessage = "How many words do you wish to write by [enter date]?"
+			var today = new Date()
+			var yyyy = today.getFullYear()
+			var mm = ("0" + (today.getMonth()+1)).slice(-2)
+			var ddTom = ("0" + (today.getDate()+1)).slice(-2)
+			var limitTomorrow = yyyy + '-' + mm + '-' + ddTom
+			var test2 = document.getElementById("goalDate")
+			console.log(test2)
+			document.getElementById("goalDate").setAttribute("min", limitTomorrow)
+			document.getElementById("goalDate").setAttribute("max", "")			
+		},
+		showCountForm: function(event){
+			event.preventDefault()
+			this.addingGoal = false
+			this.addingLinkText = "Add Goal"
+			this.addingMessage = "How many words did you write today?"
+			var countDay = new Date()
+			var dd = ("0" + countDay.getDate()).slice(-2)
+			var mm = ("0" + (countDay.getMonth()+1)).slice(-2)
+			var yyyy = countDay.getFullYear()
+			var limitToday = yyyy + '-' + mm + '-' + dd
+			document.getElementById("countDate").setAttribute("max", limitToday)
+			// if(this.userSince){
+				var signUpDate = new Date(this.userSince)
+				var ddSu = ("0" + signUpDate.getDate()).slice(-2)
+				var mmSu = ("0" + (signUpDate.getMonth()+1)).slice(-2)
+				var yyyySu = signUpDate.getFullYear()
+				var limitSignUp = yyyySu + '-' + mmSu + '-' + ddSu
+				document.getElementById("countDate").setAttribute("min", limitSignUp)
+			// }	
+		},
+		setGoalMin: function(){
+			console.log("um")
 		},
 		//END Goal Functions
 		//BEGIN Profile Functions
@@ -725,14 +747,6 @@ var vm = new Vue({
 			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 14 ) + 6 ) * 2000)
 		},
 		restrictFormDates: function(){
-			var today = new Date()
-			var dd = ("0" + today.getDate()).slice(-2)
-			var ddTom = ("0" + (today.getDate()+1)).slice(-2)
-			var mm = ("0" + (today.getMonth()+1)).slice(-2)
-			var yyyy = today.getFullYear()
-			var limitToday = yyyy + '-' + mm + '-' + dd
-			var limitTomorrow = yyyy + '-' + mm + '-' + ddTom
-			document.getElementById("countDate").setAttribute("max", limitToday)
 			if(this.userSince){
 				var signUpDate = new Date(this.userSince)
 				var ddSu = ("0" + signUpDate.getDate()).slice(-2)
@@ -740,9 +754,7 @@ var vm = new Vue({
 				var yyyySu = signUpDate.getFullYear()
 				var limitSignUp = yyyySu + '-' + mmSu + '-' + ddSu
 				document.getElementById("countDate").setAttribute("min", limitSignUp)
-			}
-			//triggers console error because element doesn't exist yet on function call
-			document.getElementById("goalDate").setAttribute("min", limitTomorrow)
+			}	
 		},
 		//should do everything login and signup do
 		//move famous renderers to here in "else"
@@ -782,7 +794,6 @@ var vm = new Vue({
 	created: function(){
 		this.renderLogo()
 		this.checkIfLoggedIn()
-		// this.restrictFormDates()
 		//puts feed items into array
 		this.randomizeFamousFeed()
 		// adds feed items to array at intervals

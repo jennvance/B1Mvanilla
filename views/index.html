@@ -27,27 +27,29 @@
 
 <div id="burn">
 <div class="container">
-	<div class="overlay" v-if="overlay" v-cloak>
-		<div class="su-panel">
-			<a href="#" class="x" v-on:click="hideOverlay($event)">X</a>
-			<form class="su-form" v-on:submit="signUp(signIn, $event)" v-show="showSignup">
-				<h2>Sign Up</h2>
-				<input class="name" v-model="signIn.name" placeholder="Your Name"required type="text">
-				<input class="username" v-model="signIn.username" placeholder="username" required type="text">
-				<input class="password" v-model="signIn.password" placeholder="password" required type="password">
-				<input type="submit" class="button" value="submit">
-			</form>
-			<form class="su-form li-form" v-on:submit="logIn(signIn, $event)" v-show="!showSignup">
-				<h2>Log In</h2>
-				<input class="username" placeholder="username" v-model="signIn.username" required type="text">
-				<input class="password" placeholder="password" v-model="signIn.password" required type="password">
-				<input type="submit" class="button" value="submit">
+	<a href="#" v-on:click="hideOverlay($event)" class="link-overlay" v-if="overlay">
+		<div class="overlay" v-if="overlay" v-cloak>
+			<div class="su-panel">
+				<a href="#" class="x" v-on:click="hideOverlay($event)">X</a>
+				<form class="su-form" v-on:submit="signUp(signIn, $event)" v-show="showSignup">
+					<h2>Sign Up</h2>
+					<input class="name" v-model="signIn.name" placeholder="Your Name"required type="text">
+					<input class="username" v-model="signIn.username" placeholder="username" required type="text">
+					<input class="password" v-model="signIn.password" placeholder="password" required type="password">
+					<input type="submit" class="button" value="submit">
+				</form>
+				<form class="su-form li-form" v-on:submit="logIn(signIn, $event)" v-show="!showSignup">
+					<h2>Log In</h2>
+					<input class="username" placeholder="username" v-model="signIn.username" required type="text">
+					<input class="password" placeholder="password" v-model="signIn.password" required type="password">
+					<input type="submit" class="button" value="submit">
 
-			</form>
-			
-			<a href="#" class="text-right" v-on:click="toggleForm()"><h3>{{message}}</h3></a>
+				</form>
+				
+				<a href="#" class="text-right" v-on:click="toggleForm()"><h3>{{message}}</h3></a>
+			</div>
 		</div>
-	</div>
+	</a>
 
 
 <!-- Container-left technically goes here -->
@@ -94,18 +96,20 @@
 		<div class="count-form-overlay" v-if="!loggedIn">
 			<a href="#" v-on:click="showOverlay($event)">Log in to add count</a>
 		</div>
+		<a href="#" v-if="loggedIn" v-on:click="showGoalForm($event)"><h3>{{addingLinkText}}</h3></a>
 	</div>
 
 	<div class="center-form" v-if="addingGoal">
 		
-		<form v-on:submit="submitGoal(goal, $event)" id="goalForm">
+		<form v-on:submit="submitGoal(goal, $event)" id="goalForm" v-if="addingGoal">
 			<input type="number" name="goalWds" required placeholder="Enter Goal" v-model="goal.words">
 			<input type="date" name="goalDate" required v-model="goal.date" id="goalDate">
 			<button type="submit" class="button">Submit</button>
 		</form>
+		<a v-if="loggedIn" href="#" v-on:click="showCountForm($event)"><h3>{{addingLinkText}}</h3></a>
 	</div>
 
-	<a v-if="loggedIn" href="#" v-on:click="toggleGoalForm($event)"><h3>{{addingLinkText}}</h3></a>
+	
 
 	<div v-if="submittedGoal" class="wpd">Words Per Day You Must Write to Meet Goal: <span>{{stats.goalWordsPerDay}}</span> </div>
 

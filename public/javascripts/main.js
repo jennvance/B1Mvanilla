@@ -2,6 +2,9 @@
 var vm = new Vue({
 	el: "#burn",
 	data: {
+		goalMin: "",
+		countMin: "",
+		countMax: "",
 		loggedIn: false,
 		addingGoal: false,
 		addingMessage: "How many words did you write today?",
@@ -411,11 +414,16 @@ var vm = new Vue({
 			var limitTomorrow = yyyy + '-' + mm + '-' + ddTom
 			var test2 = document.getElementById("goalDate")
 			console.log(test2)
-			document.getElementById("goalDate").setAttribute("min", limitTomorrow)
-			document.getElementById("goalDate").setAttribute("max", "")			
+			this.goalMin = limitTomorrow
+			// document.getElementById("goalDate").setAttribute("min", limitTomorrow)
+			// document.getElementById("goalDate").setAttribute("max", "")			
 		},
 		showCountForm: function(event){
-			event.preventDefault()
+			//break into 2 functions to deal with event/no event
+			if(event) {
+				event.preventDefault()
+			}
+			// event.preventDefault()
 			this.addingGoal = false
 			this.addingLinkText = "Add Goal"
 			this.addingMessage = "How many words did you write today?"
@@ -424,15 +432,17 @@ var vm = new Vue({
 			var mm = ("0" + (countDay.getMonth()+1)).slice(-2)
 			var yyyy = countDay.getFullYear()
 			var limitToday = yyyy + '-' + mm + '-' + dd
-			document.getElementById("countDate").setAttribute("max", limitToday)
-			// if(this.userSince){
+			// document.getElementById("countDate").setAttribute("max", limitToday)
+			this.countMax = limitToday
+			if(this.userSince){
 				var signUpDate = new Date(this.userSince)
 				var ddSu = ("0" + signUpDate.getDate()).slice(-2)
 				var mmSu = ("0" + (signUpDate.getMonth()+1)).slice(-2)
 				var yyyySu = signUpDate.getFullYear()
 				var limitSignUp = yyyySu + '-' + mmSu + '-' + ddSu
 				document.getElementById("countDate").setAttribute("min", limitSignUp)
-			// }	
+				this.countMin = limitSignUp
+			}
 		},
 		setGoalMin: function(){
 			console.log("um")
@@ -496,7 +506,7 @@ var vm = new Vue({
 					self.announceBadge(self.renderBadges(successData))
 					self.runAllTimeCalcs(successData.counts)
 					self.runMonthCalcs(successData.counts, 2)
-					self.restrictFormDates()
+					self.showCountForm()
 				}
 				
 				self.youMayKnow = []
@@ -534,8 +544,7 @@ var vm = new Vue({
 					for(var i=0;i<successData.badgeAnnouncements.length; i++){
 						self.UIBadgeAnnouncements.push(successData.badgeAnnouncements[i])
 					}
-
-					self.restrictFormDates()		
+					self.showCountForm()	
 				}
 			})
 			this.signIn = {
@@ -569,7 +578,11 @@ var vm = new Vue({
 		},
 		showOverlay: function(event){
 			// event.preventDefault()
+			console.log("testing ShowOverlay")
 			this.overlay = true
+		},
+		doNothing: function(){
+
 		},
 		hideOverlay: function(event){
 			event.preventDefault()
@@ -746,16 +759,6 @@ var vm = new Vue({
 			// this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 5 ) + 5 ) * 1000)
 			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 14 ) + 6 ) * 2000)
 		},
-		restrictFormDates: function(){
-			if(this.userSince){
-				var signUpDate = new Date(this.userSince)
-				var ddSu = ("0" + signUpDate.getDate()).slice(-2)
-				var mmSu = ("0" + (signUpDate.getMonth()+1)).slice(-2)
-				var yyyySu = signUpDate.getFullYear()
-				var limitSignUp = yyyySu + '-' + mmSu + '-' + ddSu
-				document.getElementById("countDate").setAttribute("min", limitSignUp)
-			}	
-		},
 		//should do everything login and signup do
 		//move famous renderers to here in "else"
 		checkIfLoggedIn: function(){
@@ -785,7 +788,7 @@ var vm = new Vue({
 						this.getStrangersOnly()	
 						this.overlay = false
 						this.renderBadges(data)	
-						this.restrictFormDates()						
+						this.showCountForm()					
 					}
 				}
 			})

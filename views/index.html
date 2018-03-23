@@ -27,9 +27,9 @@
 
 <div id="burn">
 <div class="container">
-	<a href="#" v-on:click="hideOverlay($event)" class="link-overlay" v-if="overlay">
-		<div class="overlay" v-if="overlay" v-cloak>
-			<div class="su-panel">
+<!-- 	<div v-on:click="hideOverlay($event)" class="link-overlay" v-if="overlay"> -->
+		<div class="overlay" v-if="overlay" v-cloak v-on:click="hideOverlay($event)">
+			<div class="su-panel" v-on:click.stop="doNothing()">
 				<a href="#" class="x" v-on:click="hideOverlay($event)">X</a>
 				<form class="su-form" v-on:submit="signUp(signIn, $event)" v-show="showSignup">
 					<h2>Sign Up</h2>
@@ -49,7 +49,7 @@
 				<a href="#" class="text-right" v-on:click="toggleForm()"><h3>{{message}}</h3></a>
 			</div>
 		</div>
-	</a>
+	<!-- </div> -->
 
 
 <!-- Container-left technically goes here -->
@@ -90,7 +90,7 @@
 	<div class="center-form" v-if="!addingGoal">
 		<form id="countForm" v-on:submit="submitCount(count, $event)">
 			<input type="number" name="numwds" required v-model="count.words" placeholder="Enter Count">
-			<input type="date" name="date" required v-model="count.date" id="countDate">
+			<input type="date" name="date" required v-model="count.date" id="countDate" v-bind:min="countMin" v-bind:max="countMax">
 			<button type="submit" class="button">Submit</button>
 		</form>
 		<div class="count-form-overlay" v-if="!loggedIn">
@@ -103,7 +103,7 @@
 		
 		<form v-on:submit="submitGoal(goal, $event)" id="goalForm" v-if="addingGoal">
 			<input type="number" name="goalWds" required placeholder="Enter Goal" v-model="goal.words">
-			<input type="date" name="goalDate" required v-model="goal.date" id="goalDate">
+			<input type="date" name="goalDate" required v-model="goal.date" id="goalDate" v-bind:min="goalMin">
 			<button type="submit" class="button">Submit</button>
 		</form>
 		<a v-if="loggedIn" href="#" v-on:click="showCountForm($event)"><h3>{{addingLinkText}}</h3></a>

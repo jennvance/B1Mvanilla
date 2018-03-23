@@ -572,7 +572,6 @@ var vm = new Vue({
 				success: (data)=>{
 					console.log(data)
 					this.renderYouMayKnow(data)
-
 				}
 			})
 		},
@@ -670,7 +669,7 @@ var vm = new Vue({
 
 			var famousArray = ["Henry Miller", "Anais Nin", "Truman Capote", "F. Scott Fitzgerald", "Sylvia Plath", "Earnest Hemingway", "Mary Shelley", "Virginia Woolf", "Gertrude Stein", "Jack Kerouac"]
 			var badgesArray = ["Hemingway", "Very Productive", "Published Manuscript", "Completed Manuscript", "Conquered Goal", "10 day Streak", "30 day streak", "Social", "Aspiring Author", "Goal Oriented", "NaNoWriMo"]
-			for(var i=0;i<20;i++){
+			for(var i=0;i<5;i++){
 				var person = famousArray[Math.floor(Math.random() * famousArray.length)]
 				var count = Math.floor(Math.random() * 1000)
 				if(count < 30) {
@@ -682,7 +681,7 @@ var vm = new Vue({
 				var justWrote = person + " wrote " + count + " words."
 				this.famousFeedStaging.push(justWrote)
 			}
-			for(var j=0; j<20; j++){
+			for(var j=0; j<5; j++){
 				var person1 = famousArray[Math.floor(Math.random() * famousArray.length)]
 				var person2 = famousArray[Math.floor(Math.random() * famousArray.length)]
 				if(person1 !== person2){
@@ -690,7 +689,7 @@ var vm = new Vue({
 					this.famousFeedStaging.push(nowFriends)
 				}
 			}
-			for(var k=0; k<20; k++){
+			for(var k=0; k<5; k++){
 				var badgeperson = famousArray[Math.floor(Math.random() * famousArray.length)]
 				var badge = badgesArray[Math.floor(Math.random() * badgesArray.length)]
 				var earnedBadge = badgeperson + " earned the " + badge + " badge."
@@ -699,11 +698,30 @@ var vm = new Vue({
 			console.log(this.famousFeedStaging)
 		},
 		appendToDOM: function(){
-			this.announcements.unshift({
-				text: this.famousFeedStaging[Math.floor(Math.random() * this.famousFeedStaging.length)],
-				id: this.announcements.length
-			})
-
+			var test = this.famousFeedStaging[Math.floor(Math.random() * this.famousFeedStaging.length)]
+			var isAlreadyShown = false;
+			if(this.announcements.length){
+				var whichLength = 0
+				if(this.announcements.length <= 5){
+					whichLength = this.announcements.length
+				}
+				else {
+					whichLength = 5
+				}
+				for(var i=0;i<whichLength; i++){
+					if(this.announcements[i].text === test) {
+						isAlreadyShown = true
+					}
+				}				
+			}
+			if(isAlreadyShown === false) {
+				this.announcements.unshift({
+					text: test,
+					id: this.announcements.length
+				})				
+			}
+			//testing only
+			// this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 5 ) + 5 ) * 1000)
 			this.timeoutId = setTimeout(this.appendToDOM, ( (Math.random() * 14 ) + 6 ) * 2000)
 		},
 		restrictFormDates: function(){

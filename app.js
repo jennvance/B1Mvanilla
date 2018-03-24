@@ -105,7 +105,7 @@ app.all('/signup', function(req, res){
             var aspiringAuthor = new BadgeModel({
                 title: "Aspiring Author",
                 summary: "You joined Burn 1 Million",
-                img: "/public/images/penbadge.png"
+                img: "/public/images/aspiringbadge.png"
             })
             aspiringAuthor.save()
             newUser.badges.push(aspiringAuthor)
@@ -238,7 +238,7 @@ app.post("/addcount", function(req,res){
                 var firstEntry = new BadgeModel({
                     title: "First Entry",
                     summary: "You wrote a thing",
-                    img: "/public/images/penbadge.png"
+                    img: "/public/images/firstentrybadge.png"
                 })
                 firstEntry.save()
                 user.badges.push(firstEntry)
@@ -277,7 +277,7 @@ app.post("/setgoal", function(req,res){
                 var goalBadge = new BadgeModel({
                     title: "Goal Oriented",
                     summary: "You set a goal",
-                    img: "/public/images/penbadge.png"
+                    img: "/public/images/goalbadge.png"
                 })
                 goalBadge.save()
                 user.badges.push(goalBadge)
@@ -328,7 +328,7 @@ app.post("/addfriend", function(req, res){
                         var socialBadge = new BadgeModel({
                             title: "Social",
                             summary: "You made a friend",
-                            img: "/public/images/penbadge.png"
+                            img: "/public/images/socialbadge.png"
                         })
                         socialBadge.save()
                         user.badges.push(socialBadge)

@@ -414,6 +414,7 @@ ul.badge-bucket {
 	border: 10px ridge gray;
 	margin: 0 5%;
 	padding: 10%;
+	position: relative;
 }
 
 .profile-dashboard h2, .profile-dashboard h3, .profile-dashboard p {
@@ -423,6 +424,12 @@ ul.badge-bucket {
 
 .profile-view p {
 	padding: 2%;
+}
+
+.close-link {
+	display: block;
+	font-size: 12px;
+	position: absolute;
 }
 
 .text-right {
@@ -435,7 +442,6 @@ ul.badge-bucket {
     position: absolute;
     top: 0;
     left: 0;
-    /*background: rgba(0, 0, 0, 0.5);*/
     opacity: 0;
     z-index: -1;
 }

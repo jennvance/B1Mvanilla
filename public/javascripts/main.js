@@ -2,15 +2,15 @@
 var vm = new Vue({
 	el: "#burn",
 	data: {
-		goalMin: "",
-		countMin: "",
-		countMax: "",
 		loggedIn: false,
 		addingGoal: false,
 		addingMessage: "How many words did you write today?",
 		addingLinkText: "Add Goal",
 		submittedGoal: false,
 		submittedCount: false,
+		goalMin: "",
+		countMin: "",
+		countMax: "",
 		selectedMonth: "",
 		logo: "",
 		overlay: false,
@@ -412,18 +412,12 @@ var vm = new Vue({
 			var mm = ("0" + (today.getMonth()+1)).slice(-2)
 			var ddTom = ("0" + (today.getDate()+1)).slice(-2)
 			var limitTomorrow = yyyy + '-' + mm + '-' + ddTom
-			var test2 = document.getElementById("goalDate")
-			console.log(test2)
-			this.goalMin = limitTomorrow
-			// document.getElementById("goalDate").setAttribute("min", limitTomorrow)
-			// document.getElementById("goalDate").setAttribute("max", "")			
+			this.goalMin = limitTomorrow		
 		},
 		showCountForm: function(event){
-			//break into 2 functions to deal with event/no event
 			if(event) {
 				event.preventDefault()
 			}
-			// event.preventDefault()
 			this.addingGoal = false
 			this.addingLinkText = "Add Goal"
 			this.addingMessage = "How many words did you write today?"
@@ -432,7 +426,6 @@ var vm = new Vue({
 			var mm = ("0" + (countDay.getMonth()+1)).slice(-2)
 			var yyyy = countDay.getFullYear()
 			var limitToday = yyyy + '-' + mm + '-' + dd
-			// document.getElementById("countDate").setAttribute("max", limitToday)
 			this.countMax = limitToday
 			if(this.userSince){
 				var signUpDate = new Date(this.userSince)
@@ -440,7 +433,6 @@ var vm = new Vue({
 				var mmSu = ("0" + (signUpDate.getMonth()+1)).slice(-2)
 				var yyyySu = signUpDate.getFullYear()
 				var limitSignUp = yyyySu + '-' + mmSu + '-' + ddSu
-				document.getElementById("countDate").setAttribute("min", limitSignUp)
 				this.countMin = limitSignUp
 			}
 		},
@@ -475,6 +467,11 @@ var vm = new Vue({
 			event.preventDefault()
 			this.submittedProfile = false
 			this.editingProfile = true
+		},
+		closeProfileForm: function(event){
+			event.preventDefault()
+			this.editingProfile = false
+			this.submittedProfile = true
 		},
 		//END Profile Functions
 		//BEGIN Login/Signup Functions
@@ -788,7 +785,7 @@ var vm = new Vue({
 						this.getStrangersOnly()	
 						this.overlay = false
 						this.renderBadges(data)	
-						this.showCountForm()					
+						this.showCountForm()		
 					}
 				}
 			})

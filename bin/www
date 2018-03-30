@@ -6,85 +6,30 @@
 
 var app = require('../app');
 var debug = require('debug')('writingapp:server');
-var http = require('http');
+var HTTP = require('http');
+var HTTPS = require('https')
+var fs = require('fs')
 
-/**
- * Get port from environment and store in Express.
- */
+try {
+    var httpsConfig = {
+        key: fs.readFileSync('/etc/letsencrypt/live/burnonemillion.com/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/burnonemillion.com/cert.pem'),
+    }
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
+    var httpsServer = HTTPS.createServer(httpsConfig, app)
+    // 443 is the default port for HTTPS traffic
+    httpsServer.listen(443)
+    var httpApp = express()
+    httpApp.use(function(req, res, next){
+        res.redirect('https://burnonemillion.com' + req.url)
+    })
+    httpApp.listen(80)
+}
+catch(e){
+    console.log(e)
+    console.log('could not start HTTPS server')
+    var httpServer = HTTP.createServer(app)
+    httpServer.listen(80)
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
 
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}

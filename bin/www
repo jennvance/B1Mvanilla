@@ -9,6 +9,8 @@ var debug = require('debug')('writingapp:server');
 var HTTP = require('http');
 var HTTPS = require('https')
 var fs = require('fs')
+var express = require('express')
+
 
 try {
     var httpsConfig = {

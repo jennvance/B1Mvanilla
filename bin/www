@@ -25,13 +25,13 @@ try {
     httpApp.use(function(req, res, next){
         res.redirect('https://burnonemillion.com' + req.url)
     })
-    httpApp.listen(3000)
+    httpApp.listen(80)
 }
 catch(e){
     console.log(e)
     console.log('could not start HTTPS server')
     var httpServer = HTTP.createServer(app)
-    httpServer.listen(3000)
+    httpServer.listen(80)
 }
 
 

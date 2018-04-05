@@ -78,26 +78,18 @@ var vm = new Vue({
 			return personData;
 		},
 		announceBadge: function(personData){
-			console.log(personData)
 			var announcement = personData.name + " earned the " + personData.badges[personData.badges.length-1].title + " badge."
 			var exists = false
-			console.log(announcement)
-			console.log(this.UIBadgeAnnouncements)
 			for(var i=0; i<this.UIBadgeAnnouncements.length; i++){
-				console.log(this.UIBadgeAnnouncements[i])
 				if (this.UIBadgeAnnouncements[i] === announcement) {
 					exists = true
 				}
-				console.log(exists)
 			}
 			for(var j=0;j<this.announcements.length; j++){
-				console.log(this.announcements[j].text)
 				if(this.announcements[j].text === announcement) {
 					exists = true
 				}
 			}
-			console.log(exists)
-
 			if (exists){
 				return false
 			} else {
@@ -112,12 +104,10 @@ var vm = new Vue({
 		//BEGIN Count Functions
 		submitCount: function(data, event){
 			event.preventDefault()
-			console.log(data)
 			var formData = {
 				words: parseInt(data.words),
 				date: new Date(data.date)
 			}
-			console.log(formData)
 			$.ajax({
 				url: "/addcount",
 				type: "POST",
@@ -126,12 +116,9 @@ var vm = new Vue({
 					if(data==="Please log in"){
 						this.overlay = true
 					} else {
-						console.log("success DATA", data)
 						this.userCounts = data.counts
-						console.log("counts=", this.userCounts)
 						var temp = new Date()
 						var currentMonth = temp.getMonth()
-						console.log(currentMonth)
 						this.runAllTimeCalcs(this.userCounts)
 						this.runMonthCalcs(this.userCounts, currentMonth)
 						//announce new entry in feed
@@ -155,11 +142,9 @@ var vm = new Vue({
 			})
 		},
 		selectMonth: function(){
-			console.log(this.userCounts)
 			this.runMonthCalcs(this.userCounts, this.selectedMonth)
 		},
 		runAllTimeCalcs: function(data){
-			console.log(data)
 			if(data === "please log in") {
 				this.allTimeTotal = "please log in"
 			} else if(data.length)  {
@@ -168,14 +153,12 @@ var vm = new Vue({
 				
 				//DB returns date string with timestamp included but set to 00:00:00:000z
 				var productive = this.findProductiveDate(data)
-				console.log(productive)
 				var prodDate = new Date(productive.date)
 				//correct date, finally
 				var tempDate = prodDate.getUTCDate()
 				var tempMonth = prodDate.getUTCMonth()
 				var tempYear = prodDate.getUTCFullYear()
 				var newDate = new Date(tempYear, tempMonth, tempDate)
-				console.log(newDate)
 				this.stats.allTimeMostProductiveDate = {
 					date: newDate.toLocaleDateString(),
 					words: productive.words
@@ -188,7 +171,7 @@ var vm = new Vue({
 					type: "POST",
 					data: this.stats,
 					success: (data)=>{
-						console.log(data, data.total)
+						// console.log(data, data.total)
 					}
 				})
 			}
@@ -201,9 +184,7 @@ var vm = new Vue({
 			}
 		},
 		runMonthCalcs: function(data, month) {
-			console.log(month)
 			var monthlyData = this.selectByMonth(data, month)
-			console.log(monthlyData)
 			if (monthlyData.length){
 				this.stats.monthTotal	=	this.calcTotal(monthlyData)
 				this.stats.monthAverage = this.calcAverageMonth(monthlyData)
@@ -215,7 +196,6 @@ var vm = new Vue({
 				var tempMonth = prodDate.getUTCMonth()
 				var tempYear = prodDate.getUTCFullYear()
 				var newDate = new Date(tempYear, tempMonth, tempDate)
-				console.log(newDate)
 				this.stats.monthMostProductiveDate = {
 					date: newDate.toLocaleDateString(),
 					words: productive.words
@@ -233,7 +213,6 @@ var vm = new Vue({
 		//if submit count before login, error message:
 		//"reduce of empty array with no initial value"
 		calcTotal: function(data){
-			console.log(data)
 			//won't need this check if don't show count form before login
 			//...but might want to show count form before login
 			//in which case needs to account for array AND error string
@@ -244,7 +223,6 @@ var vm = new Vue({
 					return a+b
 				})
 			} else {
-				console.log("oops!")
 				return null
 			}
 		},
@@ -256,29 +234,24 @@ var vm = new Vue({
 				})				
 			}
 			else {
-				console.log("sortByDate() parameter is empty")
+				// console.log("sortByDate() parameter is empty")
 			}
 		},
 		selectByMonth: function(data, month){
-			//undefined
-			console.log(month, " ", data)
-			
 			return data.filter(function(item){
-				// console.log(new Date(item.date).getMonth() === month)
 				return new Date(item.date).getMonth() === month
 			})
 		},
 		//returns object containing date and numwords
 		findProductiveDate: function(filteredArray){
-				if(filteredArray.length) {
-					return filteredArray.reduce(function(a,b){
-						return (b.words > a.words) ? b : a;
-					})					
-				}
-				else {
-					return "No dates found"
-				}
-
+			if(filteredArray.length) {
+				return filteredArray.reduce(function(a,b){
+					return (b.words > a.words) ? b : a;
+				})					
+			}
+			else {
+				return "No dates found"
+			}
 		},
 		findProductiveDay: function(data){
 			var days = [0,0,0,0,0,0,0]
@@ -330,7 +303,6 @@ var vm = new Vue({
 				if(signUpDate > firstOfMonth) {
 					days = this.diffDates(signUpDate, today)
 				}
-				console.log(days)
 				if(days === 0) {
 					return total
 				}				
@@ -350,13 +322,11 @@ var vm = new Vue({
 		},
 //Average since your first entry, up to today
 		calcAverageAllTime: function(data){
-			console.log(data)
 			var firstday = new Date(data[0].date)
 			var today = new Date()
 			var daysBetween = this.diffDates(firstday, today)
 			var total = this.calcTotal(data)
 			if(daysBetween === 0){
-				console.log("Infinity Averted!")
 				//account for identical values for
 				//zero days between and one actual day between
 				daysBetween = 1
@@ -371,18 +341,12 @@ var vm = new Vue({
 				words: parseInt(data.words),
 				date: new Date(data.date)
 			}
-			console.log("hi=", formData)
 			$.ajax({
 				url: "/setgoal",
 				type: "POST",
 				data: formData,
 				success: (data)=>{
-					console.log(data)
-					console.log(this.calcWpdToGoal(data.goal))
-					//render
 					this.stats.goalWordsPerDay = this.calcWpdToGoal(data.goal)
-					
-					//end render
 					this.goal.words = ""
 					this.goal.date = ""
 					this.submittedGoal = true
@@ -396,8 +360,6 @@ var vm = new Vue({
 		calcWpdToGoal: function(data){
 			var today = new Date()
 			var goalDate = new Date(data.date)
-			//date selector selects for local instead of UTC time and it messes up diffDates() calc.
-			//fix later
 			var daysBetween = this.diffDates(today, goalDate) + 1
 			var goalAmount = data.words
 			return ( goalAmount / daysBetween).toFixed(0)
@@ -435,9 +397,6 @@ var vm = new Vue({
 				var limitSignUp = yyyySu + '-' + mmSu + '-' + ddSu
 				this.countMin = limitSignUp
 			}
-		},
-		setGoalMin: function(){
-			console.log("um")
 		},
 		//END Goal Functions
 		//BEGIN Profile Functions
@@ -485,7 +444,6 @@ var vm = new Vue({
 					self.toggleForm()
 					self.signIn.password = ""
 				} else {
-					// console.log("success!=", successData)
 					self.profile = {
 						name: self.signIn.name,
 						genre: "",
@@ -508,7 +466,6 @@ var vm = new Vue({
 				
 				self.youMayKnow = []
 				self.getStrangersOnly()
-				
 			})
 		},
 		logIn: function(data, event){
@@ -516,14 +473,11 @@ var vm = new Vue({
 			this.loggedIn = true
 			var self = this
 			$.post('/login', data, function(successData){
-				
 				if(successData === "Failed to log in"){
 					self.toggleForm()
 				} else {
-					
 					var temp = new Date()
 					var currentMonth = temp.getMonth()
-					console.log("success!!=", successData)
 					self.userCounts = successData.counts
 					self.userPhoto = successData.photo
 					self.userSince = successData.created
@@ -565,17 +519,16 @@ var vm = new Vue({
 			}
 		},
 		renderUser: function(data){
-				this.profile.name = data.name
-				this.profile.genre = data.genre
-				this.profile.bio = data.bio
-				this.shuffle(data.friends)
-				for(var i=0; i<data.friends.length; i++){
-					this.friends.push(data.friends[i])
-				}
+			this.profile.name = data.name
+			this.profile.genre = data.genre
+			this.profile.bio = data.bio
+			this.shuffle(data.friends)
+			for(var i=0; i<data.friends.length; i++){
+				this.friends.push(data.friends[i])
+			}
 		},
 		showOverlay: function(event){
 			// event.preventDefault()
-			console.log("testing ShowOverlay")
 			this.overlay = true
 		},
 		doNothing: function(){
@@ -602,7 +555,6 @@ var vm = new Vue({
 				url: "/getstrangers",
 				type: "GET",
 				success: (data)=>{
-					console.log(data)
 					this.renderYouMayKnow(data)
 				}
 			})
@@ -630,7 +582,6 @@ var vm = new Vue({
 				type: "POST",
 				data: id,
 				success: (data)=>{
-					console.log(data)
 					var announcement = data.user.name + " is following " + data.newFriend + "."
 					var identification = this.announcements.length
 					this.announcements.unshift({
@@ -640,7 +591,6 @@ var vm = new Vue({
 					for(var i=0; i<this.youMayKnow.length; i++) {
 						if(this.youMayKnow[i].name === data.newFriend){
 							this.youMayKnow.splice(i, 1)
-							console.log(this.youMayKnow)
 						}
 					}
 					this.friends = data.user.friends
@@ -670,21 +620,17 @@ var vm = new Vue({
 				url: "/getfamous",
 				type: "GET",
 				success: (data)=>{
-					
 					this.renderYouMayKnow(data)
 					if(this.loggedIn === false){
 						this.renderRandom(this.generateRandom(data))
 					}
-					// console.log(data)
 				}
 			})
 		},
 		generateRandom: function(array){
-			console.log(array)
 			return array[Math.floor(Math.random() * array.length)]
 		},
 		renderRandom: function(random){
-			console.log(random)
 			this.profile.name = random.name
 			this.profile.genre = random.genre
 			this.profile.bio = random.bio
@@ -694,11 +640,9 @@ var vm = new Vue({
 			// this.renderPhoto(random)
 		},
 		randomizeFamousFeed: function(){
-			//some bugs
 			//need to prevent "...wrote 0 words"
 			//need to remove item from staging array after adding to render array
 			//to prevent repeats (no, bc then feed isn't infinite)
-
 			var famousArray = ["Henry Miller", "Anais Nin", "Truman Capote", "F. Scott Fitzgerald", "Sylvia Plath", "Earnest Hemingway", "Mary Shelley", "Virginia Woolf", "Gertrude Stein", "Jack Kerouac"]
 			var badgesArray = ["Hemingway", "Very Productive", "Published Manuscript", "Completed Manuscript", "Conquered Goal", "10 day Streak", "30 day streak", "Social", "Aspiring Author", "Goal Oriented", "NaNoWriMo"]
 			for(var i=0;i<5;i++){
@@ -727,7 +671,6 @@ var vm = new Vue({
 				var earnedBadge = badgeperson + " earned the " + badge + " badge."
 				this.famousFeedStaging.push(earnedBadge)
 			}
-			console.log(this.famousFeedStaging)
 		},
 		appendToDOM: function(){
 			var test = this.famousFeedStaging[Math.floor(Math.random() * this.famousFeedStaging.length)]
@@ -764,12 +707,9 @@ var vm = new Vue({
 				type: "GET",
 				success: (data)=>{
 					if(data === "no user"){
-						
 						this.getFamous()
-
 					}
 					else {
-						console.log(data)
 						this.loggedIn = true
 						var temp = new Date()
 						var currentMonth = temp.getMonth()
@@ -798,16 +738,9 @@ var vm = new Vue({
 		this.randomizeFamousFeed()
 		// adds feed items to array at intervals
 		this.appendToDOM()
-		
-		//Raph WTF?
 		this.timeoutId = setTimeout(this.appendToDOM, 10000)
 	}
 })
-
-
-
-	//to stop setTimeout; might not actually be what I need
-	// clearTimeout(timeoutId)
 
 
 

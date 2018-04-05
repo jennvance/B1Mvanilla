@@ -436,7 +436,6 @@ var vm = new Vue({
 		//BEGIN Login/Signup Functions
 		signUp: function(data, event){
 			event.preventDefault()
-			this.loggedIn = true
 			var self = this
 			$.post('/signup', data, function(successData){
 				//if user already exists, need to redirect to login
@@ -457,10 +456,11 @@ var vm = new Vue({
 						username: "",
 						password: ""
 					}
+					this.loggedIn = true
 					self.overlay = false
 					self.announceBadge(self.renderBadges(successData))
 					self.runAllTimeCalcs(successData.counts)
-					self.runMonthCalcs(successData.counts, 2)
+					// self.runMonthCalcs(successData.counts, 2)
 					self.showCountForm()
 				}
 				
@@ -470,12 +470,12 @@ var vm = new Vue({
 		},
 		logIn: function(data, event){
 			event.preventDefault()
-			this.loggedIn = true
 			var self = this
 			$.post('/login', data, function(successData){
 				if(successData === "Failed to log in"){
 					self.toggleForm()
 				} else {
+					this.loggedIn = true
 					var temp = new Date()
 					var currentMonth = temp.getMonth()
 					self.userCounts = successData.counts

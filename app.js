@@ -83,6 +83,10 @@ app.get('/', function(req, res){
     res.sendFile('./views/index.html', {root:'./'})
 })
 
+app.get('/checkout', function(req,res){
+    res.sendFile('./views/checkout.html', {root: './'})
+})
+
 app.get('/session-test', function(req, res){
     console.log('session? ', req.session)
     if ( !req.session.counter ) {

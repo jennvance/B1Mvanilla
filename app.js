@@ -87,6 +87,23 @@ app.get('/checkout', function(req,res){
     res.sendFile('./views/checkout.html', {root: './'})
 })
 
+app.post('/submitpurchase', function(req,res){
+    var stripe = require("stripe")("sk_test_X41QsEL2eUPqiwNet26pzRXZ");
+
+    // Token is created using Checkout or Elements!
+    // Get the payment token ID submitted by the form:
+    var token = request.body.stripeToken; // Using Express
+
+    var charge = stripe.charges.create({
+      amount: 1995,
+      currency: 'usd',
+      description: 'Example charge',
+      source: token,
+    });
+
+    console.log(token)
+})
+
 app.get('/session-test', function(req, res){
     console.log('session? ', req.session)
     if ( !req.session.counter ) {

@@ -88,20 +88,38 @@ app.get('/checkout', function(req,res){
 })
 
 app.post('/submitpurchase', function(req,res){
+    // Set your secret key: remember to change this to your live secret key in production
+    // See your keys here: https://dashboard.stripe.com/account/apikeys
     var stripe = require("stripe")("sk_test_X41QsEL2eUPqiwNet26pzRXZ");
 
-    // Token is created using Checkout or Elements!
-    // Get the payment token ID submitted by the form:
-    var token = request.body.stripeToken; // Using Express
+    (async function() {
+      // Create a Customer:
+      var customer = await stripe.customers.create({
+        source: 'tok_mastercard',
+        email: 'paying.user@example.com',
+      });
 
-    var charge = stripe.charges.create({
-      amount: 1995,
-      currency: 'usd',
-      description: 'Example charge',
-      source: token,
-    });
+      // Charge the Customer instead of the card:
+      var charge = await stripe.charges.create({
+        amount: 1000,
+        currency: 'usd',
+        customer: 'CUSTOMER',
+      });
 
-    console.log(token)
+      // YOUR CODE: Save the customer ID and other info in a database for later.
+
+    })();
+
+    (async function() {
+      // When it's time to charge the customer again, retrieve the customer ID.
+      var charge = stripe.charges.create({
+        amount: 1500, // $15.00 this time
+        currency: 'usd',
+        customer: 'CUSTOMER', // Previously stored, then retrieved
+      });
+    })();
+    // res.send(charge)
+    res.sendFile('./views/thanks.html', {root:'./'})
 })
 
 app.get('/session-test', function(req, res){
